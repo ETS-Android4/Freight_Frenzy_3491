@@ -119,6 +119,8 @@ public class PleaseWork  extends LinearOpMode {
                 }
             }
 
+
+
             //failsafe for the shooter
             if (gamepad2.dpad_right = true) {
                 boolean failSafe = true;

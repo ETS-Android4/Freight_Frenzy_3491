@@ -10,9 +10,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+
 @Disabled
 @TeleOp(name="PLEASE WORK", group="Linear Opmode")
-public class PleaseWork  extends LinearOpMode {
+public class BeyonceTeleOp extends LinearOpMode {
 
     //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();

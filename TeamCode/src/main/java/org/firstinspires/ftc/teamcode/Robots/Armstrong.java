@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RC;
 //import org.firstinspires.ftc.teamcode.newhardware.Motor;
 
 
-public class Armstrong {//extends Robot {
+public class Armstrong extends Robot {
     public DigitalChannel magnetSensor;
     private DcMotor lifter;
     private Servo marker;

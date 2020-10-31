@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -24,7 +25,7 @@ public class PleaseWorkASecondTime extends LinearOpMode {
 
     //servos
     private Servo grabber = null;
-    private Servo targetRamp = null;
+    //private Servo targetRamp = null;
     private Servo ringPusher = null;
 
 
@@ -44,7 +45,7 @@ public class PleaseWorkASecondTime extends LinearOpMode {
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
 
         grabber = hardwareMap.get(Servo.class, "Grabber");
-        targetRamp = hardwareMap.get(Servo.class, "TargetRamp");
+        //targetRamp = hardwareMap.get(Servo.class, "TargetRamp");
         ringPusher = hardwareMap.get(Servo.class, "RingPusher");
 
 
@@ -59,6 +60,9 @@ public class PleaseWorkASecondTime extends LinearOpMode {
 
         //creates 3 vertical aiming options
         int target = 1;
+
+        boolean shooterToggle = false;
+        int toggleTimer = 0;
 
         waitForStart();
         runtime.reset();
@@ -76,24 +80,34 @@ public class PleaseWorkASecondTime extends LinearOpMode {
 
 
             if (weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates == true) {
-                horizontal = gamepad1.right_stick_x;
-                vertical = -gamepad1.right_stick_y;
-                pivot = gamepad1.left_stick_x;
+                if (gamepad1.left_trigger > 0) {
+                    pivot = gamepad1.left_stick_x / 3;
+                    horizontal = -gamepad1.right_stick_x / 3;
+                    vertical = gamepad1.right_stick_y / 3;
+                } else {
+                    pivot = gamepad1.left_stick_x;
+                    horizontal = -gamepad1.right_stick_x;
+                    vertical = gamepad1.right_stick_y;
+                }
 
                 if ((gamepad1.dpad_down == true) && (gamepad1.a == true)) {
                     weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = false;
                 }
             } else {
-                horizontal = gamepad1.left_stick_x;
-                vertical = -gamepad1.left_stick_y;
-                pivot = gamepad1.right_stick_x;
+                if (gamepad1.right_trigger > 0) {
+                    pivot = gamepad1.right_stick_x / 3;
+                    horizontal = -gamepad1.left_stick_x / 3;
+                    vertical = gamepad1.left_stick_y / 3;
+                } else {
+                    pivot = gamepad1.right_stick_x;
+                    horizontal = -gamepad1.left_stick_x;
+                    vertical = gamepad1.left_stick_y;
+                }
 
                 if ((gamepad1.dpad_down == true) && (gamepad1.a == true)) {
                     weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
                 }
             }
-
-
 
             //drive calculations
             frontLeft.setPower(pivot + (vertical + horizontal));
@@ -101,50 +115,68 @@ public class PleaseWorkASecondTime extends LinearOpMode {
             backLeft.setPower(pivot + (vertical - horizontal));
             backRight.setPower(-pivot + (vertical + horizontal));
 
-            //controls to move the linear slide up and down
+            //Linear Slide
             if (gamepad2.y == true){
                 linearSlide.setPower(1);
-            } else if (gamepad2.a = true){
+            } else if (gamepad2.b == true){
                 linearSlide.setPower(-1);
             } else {
                 linearSlide.setPower(0);
             }
 
-            //controls to move the grabber mechanism.
-            //NOTE: Positions may need adjusting. change/adjust the number in the brackets of grabber.setPosition(1); and/or grabber.setPosition(0); so that the servo goes to the correct position
-            if (gamepad2.b == true) {
+            //Wobble Grabber
+            if (gamepad2.a) {
                 grabber.setPosition(1);
-            }
-            if (gamepad2.x == true){
+            } else if (gamepad2.x){
                 grabber.setPosition(0);
             }
+
+
+            if (gamepad2.left_trigger > 0) {
+                if (shooterToggle == true && toggleTimer == 15) {
+                    shooterToggle = false;
+                    toggleTimer = 0;
+                } else if (shooterToggle == false && toggleTimer == 15) {
+                    shooterToggle = true;
+                    toggleTimer = 0;
+                }
+                toggleTimer++;
+            }
+
+            if (shooterToggle) {
+                shooter.setPower(1);
+            } else {
+                shooter.setPower(0);
+            }
+
+
+
 
             //controls for the ring pusher
             //NOTE: Positions may need adjusting. change/adjust the number in the brackets of ringPusher.setPosition(1); and/or ringPusher.setPosition(0); so that the servo goes to the correct position
             if (gamepad2.right_trigger > 0){
-                ringPusher.setPosition(1);
-                ringPusher.setPosition(0);
+                ringPusher.setPosition(0.7);
             } else {
                 ringPusher.setPosition(0);
             }
 
-            if (gamepad2.dpad_up == true) {
-                if (target == 1) {
-                    targetRamp.setPosition(0);
-                    target = 2;
-                }
-                else if (target == 2) {
-                    targetRamp.setPosition(0.5);
-                    target = 3;
-                }
-                else if (target == 3) {
-                    targetRamp.setPosition(1);
-                    target = 1;
-                }
-            }
+//            if (gamepad2.dpad_up == true) {
+//                if (target == 1) {
+//                    targetRamp.setPosition(0);
+//                    target = 2;
+//                }
+//                else if (target == 2) {
+//                    targetRamp.setPosition(0.5);
+//                    target = 3;
+//                }
+//                else if (target == 3) {
+//                    targetRamp.setPosition(1);
+//                    target = 1;
+//                }
+//            }
 
 
-            shooter.setPower(1);
+
 
 
             //keeps user updated

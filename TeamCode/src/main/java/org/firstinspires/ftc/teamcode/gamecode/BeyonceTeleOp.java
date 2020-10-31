@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 
-@Disabled
+
 @TeleOp(name="PLEASE WORK", group="Linear Opmode")
 public class BeyonceTeleOp extends LinearOpMode {
 
@@ -29,7 +29,7 @@ public class BeyonceTeleOp extends LinearOpMode {
 
     //servos
     private Servo grabber = null;
-    private Servo targetRamp = null;
+    //private Servo targetRamp = null;
     private Servo ringPusher = null;
 
 
@@ -47,7 +47,7 @@ public class BeyonceTeleOp extends LinearOpMode {
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
 
         grabber = hardwareMap.get(Servo.class, "Grabber"); //done
-        targetRamp = hardwareMap.get(Servo.class, "TargetRamp"); //done
+        //targetRamp = hardwareMap.get(Servo.class, "TargetRamp"); //done
         ringPusher = hardwareMap.get(Servo.class, "RingPusher"); //done
 
 
@@ -105,15 +105,15 @@ public class BeyonceTeleOp extends LinearOpMode {
 
             if (gamepad2.dpad_up == true) {
                 if (target == 1) {
-                    targetRamp.setPosition(0);
+            //        targetRamp.setPosition(0);
                     target = 2;
                 }
                 else if (target == 2) {
-                    targetRamp.setPosition(0.5);
+             //       targetRamp.setPosition(0.5);
                     target = 3;
                 }
                 else if (target == 3) {
-                    targetRamp.setPosition(1);
+            //        targetRamp.setPosition(1);
                     target = 1;
                 }
             }

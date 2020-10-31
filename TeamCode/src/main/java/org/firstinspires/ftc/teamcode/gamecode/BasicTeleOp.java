@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -50,7 +51,6 @@ public class BasicTeleOp extends LinearOpMode {
                 Beyonce.BackLeft.setPower(pivot + (vertical - horizontal));
             }
 
-            ////Wobble Goal Grabber
             //Linear Slide
             if (gamepad2.y){
                 Beyonce.LinearSlide.setPower(1);
@@ -83,7 +83,7 @@ public class BasicTeleOp extends LinearOpMode {
                 telemetry.update();
             }
 
-            //Shooter Trigger -
+//            Shooter Trigger -
 //            if (ShooterRunning == 0) {
 //                Beyonce2.Shooter.setPower(0);
 //                telemetry.addData("Shooter:", "Powering On...");

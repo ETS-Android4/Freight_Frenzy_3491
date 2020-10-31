@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="PLEASE WORK A SECOND TIME", group="Linear Opmode")
-public class PleaseWorkASecondTime extends LinearOpMode {
+@TeleOp
+public class octoberBeyonceTeleOp extends LinearOpMode {
 
     //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();
@@ -131,6 +131,13 @@ public class PleaseWorkASecondTime extends LinearOpMode {
                 grabber.setPosition(0);
             }
 
+            //ring pusher
+            if (gamepad2.right_trigger > 0) {
+                ringPusher.setPosition(0.2);
+            } else {
+                ringPusher.setPosition(0.8);
+            }
+
 
             if (gamepad2.left_trigger > 0) {
                 if (shooterToggle == true && toggleTimer == 15) {
@@ -144,21 +151,12 @@ public class PleaseWorkASecondTime extends LinearOpMode {
             }
 
             if (shooterToggle) {
-                shooter.setPower(1);
+                shooter.setPower(0.75);
             } else {
                 shooter.setPower(0);
             }
 
 
-
-
-            //controls for the ring pusher
-            //NOTE: Positions may need adjusting. change/adjust the number in the brackets of ringPusher.setPosition(1); and/or ringPusher.setPosition(0); so that the servo goes to the correct position
-            if (gamepad2.right_trigger > 0){
-                ringPusher.setPosition(0.7);
-            } else {
-                ringPusher.setPosition(0);
-            }
 
 //            if (gamepad2.dpad_up == true) {
 //                if (target == 1) {
@@ -174,6 +172,8 @@ public class PleaseWorkASecondTime extends LinearOpMode {
 //                    target = 1;
 //                }
 //            }
+
+
 
 
 

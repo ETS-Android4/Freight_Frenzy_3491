@@ -1,45 +1,92 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.RC;
+import org.firstinspires.ftc.teamcode.Robots.Robot;
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 
 public class Beyonce extends Robot {
-    private Motor frontLeft;
-    private Motor frontRight;
-    private Motor backLeft;
-    private Motor backRight;
-    private Motor linearSlide;
-    private Motor shooter;
+    public Motor FrontRight;
+    public Motor FrontLeft;
+    public Motor BackRight;
+    public Motor BackLeft;
 
-    //servos
-    private FXTServo grabber;
-    private FXTServo targetRamp;
-    private FXTServo ringPusher;
+    public Motor LinearSlide;
+    public FXTServo Grabber;
 
+    public Motor Shooter;
+    public FXTServo TargetRamp;
+
+    public FXTServo RingPusher;
+
+    //Declaring stuff
     public Beyonce(){
-        frontRight = new Motor("frontR");
-        frontRight = RC.h.get(Motor.class, "frontR");
-        backLeft = RC.h.get(Motor.class, "backL");
-        backRight = RC.h.get(Motor.class, "backR");
-        linearSlide = RC.h.get(Motor.class, "Linear Slide"); //done
-        shooter = RC.h.get(Motor.class, "Shooter");
+        //Drivebase
+        FrontRight = new Motor("frontR");
+        FrontLeft = new Motor("frontL");
+        BackRight = new Motor("backR");
+        BackLeft = new Motor("backL");
 
-        grabber = RC.h.get(FXTServo.class, "Grabber"); //done
-        targetRamp = RC.h.get(FXTServo.class, "TargetRamp"); //done
-        ringPusher = RC.h.get(FXTServo.class, "RingPusher"); //done
+        //Wobble Grabber
+        LinearSlide = new Motor("Linear Slide");
+        Grabber = new FXTServo("Grabber");
 
+        //Shooter
+        Shooter = new Motor("Shooter");
+        TargetRamp = new FXTServo("TargetRamp");
+
+        //Hopper
+        RingPusher = new FXTServo("RingPusher");
+
+        FrontRight.setMinimumSpeed(0.1);
+        FrontLeft.setMinimumSpeed(0.1);
+        BackRight.setMinimumSpeed(0.1);
+        BackLeft.setMinimumSpeed(0.1);
     }
 
-    public void init(){
-        //put things u want to do on init here
+
+    //Robot Driving
+    public void DriveForward(double speed){
+        FrontLeft.setPower(-speed);
+        FrontRight.setPower(speed);
+        BackLeft.setPower(-speed);
+        BackRight.setPower(speed);
+    }
+    public void DriveBackward(double speed){
+        FrontLeft.setPower(speed);
+        FrontRight.setPower(-speed);
+        BackLeft.setPower(speed);
+        BackRight.setPower(-speed);
+    }
+    public void StrafeLeft(double speed){
+        FrontLeft.setPower(speed);
+        FrontRight.setPower(speed);
+        BackLeft.setPower(-speed);
+        BackRight.setPower(-speed);
+    }
+    public void StrafeRight(double speed){
+        FrontLeft.setPower(-speed);
+        FrontRight.setPower(-speed);
+        BackLeft.setPower(speed);
+        BackRight.setPower(speed);
+    }
+    public void TurnLeft(double speed){
+        FrontLeft.setPower(-speed);
+        FrontRight.setPower(-speed);
+        BackLeft.setPower(-speed);
+        BackRight.setPower(-speed);
+
+    }
+    public void TurnRight(double speed){
+        FrontLeft.setPower(speed);
+        FrontRight.setPower(speed);
+        BackLeft.setPower(speed);
+        BackRight.setPower(speed);
     }
 
-
-    public void LinearSlidesUp(){ linearSlide.setPower(1);}
-
-
+    public void Stop(){
+        FrontLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackLeft.setPower(0);
+        BackRight.setPower(0);
+    }
 }

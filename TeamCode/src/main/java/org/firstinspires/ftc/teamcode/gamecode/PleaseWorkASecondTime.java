@@ -59,7 +59,7 @@ public class PleaseWorkASecondTime extends LinearOpMode {
         boolean weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
 
         //creates 3 vertical aiming options
-        int target = 1;
+        int target = 1; //for the target ramp
 
         boolean shooterToggle = false;
         int toggleTimer = 0;

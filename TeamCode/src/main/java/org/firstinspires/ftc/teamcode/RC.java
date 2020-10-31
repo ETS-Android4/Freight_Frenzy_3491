@@ -24,13 +24,12 @@ public class RC {
     //public static FXTTelemetry t;
     public static HardwareMap h;
     public static int runNum = 0;
-    public final static String VUFORIA_LICENSE_KEY = "Ad0I0ir/////AAAAAfR3NIO1HkxSqM8NPhlEftFXtFAm6DC5w4Cjcy30" +
-                                                    "WUdGozklFlAkxeHpjfWc4moeL2ZTPvZ+wAoyOnlZxyB6Wr1BRE9154j6K" +
-                                                    "1/8tPvu21y5ke1MIbyoJ/5BAQuiwoAadjptZ8fpS7A0QGPrMe0VauJIM1" +
-                                                    "mW3UU2ezYFSOcPghCOCvQ8zid1Bb8A92IkbLcBUcv3DEC6ia4SEkbRMY7" +
-                                                    "TpOh2gzsXdsue4tqj9g7vj7zBU5Hu4WhkMDJRsThn+5QoHXqvavDsCElw" +
-                                                    "mDHG3hlEYo7qN/vV9VcQUX9XnVLuDeZhkp885BHK5vAe8T9W3Vxj2H/R4" +
-                                                    "oijQso6hEBaXsOpCHIWGcuphpoe9yoQlmNRRZ97";
+    public final static String VUFORIA_LICENSE_KEY = "ATU9MNz/////AAABmdp9yZ8JdEGjpiGfxU8g64YjAQ" +
+        "PwRcIIIqytyWu9HmjEkTELwI1JsCtkFv/I4k2S8KXjgWFB61R+GwLPvY3T1EyQmpV/UFfaSEqcJLpT++NbMjv5J" +
+    "kXg3JG92Ga+RnHYS3WaTBgRZexhqar4QNK4exrzUQUJjy2ntF2Afb+ENqH4glLQW85aM0BA4+8WMjcplpZ5WbhJ82ruz0" +
+    "ikcpy8bffFnhd+pN1/xficoB/Szcx5lt1SmKzVjbYkktmVd8qS6qGd8yVH1DydPQlP6njcUDllIc1a3oAO5zmWTFoxfaknDOm" +
+                "2bXka6V2Qht6pD7pl1tSP3vgeCZPM0fKSowfy0MoFVzsuuBvwqloB4Obt4NDT";
+
 
 
     public static void setOpMode(OpMode op) {

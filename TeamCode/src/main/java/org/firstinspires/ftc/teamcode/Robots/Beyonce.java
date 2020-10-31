@@ -18,6 +18,7 @@ public class Beyonce extends Robot {
 
     public FXTServo RingPusher;
 
+
     //Declaring stuff
     public Beyonce(){
         //Drivebase

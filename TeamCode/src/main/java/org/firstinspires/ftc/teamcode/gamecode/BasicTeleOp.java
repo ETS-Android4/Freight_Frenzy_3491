@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.robots.Beyonce2;
 
 @TeleOp(name="BasicTeleOp", group="Linear Opmode")
 public class BasicTeleOp extends LinearOpMode {
-    //Beyonce2 Beyonce = new Beyonce2();
     Beyonce2 Beyonce2;
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -18,11 +17,11 @@ public class BasicTeleOp extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        //gives user 2 drive control options
-        boolean weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
+        //Predetermined Target Ramp positions
+        int target = 0;
 
-        //creates 3 vertical aiming options
-        int target = 1;
+        //Shooter Running
+//        int ShooterRunning = 1;
 
         waitForStart();
         runtime.reset();
@@ -30,40 +29,95 @@ public class BasicTeleOp extends LinearOpMode {
         //while opMode is active do the stuff in the while loop
         while (opModeIsActive()) {
 
+            ////Driving Controls
+            //Slow Button
+            if (gamepad1.left_trigger < 0) {
+                float pivot = gamepad1.right_stick_y / 2;
+                float horizontal = -gamepad1.right_stick_x / 2;
+                float vertical = gamepad1.left_stick_x / 2;
+                Beyonce2.FrontRight.setPower(-pivot + (vertical + horizontal));
+                Beyonce2.BackRight.setPower(-pivot + (vertical - horizontal));
+                Beyonce2.FrontLeft.setPower(pivot + (vertical + horizontal));
+                Beyonce2.BackLeft.setPower(pivot + (vertical - horizontal));
+
+                //Normal Driving
+            } else {
+                float pivot = gamepad1.right_stick_y;
+                float horizontal = -gamepad1.right_stick_x;
+                float vertical = gamepad1.left_stick_x;
+                Beyonce2.FrontRight.setPower(-pivot + (vertical + horizontal));
+                Beyonce2.BackRight.setPower(-pivot + (vertical - horizontal));
+                Beyonce2.FrontLeft.setPower(pivot + (vertical + horizontal));
+                Beyonce2.BackLeft.setPower(pivot + (vertical - horizontal));
+            }
+
+            ////Wobble Goal Grabber
+            //Linear Slide
+            if (gamepad2.y){
+                Beyonce2.LinearSlide.setPower(1);
+            } else if (gamepad2.b){
+                Beyonce2.LinearSlide.setPower(-1);
+            } else {
+                Beyonce2.LinearSlide.setPower(0);
+            }
+
+            //Wobble Grabber
+            if (gamepad2.a) {
+                Beyonce2.Grabber.setPosition(1);
+            } else if (gamepad2.x){
+                Beyonce2.Grabber.setPosition(0);
+            }
+
+            ////Shooter
+            if(gamepad2.left_trigger < 0) {
+                Beyonce2.Shooter.setPower(1);
+                telemetry.addData("Shooter:", "Powering On...");
+                telemetry.update();
+
+                //Wait until Shooter is at full speed
+                sleep(5000);
+                telemetry.addData("Shooter:", "Full Speed...");
+                telemetry.update();
+            } else {
+                Beyonce2.Shooter.setPower(0);
+                telemetry.addData("Shooter:", "Off.");
+                telemetry.update();
+            }
+
+            //Shooter Trigger -
+//            if (ShooterRunning == 0) {
+//                Beyonce2.Shooter.setPower(0);
+//                telemetry.addData("Shooter:", "Powering On...");
+//                telemetry.update();
+//
+//                //Wait until Shooter is at full speed
+//                sleep(5000);
+//                telemetry.addData("Shooter:", "Full Speed...");
+//                telemetry.update();
+//            } else {
+//                Beyonce2.Shooter.setPower(1);
+//            }
+
+            ////Ring Pusher
+            if (gamepad2.right_trigger > 0){
+                Beyonce2.RingPusher.setPosition(1);
+                sleep(20);
+                Beyonce2.RingPusher.setPosition(0);
+            }
+
+//            //Target Ramp
+//            if (gamepad2.dpad_up == true) {
+//                //
+//                if (target == 0) {
+//                    Beyonce2.TargetRamp.setPosition(0);
+//                } else if (target == 1) {
+//                    Beyonce2.TargetRamp.setPosition(0.2);
+//                } else if (target == 2) {
+//                    Beyonce2.TargetRamp.setPosition(0.4);
+//                } else if (target == 3) {
+//                    Beyonce2.TargetRamp.setPosition(1);
+//                }
+//            }
         }
     }
 }
-
-
-
-/*package org.firstinspires.ftc.teamcode.gamecode;
-
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
-import org.firstinspires.ftc.teamcode.robots.HansonNightmare;
-
-@TeleOp
-public class BasicTeleOpHanson extends TeleOpMode {
-    HansonNightmare HansonNightmare;
-
-    @Override
-    public void initialize() {
-        telemetry.addData("Status", "Initialized");
-    }
-
-    @Override
-    public void loopOpMode() {
-        if (joy1.leftTrigger()){
-            telemetry.addData("Status", "Reverse");
-            HansonNightmare.driveR(gamepad1.left_stick_y*0.9);
-            HansonNightmare.driveL(gamepad1.right_stick_y*0.9);
-        }
-
-        if (!joy1.leftTrigger()) {
-            telemetry.addData("Status", "Normal Driving");
-            HansonNightmare.driveL(-gamepad1.left_stick_y);
-            HansonNightmare.driveR(-gamepad1.right_stick_y);
-        }
-    }
-}*/

@@ -26,7 +26,6 @@ public class Beyonce2 extends Robot {
         BackRight = new Motor("backR");
         BackLeft = new Motor("backL");
 
-
         //Wobble Grabber
         LinearSlide = new Motor("Linear Slide");
         Grabber = new FXTServo("Grabber");
@@ -46,14 +45,6 @@ public class Beyonce2 extends Robot {
 
 
     //Robot Driving
-    public void driveL(double speed){
-        FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed);
-    }
-    public void driveR(double speed) {
-        FrontRight.setPower(-speed);
-        BackRight.setPower(-speed);
-    }
     public void DriveForward(double speed){
         FrontLeft.setPower(-speed);
         FrontRight.setPower(speed);

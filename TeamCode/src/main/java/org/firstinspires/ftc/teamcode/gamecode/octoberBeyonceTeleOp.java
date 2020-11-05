@@ -8,9 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+
 
 @TeleOp
 public class octoberBeyonceTeleOp extends LinearOpMode {
+
+    Beyonce beyonce = new Beyonce();
 
     //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();
@@ -117,25 +121,25 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
 
             //Linear Slide
             if (gamepad2.y == true){
-                linearSlide.setPower(1);
+                beyonce.LinearSlidesUp();
             } else if (gamepad2.b == true){
-                linearSlide.setPower(-1);
+                beyonce.LinearSlidesDown();
             } else {
-                linearSlide.setPower(0);
+                beyonce.LinearSidesStop();
             }
 
             //Wobble Grabber
             if (gamepad2.a) {
-                grabber.setPosition(1);
+                beyonce.GrabberUp();
             } else if (gamepad2.x){
-                grabber.setPosition(0);
+                beyonce.GrabberDown();
             }
 
             //ring pusher
             if (gamepad2.right_trigger > 0) {
-                ringPusher.setPosition(0.2);
+                beyonce.RingPusherExtend();
             } else {
-                ringPusher.setPosition(0.8);
+                beyonce.RingPusherRetract();
             }
 
 
@@ -151,31 +155,27 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             }
 
             if (shooterToggle) {
-                shooter.setPower(0.75);
+                beyonce.ShooterOn();
             } else {
-                shooter.setPower(0);
+                beyonce.ShooterOff();
             }
 
 
 
 //            if (gamepad2.dpad_up == true) {
 //                if (target == 1) {
-//                    targetRamp.setPosition(0);
+//                    beyonce.RampLevelOne();
 //                    target = 2;
 //                }
 //                else if (target == 2) {
-//                    targetRamp.setPosition(0.5);
+//                    beyonce.RampLevelTwo();
 //                    target = 3;
 //                }
 //                else if (target == 3) {
-//                    targetRamp.setPosition(1);
+//                    beyonce.RampLevelThree();
 //                    target = 1;
 //                }
 //            }
-
-
-
-
 
 
 
@@ -187,4 +187,6 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
 
         }
     }
+
+
 }

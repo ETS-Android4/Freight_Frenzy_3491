@@ -90,4 +90,53 @@ public class Beyonce extends Robot {
         BackLeft.setPower(0);
         BackRight.setPower(0);
     }
+
+    public void LinearSlidesUp() {
+        LinearSlide.setPower(1);
+    }
+
+    public void LinearSlidesDown() {
+        LinearSlide.setPower(-1);
+    }
+
+    public void LinearSidesStop() {
+        LinearSlide.setPower(0);
+    }
+
+    public void GrabberUp() {
+        Grabber.setPosition(1);
+    }
+
+    public void GrabberDown() {
+        Grabber.setPosition(0);
+    }
+
+    public void ShooterOn() {
+        Shooter.setPower(0.75);
+    }
+
+    public void ShooterOff() {
+        Shooter.setPower(0);
+    }
+
+    public void RampLevelOne() {
+        TargetRamp.setPosition(0);
+    }
+
+    public void RampLevelTwo() {
+        TargetRamp.setPosition(0.33);
+    }
+
+    public void RampLevelThree() {
+        TargetRamp.setPosition(0.66);
+    }
+
+    public void RingPusherExtend() {
+        RingPusher.setPosition(0.2);
+    }
+
+    public void RingPusherRetract() {
+        RingPusher.setPosition(0.8);
+    }
+
 }

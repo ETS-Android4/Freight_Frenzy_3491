@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
 @TeleOp
@@ -26,6 +27,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
     private DcMotor backRight = null;
     private DcMotor linearSlide = null;
     private DcMotor shooter = null;
+
+    public boolean ShooterOn = false;
 
     //servos
     private Servo grabber = null;
@@ -141,6 +144,30 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             } else {
                 beyonce.RingPusherRetract();
             }
+
+
+//            if (gamepad2.dpad_right == true){ //if the button is pressed
+//                if (gamepad2.dpad_right == false){ //if the button was not pressed
+//
+//                    if (ShooterOn == true){
+//                        ShooterOn = false;
+//                    }
+//
+//                    if (ShooterOn == false) {
+//                        ShooterOn = true;
+//                    }
+//                }
+//            }
+
+//            if (ShooterOn){
+//                beyonce.ShooterOn();
+//                telemetry.addData("shooter", "on");
+//            }
+//            if (!ShooterOn){
+//                beyonce.ShooterOff();
+//                telemetry.addData("shooter", "off");
+//
+//            }
 
 
             if (gamepad2.left_trigger > 0) {

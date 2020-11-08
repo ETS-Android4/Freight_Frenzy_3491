@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 
 
-@TeleOp(name="PLEASE WORK", group="Linear Opmode")
+@TeleOp
 public class BeyonceTeleOp extends LinearOpMode {
 
     //probably going to be useful. if it aint broke, dont fix it
@@ -31,6 +31,8 @@ public class BeyonceTeleOp extends LinearOpMode {
     private Servo grabber = null;
     //private Servo targetRamp = null;
     private Servo ringPusher = null;
+
+    public boolean ShooterOn = false;
 
 
     public void runOpMode() {
@@ -119,17 +121,37 @@ public class BeyonceTeleOp extends LinearOpMode {
             }
 
             //failsafe for the shooter
-            if (gamepad2.dpad_right = true) {
-                boolean failSafe = true;
-                if (failSafe = true){
-                    shooter.setPower(0);
-                    if (gamepad2.dpad_right = true){
-                        failSafe = false;
+//            if (gamepad2.dpad_right = true) {
+//                boolean failSafe = true;
+//                if (failSafe = true){
+//                    shooter.setPower(0);
+//                    if (gamepad2.dpad_right = true){
+//                        failSafe = false;
+//                    }
+//                }
+//            }
+
+            //shooter.setPower(1);
+
+
+
+            if (gamepad2.dpad_right == true){ //if the button is pressed
+                if (gamepad2.dpad_right == false){ //if the button was not pressed
+
+                    if (ShooterOn == true){
+                        ShooterOn = false;
+                    }
+
+                    if (ShooterOn == false) {
+                        ShooterOn = true;
                     }
                 }
             }
 
-            shooter.setPower(1);
+            if (ShooterOn){
+
+            }
+
 
 
             //keeps user updated

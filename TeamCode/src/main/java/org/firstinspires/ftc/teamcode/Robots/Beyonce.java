@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
 import org.firstinspires.ftc.teamcode.Robots.Robot;
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
-public class Beyonce extends Robot {
+
+public class Beyonce {
     public Motor FrontRight;
     public Motor FrontLeft;
     public Motor BackRight;
@@ -14,10 +18,12 @@ public class Beyonce extends Robot {
     public FXTServo Grabber;
 
     public Motor Shooter;
-    public FXTServo TargetRamp;
+    //public FXTServo TargetRamp;
 
     public FXTServo RingPusher;
 
+    ColorSensor colorSensorL;
+    ColorSensor colorSensorR;
 
     //Declaring stuff
     public Beyonce(){
@@ -31,9 +37,10 @@ public class Beyonce extends Robot {
         LinearSlide = new Motor("Linear Slide");
         Grabber = new FXTServo("Grabber");
 
+
         //Shooter
         Shooter = new Motor("Shooter");
-        TargetRamp = new FXTServo("TargetRamp");
+        //TargetRamp = new FXTServo("TargetRamp");
 
         //Hopper
         RingPusher = new FXTServo("RingPusher");
@@ -44,6 +51,10 @@ public class Beyonce extends Robot {
         BackLeft.setMinimumSpeed(0.1);
     }
 
+
+    public void init(){
+        GrabberUp();
+    }
 
     //Robot Driving
     public void DriveForward(double speed){
@@ -118,18 +129,16 @@ public class Beyonce extends Robot {
     public void ShooterOff() {
         Shooter.setPower(0);
     }
-
-    public void RampLevelOne() {
-        TargetRamp.setPosition(0);
-    }
-
-    public void RampLevelTwo() {
-        TargetRamp.setPosition(0.33);
-    }
-
-    public void RampLevelThree() {
-        TargetRamp.setPosition(0.66);
-    }
+//
+//    public void RampLevelOne() {TargetRamp.setPosition(0); }
+//
+//    public void RampLevelTwo() {
+//        TargetRamp.setPosition(0.33);
+//    }
+//
+//    public void RampLevelThree() {
+//        TargetRamp.setPosition(0.66);
+//    }
 
     public void RingPusherExtend() {
         RingPusher.setPosition(0.2);

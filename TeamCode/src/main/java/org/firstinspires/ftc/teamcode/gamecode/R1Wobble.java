@@ -28,6 +28,10 @@ public class R1Wobble extends AutoOpMode {
         sleep(1400);
         beyonce.Stop();
 
+        beyonce.DriveForward(0.3);
+        sleep(100);
+        beyonce.Stop();
+
 
 
 

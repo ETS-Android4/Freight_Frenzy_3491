@@ -87,7 +87,7 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
 
 
             if (weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates == true) {
-                if (gamepad1.left_trigger > 0) {
+                if (gamepad1.left_bumper) {
                     pivot = gamepad1.left_stick_x / 3;
                     horizontal = -gamepad1.right_stick_x / 3;
                     vertical = gamepad1.right_stick_y / 3;
@@ -123,18 +123,18 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             backRight.setPower(-pivot + (vertical + horizontal));
 
             //Linear Slide
-            if (gamepad2.y == true){
+            if (gamepad2.a){
                 beyonce.LinearSlidesUp();
-            } else if (gamepad2.b == true){
+            } else if (gamepad2.y){
                 beyonce.LinearSlidesDown();
             } else {
                 beyonce.LinearSidesStop();
             }
 
             //Wobble Grabber
-            if (gamepad2.a) {
+            if (gamepad2.x) {
                 beyonce.GrabberUp();
-            } else if (gamepad2.x){
+            } else if (gamepad2.b){
                 beyonce.GrabberDown();
             }
 

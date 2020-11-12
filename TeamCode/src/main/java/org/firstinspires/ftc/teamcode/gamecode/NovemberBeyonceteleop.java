@@ -38,75 +38,120 @@ public class NovemberBeyonceteleop extends TeleOpMode {
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
+    //gamepad shortcut booleans
+    boolean driver2CustomControls = false;
+    boolean leftHandControls = true;
+
     @Override
     public void loopOpMode() {
         double horizontal;
         double vertical;
         double pivot;
-        pivot = gamepad1.left_stick_x;
-        horizontal = -gamepad1.right_stick_x;
-        vertical = gamepad1.right_stick_y;
+
+        if (leftHandControls) {
+            if (gamepad1.left_bumper) {
+                pivot = gamepad1.left_stick_x / 3;
+                horizontal = -gamepad1.right_stick_x / 3;
+                vertical = gamepad1.right_stick_y / 3;
+            } else {
+                pivot = gamepad1.left_stick_x;
+                horizontal = -gamepad1.right_stick_x;
+                vertical = gamepad1.right_stick_y;
+            }
+
+            if ((gamepad1.dpad_down) && (gamepad1.a)) {
+                leftHandControls = false;
+            }
+        } else {
+            if (gamepad1.right_trigger > 0) {
+                pivot = gamepad1.right_stick_x / 3;
+                horizontal = -gamepad1.left_stick_x / 3;
+                vertical = gamepad1.left_stick_y / 3;
+            } else {
+                pivot = gamepad1.right_stick_x;
+                horizontal = -gamepad1.left_stick_x;
+                vertical = gamepad1.left_stick_y;
+            }
+
+            if (gamepad1.dpad_down && gamepad1.b) {
+                leftHandControls = true;
+            }
+        }
+
+
         frontLeft.setPower(pivot + (vertical + horizontal));
         frontRight.setPower(-pivot + (vertical - horizontal));
         backLeft.setPower(pivot + (vertical - horizontal));
         backRight.setPower(-pivot + (vertical + horizontal));
 
+        if (driver2CustomControls){
+            //custom mechanisms controls can go here
 
-
-        if (gamepad2.y == true){
-            beyonce.LinearSlidesUp();
-        } else if (gamepad2.b == true){
-            beyonce.LinearSlidesDown();
-        } else {
-            beyonce.LinearSidesStop();
-        }
-
-        //Wobble Grabber
-        if (gamepad2.a) {
-            beyonce.GrabberUp();
-        } else if (gamepad2.x){
-            beyonce.GrabberDown();
-        }
-
-        //ring pusher
-        if (gamepad2.right_trigger > 0) {
-            beyonce.RingPusherExtend();
-        } else {
-            beyonce.RingPusherRetract();
-        }
-
-        if (gamepad2.dpad_right == true){ //if the button is pressed
-            buttonpressed = true;
-        }
-
-
-        if (gamepad2.dpad_right == false){ //if the button IS not pressed
-            if (buttonpressed == true) { //if the button WAS pressed
-
-                if (ShooterOn == true) {
-                    ShooterOn = false;
-                }
-
-                else if (ShooterOn == false) {
-                    ShooterOn = true;
-                }
-
+            if (gamepad2.dpad_down && gamepad2.b) {
+                driver2CustomControls = false;
             }
 
-            buttonpressed = false;
+
+        } else {
+
+            //custom mechanism control are true if shortcut is pressed
+            if (gamepad2.dpad_down && gamepad2.a) {
+                driver2CustomControls = true;
+            }
+
+            //Linear Slide
+            if (gamepad2.a){
+                beyonce.LinearSlidesUp();
+            } else if (gamepad2.y){
+                beyonce.LinearSlidesDown();
+            } else {
+                beyonce.LinearSidesStop();
+            }
+
+            //Wobble Grabber
+            if (gamepad2.b) {
+                beyonce.GrabberUp();
+            } else if (gamepad2.x){
+                beyonce.GrabberDown();
+            }
+
+            //ring pusher
+            if (gamepad2.right_trigger > 0) {
+                beyonce.RingPusherExtend();
+            } else {
+                beyonce.RingPusherRetract();
+            }
+
+            if (gamepad2.dpad_right){ //if the button is pressed
+                buttonpressed = true;
+            }
+
+
+            if (gamepad2.dpad_right == false){ //if the button IS not pressed
+                if (buttonpressed) { //if the button WAS pressed
+
+                    if (ShooterOn) {
+                        ShooterOn = false;
+                    }
+
+                    else if (ShooterOn == false) {
+                        ShooterOn = true;
+                    }
+
+                }
+
+                buttonpressed = false;
+            }
+
+            if (ShooterOn){
+                beyonce.ShooterOn();
+                telemetry.addData("shooter", "on");
+            }
+            if (ShooterOn == false){
+                beyonce.ShooterOff();
+                telemetry.addData("shooter", "off");
+            }
         }
-
-
-
-        if (ShooterOn){
-            beyonce.ShooterOn();
-            telemetry.addData("shooter", "on");
-        }
-        if (ShooterOn == false){
-            beyonce.ShooterOff();
-            telemetry.addData("shooter", "off");
-        }
-
     }
 }
 

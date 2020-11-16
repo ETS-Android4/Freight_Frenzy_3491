@@ -92,6 +92,8 @@ public class NovemberBeyonceteleop extends TeleOpMode {
             }
 
 
+
+
         } else {
 
             //custom mechanism control are true if shortcut is pressed
@@ -154,9 +156,3 @@ public class NovemberBeyonceteleop extends TeleOpMode {
         }
     }
 }
-
-
-
-
-
-

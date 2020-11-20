@@ -39,7 +39,6 @@ public class NovemberBeyonceteleop extends TeleOpMode {
     }
 
     //gamepad shortcut booleans
-    boolean driver2CustomControls = false;
     boolean leftHandControls = true;
 
     @Override
@@ -67,6 +66,8 @@ public class NovemberBeyonceteleop extends TeleOpMode {
                 pivot = gamepad1.right_stick_x / 3;
                 horizontal = -gamepad1.left_stick_x / 3;
                 vertical = gamepad1.left_stick_y / 3;
+
+                telemetry.addData("right trigger value: ", gamepad1.right_trigger);
             } else {
                 pivot = gamepad1.right_stick_x;
                 horizontal = -gamepad1.left_stick_x;
@@ -84,75 +85,62 @@ public class NovemberBeyonceteleop extends TeleOpMode {
         backLeft.setPower(pivot + (vertical - horizontal));
         backRight.setPower(-pivot + (vertical + horizontal));
 
-        if (driver2CustomControls){
-            //custom mechanisms controls can go here
 
-            if (gamepad2.dpad_down && gamepad2.b) {
-                driver2CustomControls = false;
-            }
-
-
-
-
+        //Linear Slide
+        if (gamepad2.a){
+            beyonce.LinearSlidesUp();
+        } else if (gamepad2.y){
+            beyonce.LinearSlidesDown();
         } else {
+            beyonce.LinearSidesStop();
+        }
 
-            //custom mechanism control are true if shortcut is pressed
-            if (gamepad2.dpad_down && gamepad2.a) {
-                driver2CustomControls = true;
-            }
+        //Wobble Grabber
+        if (gamepad2.b) {
+            beyonce.GrabberUp();
+        } else if (gamepad2.x){
+            beyonce.GrabberDown();
+        }
 
-            //Linear Slide
-            if (gamepad2.a){
-                beyonce.LinearSlidesUp();
-            } else if (gamepad2.y){
-                beyonce.LinearSlidesDown();
-            } else {
-                beyonce.LinearSidesStop();
-            }
+        //ring pusher
+        if (gamepad2.right_trigger > 0) {
+            beyonce.RingPusherExtend();
+        } else {
+            beyonce.RingPusherRetract();
+        }
 
-            //Wobble Grabber
-            if (gamepad2.b) {
-                beyonce.GrabberUp();
-            } else if (gamepad2.x){
-                beyonce.GrabberDown();
-            }
-
-            //ring pusher
-            if (gamepad2.right_trigger > 0) {
-                beyonce.RingPusherExtend();
-            } else {
-                beyonce.RingPusherRetract();
-            }
-
-            if (gamepad2.dpad_right){ //if the button is pressed
-                buttonpressed = true;
-            }
+        if (gamepad2.dpad_right){ //if the button is pressed
+            buttonpressed = true;
+        }
 
 
-            if (gamepad2.dpad_right == false){ //if the button IS not pressed
-                if (buttonpressed) { //if the button WAS pressed
+        if (gamepad2.dpad_right == false){ //if the button IS not pressed
+            if (buttonpressed) { //if the button WAS pressed
 
-                    if (ShooterOn) {
-                        ShooterOn = false;
-                    }
-
-                    else if (ShooterOn == false) {
-                        ShooterOn = true;
-                    }
-
+                if (ShooterOn) {
+                    ShooterOn = false;
                 }
 
-                buttonpressed = false;
+                else if (ShooterOn == false) {
+                    ShooterOn = true;
+                }
+
             }
 
-            if (ShooterOn){
-                beyonce.ShooterOn();
-                telemetry.addData("shooter", "on");
-            }
-            if (ShooterOn == false){
-                beyonce.ShooterOff();
-                telemetry.addData("shooter", "off");
-            }
+            buttonpressed = false;
         }
+
+        if (ShooterOn){
+            beyonce.ShooterOn();
+            telemetry.addData("shooter", "on");
+        }
+        if (ShooterOn == false){
+            beyonce.ShooterOff();
+            telemetry.addData("shooter", "off");
+        }
+
+
+
+
     }
 }

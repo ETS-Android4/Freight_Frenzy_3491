@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import static android.os.SystemClock.sleep;
+
 
 public class Beyonce {
     public Motor FrontRight;
@@ -128,6 +130,14 @@ public class Beyonce {
 
     public void ShooterOff() {
         Shooter.setPower(0);
+    }
+
+    public void Shoot() {
+        RingPusherExtend();
+        sleep(750);
+        RingPusherRetract();
+        sleep(750);
+        sleep(2500);
     }
 //
 //    public void RampLevelOne() {TargetRamp.setPosition(0); }

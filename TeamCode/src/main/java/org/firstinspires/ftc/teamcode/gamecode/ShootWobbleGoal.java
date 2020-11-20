@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 @Autonomous
-public class R1Wobble extends AutoOpMode {
+public class ShootWobbleGoal extends AutoOpMode {
     @Override
     public void runOp() throws InterruptedException {
         Beyonce beyonce = new Beyonce();
@@ -16,20 +15,23 @@ public class R1Wobble extends AutoOpMode {
 
         telemetry.addData("status", "init");
 
+        beyonce.RingPusherRetract();
+
         waitForStart();
 
-        beyonce.StrafeLeft(0.2);
-        sleep(400);
-        beyonce.Stop();
+        beyonce.ShooterOn();
+        sleep(5000);
 
-        sleep(500);
+        beyonce.Shoot();
+        beyonce.Shoot();
+        beyonce.Shoot();
 
-        beyonce.DriveBackward(0.3);
-        sleep(1400);
-        beyonce.Stop();
+        beyonce.ShooterOff();
 
-        beyonce.DriveForward(0.3);
-        sleep(100);
-        beyonce.Stop();
+//        beyonce.StrafeRight(0.2);
+//        sleep(400);
+//        beyonce.Stop();
+
+        beyonce.GrabberDown();
     }
 }

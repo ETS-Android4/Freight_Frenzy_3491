@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -28,6 +29,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
     private DcMotor linearSlide = null;
     private DcMotor shooter = null;
 
+    private boolean buttonpressed = false;
+
     public boolean ShooterOn = false;
 
     //servos
@@ -51,6 +54,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
         linearSlide = hardwareMap.get(DcMotor.class, "Linear Slide");
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
 
+
+
         grabber = hardwareMap.get(Servo.class, "Grabber");
         //targetRamp = hardwareMap.get(Servo.class, "TargetRamp");
         ringPusher = hardwareMap.get(Servo.class, "RingPusher");
@@ -73,6 +78,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
+
+
 
         //while opMode is active do the stuff in the while loop
         while (opModeIsActive()) {
@@ -111,7 +118,7 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
                     vertical = gamepad1.left_stick_y;
                 }
 
-                if ((gamepad1.dpad_down == true) && (gamepad1.a == true)) {
+                if ((gamepad1.dpad_down == true) && (gamepad1.b == true)) {
                     weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
                 }
             }
@@ -145,7 +152,13 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
                 beyonce.RingPusherRetract();
             }
 
+            if (gamepad2.dpad_right) {
+                shooter.setPower(1);
+            }
 
+            if (gamepad2.dpad_left) {
+                shooter.setPower(0);
+            }
 //            if (gamepad2.dpad_right == true){ //if the button is pressed
 //                if (gamepad2.dpad_right == false){ //if the button was not pressed
 //
@@ -168,27 +181,6 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
 //                telemetry.addData("shooter", "off");
 //
 //            }
-
-
-            if (gamepad2.left_trigger > 0) {
-                if (shooterToggle == true && toggleTimer == 15) {
-                    shooterToggle = false;
-                    toggleTimer = 0;
-                } else if (shooterToggle == false && toggleTimer == 15) {
-                    shooterToggle = true;
-                    toggleTimer = 0;
-                }
-                toggleTimer++;
-            }
-
-            if (shooterToggle) {
-                beyonce.ShooterOn();
-            } else {
-                beyonce.ShooterOff();
-            }
-
-
-
 //            if (gamepad2.dpad_up == true) {
 //                if (target == 1) {
 //                    beyonce.RampLevelOne();

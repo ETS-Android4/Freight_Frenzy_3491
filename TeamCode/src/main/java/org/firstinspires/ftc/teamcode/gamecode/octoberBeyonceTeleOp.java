@@ -159,43 +159,6 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             if (gamepad2.dpad_left) {
                 shooter.setPower(0);
             }
-//            if (gamepad2.dpad_right == true){ //if the button is pressed
-//                if (gamepad2.dpad_right == false){ //if the button was not pressed
-//
-//                    if (ShooterOn == true){
-//                        ShooterOn = false;
-//                    }
-//
-//                    if (ShooterOn == false) {
-//                        ShooterOn = true;
-//                    }
-//                }
-//            }
-
-//            if (ShooterOn){
-//                beyonce.ShooterOn();
-//                telemetry.addData("shooter", "on");
-//            }
-//            if (!ShooterOn){
-//                beyonce.ShooterOff();
-//                telemetry.addData("shooter", "off");
-//
-//            }
-//            if (gamepad2.dpad_up == true) {
-//                if (target == 1) {
-//                    beyonce.RampLevelOne();
-//                    target = 2;
-//                }
-//                else if (target == 2) {
-//                    beyonce.RampLevelTwo();
-//                    target = 3;
-//                }
-//                else if (target == 3) {
-//                    beyonce.RampLevelThree();
-//                    target = 1;
-//                }
-//            }
-
 
 
             //keeps user updated

@@ -125,7 +125,7 @@ public class Beyonce {
     }
 
     public void ShooterOn() {
-        Shooter.setPower(0.75);
+        Shooter.setPower(1);
     }
 
     public void ShooterOff() {

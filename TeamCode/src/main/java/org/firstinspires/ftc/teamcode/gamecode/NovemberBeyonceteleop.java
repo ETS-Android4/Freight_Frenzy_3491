@@ -40,12 +40,12 @@ public class NovemberBeyonceteleop extends TeleOpMode {
 
     //gamepad shortcut booleans
     boolean leftHandControls = true;
+    double horizontal;
+    double vertical;
+    double pivot;
 
     @Override
     public void loopOpMode() {
-        double horizontal;
-        double vertical;
-        double pivot;
 
         if (leftHandControls) {
             if (gamepad1.left_bumper) {

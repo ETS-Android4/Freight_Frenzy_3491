@@ -41,52 +41,53 @@ public class ShootWobbleGoal extends AutoOpMode {
         sleep(50);
         beyonce.ShooterOff();
 
-//        beyonce.StrafeRight(0.2);
-//        sleep(400);
-//        beyonce.Stop();
-
         beyonce.StrafeLeft(0.2);
+        telemetry.addData("staus", "left");
         sleep(1000);
+        beyonce.Stop();
+
+        sleep(200);
+
+        beyonce.DriveForward(0.1);
+        telemetry.addData("staus", "forward");
+        sleep(800);
+        beyonce.Stop();
+
+        sleep(300);
+
+        clearTimer(1);
+
+        while (opModeIsActive() && 38 > colorSensorL.red() && getMilliSeconds(1) < 3500){
+            telemetry.addData("status", getMilliSeconds(1));
+            telemetry.addData("red", colorSensorL.red());
+
+            beyonce.StrafeRight(0.05);
+        }
+        telemetry.addData("red", colorSensorL.red());
+
         beyonce.Stop();
 
         sleep(500);
 
-        beyonce.DriveForward(0.3);
-        sleep(200);
+        beyonce.StrafeLeft(0.1);
+        sleep(1250);
         beyonce.Stop();
 
         sleep(200);
 
-        beyonce.StrafeLeft(0.2);
-        sleep(100);
+        beyonce.DriveBackward(0.1);
+        sleep(1200);
         beyonce.Stop();
 
-        sleep(200);
-
-
-        beyonce.StrafeRight(0.3);
-        sleep(1000);
-
-        sleep(200);
-
-
-
-        while (white){
-            beyonce.StrafeRight(0.2);
-        }
-        beyonce.Stop();
-
-        beyonce.DriveBackward(0.2);
-        sleep(1000);
-        beyonce.Stop();
+        sleep(300);
 
         beyonce.GrabberDown();
 
+        sleep(600);
+
         beyonce.DriveForward(0.3);
-        sleep(200);
+        sleep(300);
         beyonce.Stop();
-
-
 
 
     }

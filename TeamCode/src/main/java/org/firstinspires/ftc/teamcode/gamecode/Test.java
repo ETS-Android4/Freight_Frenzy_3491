@@ -18,17 +18,73 @@ public class Test extends AutoOpMode {
     public void runOp() throws InterruptedException {
         Beyonce beyonce = new Beyonce();
         ColorSensor colorSensorL;
-        colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
+        colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorR");
+        boolean white = opModeIsActive() && 38 > colorSensorL.red();
+
+        beyonce.GrabberUp();
+
         waitForStart();
 
-        while (opModeIsActive()) {
+        beyonce.StrafeLeft(0.2);
+        telemetry.addData("staus", "left");
+        sleep(1000);
+        beyonce.Stop();
 
+        sleep(200);
+
+        beyonce.DriveForward(0.1);
+        telemetry.addData("staus", "forward");
+        sleep(700);
+        beyonce.Stop();
+
+        sleep(300);
+
+        clearTimer(1);
+
+        while (opModeIsActive() && 38 > colorSensorL.red() && getSeconds(1) < 4){
+            telemetry.addData("status", getSeconds(1));
+            telemetry.addData("red", colorSensorL.red());
+
+            beyonce.StrafeRight(0.1);
+        }
+        telemetry.addData("staus", "white");
         telemetry.addData("red", colorSensorL.red());
-        //telemetry.addData("blue", colorSensorL.blue());
-      //  telemetry.addData("green", colorSensorL.green());
-        telemetry.addData("light", colorSensorL.alpha());
-       // telemetry.addData("4 colour channels", colorSensorL.argb());
-            }
+
+        beyonce.Stop();
+
+        sleep(500);
+
+        beyonce.StrafeLeft(0.1);
+        sleep(1250);
+        beyonce.Stop();
+
+        sleep(200);
+
+        beyonce.DriveBackward(0.1);
+        sleep(1300);
+        beyonce.Stop();
+
+        sleep(300);
+
+        beyonce.GrabberDown();
+
+        sleep(600);
+
+        beyonce.DriveForward(0.3);
+        sleep(300);
+        beyonce.Stop();
+
+
+
+//
+//        while (opModeIsActive()) {
+//
+//        telemetry.addData("red", colorSensorL.red());
+//        //telemetry.addData("blue", colorSensorL.blue());
+//      //  telemetry.addData("green", colorSensorL.green());
+//        //telemetry.addData("light", colorSensorL.alpha());
+//       // telemetry.addData("4 colour channels", colorSensorL.argb());
+//            }
 
 
         //red in between like 30 and 36

@@ -31,63 +31,66 @@ public class ShootWobbleGoal extends AutoOpMode {
 
         waitForStart();
 
-        beyonce.ShooterOn();
-        sleep(5000);
 
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
+            beyonce.ShooterOn();
+            sleep(5000);
 
-        sleep(50);
-        beyonce.ShooterOff();
+            beyonce.Shoot();
+            beyonce.Shoot();
+            beyonce.Shoot();
 
-        beyonce.StrafeLeft(0.2);
-        telemetry.addData("staus", "left");
-        sleep(1000);
-        beyonce.Stop();
+            sleep(50);
+            beyonce.ShooterOff();
 
-        sleep(200);
+            beyonce.StrafeLeft(0.2);
+            telemetry.addData("staus", "left");
+            sleep(1000);
+            beyonce.Stop();
 
-        beyonce.DriveForward(0.1);
-        telemetry.addData("staus", "forward");
-        sleep(800);
-        beyonce.Stop();
+            sleep(200);
 
-        sleep(300);
+            beyonce.DriveForward(0.1);
+            telemetry.addData("staus", "forward");
+            sleep(800);
+            beyonce.Stop();
 
-        clearTimer(1);
+            sleep(300);
 
-        while (opModeIsActive() && 38 > colorSensorL.red() && getMilliSeconds(1) < 3500){
-            telemetry.addData("status", getMilliSeconds(1));
+            clearTimer(1);
+
+            while (opModeIsActive() && 38 > colorSensorL.red() && getMilliSeconds(1) < 3500) {
+                telemetry.addData("status", getMilliSeconds(1));
+                telemetry.addData("red", colorSensorL.red());
+
+                beyonce.StrafeRight(0.05);
+            }
             telemetry.addData("red", colorSensorL.red());
 
-            beyonce.StrafeRight(0.05);
-        }
-        telemetry.addData("red", colorSensorL.red());
+            beyonce.Stop();
 
-        beyonce.Stop();
+            sleep(500);
 
-        sleep(500);
+            beyonce.StrafeLeft(0.1);
+            sleep(1150);
+            beyonce.Stop();
 
-        beyonce.StrafeLeft(0.1);
-        sleep(1250);
-        beyonce.Stop();
+            sleep(200);
 
-        sleep(200);
+            beyonce.DriveBackward(0.1);
+            sleep(1500);
+            beyonce.Stop();
 
-        beyonce.DriveBackward(0.1);
-        sleep(1200);
-        beyonce.Stop();
+            sleep(300);
 
-        sleep(300);
+            beyonce.GrabberDown();
 
-        beyonce.GrabberDown();
+            sleep(600);
 
-        sleep(600);
+            beyonce.DriveForward(0.3);
+            sleep(300);
+            beyonce.Stop();
 
-        beyonce.DriveForward(0.3);
-        sleep(300);
-        beyonce.Stop();
+
 
 
     }

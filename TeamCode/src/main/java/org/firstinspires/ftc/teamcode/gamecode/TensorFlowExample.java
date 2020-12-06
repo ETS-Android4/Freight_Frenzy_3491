@@ -84,6 +84,7 @@ public class TensorFlowExample extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
+
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -91,12 +92,14 @@ public class TensorFlowExample extends LinearOpMode {
         initVuforia();
         initTfod();
 
+
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
         if (tfod != null) {
             tfod.activate();
+
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
@@ -114,9 +117,12 @@ public class TensorFlowExample extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 if (tfod != null) {
+                    //cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();

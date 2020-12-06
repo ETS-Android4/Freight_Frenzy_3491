@@ -20,7 +20,9 @@ public class ShootWobbleGoal extends AutoOpMode {
 
         boolean red = opModeIsActive() && (30 < colorSensorL.red()) && (colorSensorL.red() < 38);
         boolean white = opModeIsActive() && 38 <= colorSensorL.red();
-
+        colorSensorL.enableLed(false);
+        sleep(100);
+        colorSensorL.enableLed(true);
 
         //beyonce.init();
 
@@ -31,63 +33,68 @@ public class ShootWobbleGoal extends AutoOpMode {
 
         waitForStart();
 
-        beyonce.ShooterOn();
-        sleep(5000);
+        while (opModeIsActive()) {
 
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
 
-        sleep(50);
-        beyonce.ShooterOff();
+            beyonce.ShooterOn();
+            sleep(5000);
 
-        beyonce.StrafeLeft(0.2);
-        telemetry.addData("staus", "left");
-        sleep(1000);
-        beyonce.Stop();
+            beyonce.Shoot();
+            beyonce.Shoot();
+            beyonce.Shoot();
 
-        sleep(200);
+            sleep(50);
+            beyonce.ShooterOff();
 
-        beyonce.DriveForward(0.1);
-        telemetry.addData("staus", "forward");
-        sleep(800);
-        beyonce.Stop();
+            beyonce.StrafeLeft(0.2);
+            telemetry.addData("staus", "left");
+            sleep(1000);
+            beyonce.Stop();
 
-        sleep(300);
+            sleep(200);
 
-        clearTimer(1);
+            beyonce.DriveForward(0.1);
+            telemetry.addData("staus", "forward");
+            sleep(800);
+            beyonce.Stop();
 
-        while (opModeIsActive() && 38 > colorSensorL.red() && getMilliSeconds(1) < 3500){
-            telemetry.addData("status", getMilliSeconds(1));
+            sleep(300);
+
+            clearTimer(1);
+
+            while (opModeIsActive() && 38 > colorSensorL.red() && getMilliSeconds(1) < 3500) {
+                telemetry.addData("status", getMilliSeconds(1));
+                telemetry.addData("red", colorSensorL.red());
+
+                beyonce.StrafeRight(0.05);
+            }
             telemetry.addData("red", colorSensorL.red());
 
-            beyonce.StrafeRight(0.05);
+            beyonce.Stop();
+
+            sleep(500);
+
+            beyonce.StrafeLeft(0.1);
+            sleep(1250);
+            beyonce.Stop();
+
+            sleep(200);
+
+            beyonce.DriveBackward(0.1);
+            sleep(1200);
+            beyonce.Stop();
+
+            sleep(300);
+
+            beyonce.GrabberDown();
+
+            sleep(600);
+
+            beyonce.DriveForward(0.3);
+            sleep(300);
+            beyonce.Stop();
+
         }
-        telemetry.addData("red", colorSensorL.red());
-
-        beyonce.Stop();
-
-        sleep(500);
-
-        beyonce.StrafeLeft(0.1);
-        sleep(1250);
-        beyonce.Stop();
-
-        sleep(200);
-
-        beyonce.DriveBackward(0.1);
-        sleep(1200);
-        beyonce.Stop();
-
-        sleep(300);
-
-        beyonce.GrabberDown();
-
-        sleep(600);
-
-        beyonce.DriveForward(0.3);
-        sleep(300);
-        beyonce.Stop();
 
 
     }

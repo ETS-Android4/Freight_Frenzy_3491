@@ -132,11 +132,21 @@ public class TensorFlowExample extends LinearOpMode {
                       int i = 0;
                       for (Recognition recognition : updatedRecognitions) { //arraylist
                         telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
+                        //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                //recognition.getLeft(), recognition.getTop());
+                        //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                //recognition.getRight(), recognition.getBottom());
+
+                          if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
+                              telemetry.addData("quad:", "quad");
+                          } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                              telemetry.addData("single", "single");
+                          } else {
+                              telemetry.addData("no rings", "no rings");
+                          }
                       }
+
+
 
 
 

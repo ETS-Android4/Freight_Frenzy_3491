@@ -19,13 +19,6 @@ public class BeyonceTeleOp extends LinearOpMode {
     //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();
 
-
-
-
-
-
-
-
     //motors
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;

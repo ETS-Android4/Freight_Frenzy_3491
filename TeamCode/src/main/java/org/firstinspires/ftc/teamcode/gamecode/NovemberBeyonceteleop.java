@@ -66,7 +66,7 @@ public class NovemberBeyonceteleop extends TeleOpMode {
                 pivot = gamepad1.right_stick_x / 3;
                 horizontal = -gamepad1.left_stick_x / 3;
                 vertical = gamepad1.left_stick_y / 3;
-
+//nice
                 telemetry.addData("right trigger value: ", gamepad1.right_trigger);
             } else {
                 pivot = gamepad1.right_stick_x;
@@ -114,7 +114,7 @@ public class NovemberBeyonceteleop extends TeleOpMode {
         }
 
 
-        if (gamepad2.dpad_right == false){ //if the button IS not pressed
+        if (!(gamepad2.dpad_right)){ //if the button IS not pressed
             if (buttonpressed) { //if the button WAS pressed
 
                 if (ShooterOn) {
@@ -134,7 +134,7 @@ public class NovemberBeyonceteleop extends TeleOpMode {
             beyonce.ShooterOn();
             telemetry.addData("shooter", "on");
         }
-        if (ShooterOn == false){
+        if (!(ShooterOn)){
             beyonce.ShooterOff();
             telemetry.addData("shooter", "off");
         }

@@ -84,9 +84,6 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
         //while opMode is active do the stuff in the while loop
         while (opModeIsActive()) {
 
-            //variables to control mechanisms
-
-
             //so that i dont have to write gamepad1.left_stick every single time for the calculations
             double horizontal;
             double vertical;

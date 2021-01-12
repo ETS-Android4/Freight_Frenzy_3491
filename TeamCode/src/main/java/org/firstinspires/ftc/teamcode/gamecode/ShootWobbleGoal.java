@@ -29,7 +29,7 @@ public class ShootWobbleGoal extends AutoOpMode {
         telemetry.addData("status", "init");
 
         beyonce.RingPusherRetract();
-        beyonce.GrabberUp();
+        //beyonce.GrabberUp();
 
         waitForStart();
 
@@ -86,7 +86,7 @@ public class ShootWobbleGoal extends AutoOpMode {
 
             sleep(300);
 
-            beyonce.GrabberDown();
+            //beyonce.GrabberDown();
 
             sleep(600);
 

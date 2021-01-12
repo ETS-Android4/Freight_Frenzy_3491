@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Robots;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.teamcode.Robots.Robot;
+import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -15,12 +16,13 @@ public class Beyonce {
     public Motor FrontLeft;
     public Motor BackRight;
     public Motor BackLeft;
+    public Motor Arm;
 
-    public Motor LinearSlide;
-    public FXTServo Grabber;
+    public FXTServo Claw;
 
     public Motor Shooter;
-    //public FXTServo TargetRamp;
+
+    public FXTCRServo TargetRamp;
 
     public FXTServo RingPusher;
 
@@ -36,13 +38,13 @@ public class Beyonce {
         BackLeft = new Motor("backL");
 
         //Wobble Grabber
-        LinearSlide = new Motor("Linear Slide");
-        Grabber = new FXTServo("Grabber");
+        Claw = new FXTServo("Claw");
+        Arm = new Motor("Arm");
 
 
         //Shooter
         Shooter = new Motor("Shooter");
-        //TargetRamp = new FXTServo("TargetRamp");
+        TargetRamp = new FXTCRServo("Ramp");
 
         //Hopper
         RingPusher = new FXTServo("RingPusher");
@@ -55,7 +57,7 @@ public class Beyonce {
 
 
     public void init(){
-        GrabberUp();
+        ClawOpen();
     }
 
 
@@ -105,24 +107,24 @@ public class Beyonce {
         BackRight.setPower(0);
     }
 
-    public void LinearSlidesUp() {
-        LinearSlide.setPower(1);
+    public void ArmsUp() {
+        Arm.setPower(1);
     }
 
-    public void LinearSlidesDown() {
-        LinearSlide.setPower(-1);
+    public void ArmsDown() {
+        Arm.setPower(-1);
     }
 
-    public void LinearSidesStop() {
-        LinearSlide.setPower(0);
+    public void ArmsStop() {
+        Arm.setPower(0);
     }
 
-    public void GrabberUp() {
-        Grabber.setPosition(1);
+    public void ClawOpen() {
+        Claw.setPosition(1);
     }
 
-    public void GrabberDown() {
-        Grabber.setPosition(0);
+    public void Clawclose() {
+        Claw.setPosition(0);
     }
 
     public void ShooterOn() {
@@ -151,6 +153,18 @@ public class Beyonce {
 //
 //    public void RampLevelThree() {
 //        TargetRamp.setPosition(0.66);
+//    }
+    //sets ramp level
+//    public void setRampLevel(int level) {
+//        if (level == 1) {
+//            RampLevelOne();
+//        }
+//        else if (level == 2) {
+//            RampLevelTwo();
+//        }
+//        else if (level == 3) {
+//            RampLevelThree();
+//        }
 //    }
 
     public void RingPusherExtend() {

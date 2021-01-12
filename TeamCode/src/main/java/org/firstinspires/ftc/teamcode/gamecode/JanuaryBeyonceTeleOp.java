@@ -1,20 +1,18 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
-import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
 @TeleOp
-public class octoberBeyonceTeleOp extends LinearOpMode {
+public class JanuaryBeyonceTeleOp extends LinearOpMode {
 
     Beyonce beyonce = new Beyonce();
 
@@ -26,17 +24,18 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
-    private DcMotor linearSlide = null;
+    private DcMotor arm = null;
     private DcMotor shooter = null;
-
-    private boolean buttonpressed = false;
-
-    public boolean ShooterOn = false;
-
-    //servos
-    private Servo grabber = null;
-    //private Servo targetRamp = null;
-    private Servo ringPusher = null;
+//
+//
+//    private boolean buttonpressed = false;
+//
+//    public boolean ShooterOn = false;
+//
+//    //servos
+//    private Servo claw = null;
+    private CRServo targetRamp = null;
+//    private Servo ringPusher = null;
 
 
 
@@ -46,19 +45,15 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        //find moters in the configuration file on phones
+        //find motors in the configuration file on phones
         frontLeft = hardwareMap.get(DcMotor.class, "frontL");
         frontRight = hardwareMap.get(DcMotor.class, "frontR");
         backLeft = hardwareMap.get(DcMotor.class, "backL");
         backRight = hardwareMap.get(DcMotor.class, "backR");
-        linearSlide = hardwareMap.get(DcMotor.class, "Linear Slide");
+        arm = hardwareMap.get(DcMotor.class, "Arm");
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
 
-
-
-        grabber = hardwareMap.get(Servo.class, "Grabber");
-        //targetRamp = hardwareMap.get(Servo.class, "TargetRamp");
-        ringPusher = hardwareMap.get(Servo.class, "RingPusher");
+        targetRamp = hardwareMap.get(CRServo.class, "Ramp");
 
 
         //set all motors to drive in the same direction in the real world
@@ -68,7 +63,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //gives user 2 drive control options
-        boolean weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
+//nice
+        boolean leftHanded = true;
 
         //creates 3 vertical aiming options
         int target = 1; //for the target ramp
@@ -80,7 +76,6 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
         runtime.reset();
 
 
-
         //while opMode is active do the stuff in the while loop
         while (opModeIsActive()) {
 
@@ -90,7 +85,7 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             double pivot;
 
 
-            if (weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates == true) {
+            if (leftHanded) {
                 if (gamepad1.left_bumper) {
                     pivot = gamepad1.left_stick_x / 3;
                     horizontal = -gamepad1.right_stick_x / 3;
@@ -101,8 +96,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
                     vertical = gamepad1.right_stick_y;
                 }
 
-                if ((gamepad1.dpad_down == true) && (gamepad1.a == true)) {
-                    weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = false;
+                if (gamepad1.dpad_right) {
+                    leftHanded = false;
                 }
             } else {
                 if (gamepad1.right_trigger > 0) {
@@ -115,8 +110,8 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
                     vertical = gamepad1.left_stick_y;
                 }
 
-                if ((gamepad1.dpad_down == true) && (gamepad1.b == true)) {
-                    weirdDriveControlsThatWasUsedLastYearThatIshaanCannotStandAndAbsolutlyHates = true;
+                if (gamepad1.dpad_left) {
+                    leftHanded = true;
                 }
             }
 
@@ -126,36 +121,41 @@ public class octoberBeyonceTeleOp extends LinearOpMode {
             backLeft.setPower(pivot + (vertical - horizontal));
             backRight.setPower(-pivot + (vertical + horizontal));
 
-            //Linear Slide
-//            if (gamepad2.a){
-//                beyonce.LinearSlidesUp();
-//            } else if (gamepad2.y){
-//                beyonce.LinearSlidesDown();
-//            } else {
-//                beyonce.LinearSidesStop();
+//            if (target < 4 && target > 0) {
+//                if (gamepad2.dpad_up) {
+//                    target++;
+//                } else if (gamepad2.dpad_down) {
+//                    target--;
+//                }
 //            }
-
-            //Wobble Grabber
+//            //sets ramp level to target
+//            //beyonce.setRampLevel(target);
+//
+//            targetRamp.setPower(gamepad2.left_stick_y);
+//
+//            arm.setPower(gamepad2.right_stick_y / 2);
+//
+//            //Wobble Grabber
 //            if (gamepad2.x) {
 //                beyonce.GrabberUp();
 //            } else if (gamepad2.b){
 //                beyonce.GrabberDown();
 //            }
-
-            //ring pusher
-            if (gamepad2.right_trigger > 0) {
-                beyonce.RingPusherExtend();
-            } else {
-                beyonce.RingPusherRetract();
-            }
-
-            if (gamepad2.dpad_right) {
-                shooter.setPower(1);
-            }
-
-            if (gamepad2.dpad_left) {
-                shooter.setPower(0);
-            }
+//
+//            //ring pusher
+//            if (gamepad2.right_trigger > 0) {
+//                beyonce.RingPusherExtend();
+//            } else {
+//                beyonce.RingPusherRetract();
+//            }
+//
+//            if (gamepad2.dpad_right) {
+//                shooter.setPower(1);
+//            }
+//
+//            if (gamepad2.dpad_left) {
+//                shooter.setPower(0);
+//            }
 
 
             //keeps user updated

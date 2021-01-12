@@ -86,21 +86,21 @@ public class NovemberBeyonceteleop extends TeleOpMode {
         backRight.setPower(-pivot + (vertical + horizontal));
 
 
-        //Linear Slide
-        if (gamepad2.a){
-            beyonce.LinearSlidesUp();
-        } else if (gamepad2.y){
-            beyonce.LinearSlidesDown();
-        } else {
-            beyonce.LinearSidesStop();
-        }
+//        //Linear Slide
+//        if (gamepad2.a){
+//            beyonce.LinearSlidesUp();
+//        } else if (gamepad2.y){
+//            beyonce.LinearSlidesDown();
+//        } else {
+//            beyonce.LinearSidesStop();
+//        }
 
         //Wobble Grabber
-        if (gamepad2.b) {
-            beyonce.GrabberUp();
-        } else if (gamepad2.x){
-            beyonce.GrabberDown();
-        }
+//        if (gamepad2.b) {
+//            beyonce.GrabberUp();
+//        } else if (gamepad2.x){
+//            beyonce.GrabberDown();
+//        }
 
         //ring pusher
         if (gamepad2.right_trigger > 0) {

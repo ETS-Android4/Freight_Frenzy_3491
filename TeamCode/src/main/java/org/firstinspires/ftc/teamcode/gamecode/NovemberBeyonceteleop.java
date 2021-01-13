@@ -25,7 +25,7 @@ public class NovemberBeyonceteleop extends TeleOpMode {
     @Override
     public void initialize() {
         beyonce = new Beyonce();
-        beyonce.init();
+        //beyonce.init();
         //motors
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontL");

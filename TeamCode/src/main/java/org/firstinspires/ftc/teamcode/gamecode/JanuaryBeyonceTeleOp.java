@@ -14,40 +14,32 @@ import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 @TeleOp
 public class JanuaryBeyonceTeleOp extends LinearOpMode {
 
+    //Import Beyonce class
     Beyonce beyonce = new Beyonce();
 
-    //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();
-    
-    
-    
+
     public void runOpMode() {
-        //indicate that the program is running
+        //Indicate that the program is running
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        //gives user 2 drive control options
+        //Gives user 2 drive control options
         boolean leftHanded = true;
 
-        //creates 3 vertical aiming options
-        int target = 1; //for the target ramp
-
-        boolean shooterToggle = false;
-        int toggleTimer = 0;
-
+        //Standard code
         waitForStart();
         runtime.reset();
 
-
-        //while opMode is active do the stuff in the while loop
+        //While opMode is active do the stuff in the while loop
         while (opModeIsActive()) {
 
-            //so that i dont have to write gamepad1.left_stick every single time for the calculations
+            //Declaring drive variables
             double horizontal;
             double vertical;
             double pivot;
 
-
+            //Drive control option one
             if (leftHanded) {
                 if (gamepad1.left_bumper) {
                     pivot = gamepad1.left_stick_x / 3;
@@ -58,10 +50,11 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
                     horizontal = -gamepad1.right_stick_x;
                     vertical = gamepad1.right_stick_y;
                 }
-
                 if (gamepad1.dpad_right) {
                     leftHanded = false;
                 }
+
+            //Drive control option two
             } else {
                 if (gamepad1.right_trigger > 0) {
                     pivot = gamepad1.right_stick_x / 3;
@@ -72,63 +65,48 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
                     horizontal = -gamepad1.left_stick_x;
                     vertical = gamepad1.left_stick_y;
                 }
-
                 if (gamepad1.dpad_left) {
                     leftHanded = true;
                 }
             }
 
-            //drive calculations
+            //Drive calculations
             beyonce.FrontLeft.setPower(pivot + (vertical + horizontal));
             beyonce.FrontRight.setPower(-pivot + (vertical - horizontal));
             beyonce.BackLeft.setPower(pivot + (vertical - horizontal));
             beyonce.BackRight.setPower(-pivot + (vertical + horizontal));
 
-            if (target < 4 && target > 0) {
-                if (gamepad2.dpad_up) {
-                    target++;
-                } else if (gamepad2.dpad_down) {
-                    target--;
-                }
-            }
-            //sets ramp level to target
-            //beyonce.setRampLevel(target);
-
-            beyonce.Ramp.setPower(gamepad2.left_stick_y);
-
+            //Wobble grabber Arm
             beyonce.Arm.setPower(gamepad2.right_stick_y / 2);
 
-            //Wobble Grabber
+            //Wobble grabber Claw
             if (gamepad2.x) {
                 beyonce.ClawOpen();
             } else if (gamepad2.b){
                 beyonce.ClawClose();
             }
 
-            //ring pusher
+            //Ring pusher
             if (gamepad2.right_trigger > 0) {
                 beyonce.RingPusherExtend();
             } else {
                 beyonce.RingPusherRetract();
             }
 
+            //Shooter ramp
+            beyonce.Ramp.setPower(gamepad2.left_stick_y);
+
+            //Shooter
             if (gamepad2.dpad_right) {
                 beyonce.ShooterOn();
             }
-
             if (gamepad2.dpad_left) {
                 beyonce.ShooterOff();
             }
 
-
-            //keeps user updated
+            //Keeps user updated
             telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)", horizontal, vertical, pivot);
             telemetry.update();
-
-
-
         }
     }
-
-
 }

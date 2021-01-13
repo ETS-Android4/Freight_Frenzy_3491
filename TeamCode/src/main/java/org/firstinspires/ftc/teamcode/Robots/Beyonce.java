@@ -26,11 +26,12 @@ public class Beyonce {
 
     public FXTServo RingPusher;
 
-    ColorSensor colorSensorL;
-    ColorSensor colorSensorR;
+//    ColorSensor colorSensorL;
+//    ColorSensor colorSensorR;
 
     //Declaring stuff
     public Beyonce(){
+
         //Drivebase
         FrontRight = new Motor("frontR");
         FrontLeft = new Motor("frontL");
@@ -41,12 +42,13 @@ public class Beyonce {
         Claw = new FXTServo("Claw");
         Arm = new Motor("Arm");
 
-
         //Shooter
         Shooter = new Motor("Shooter");
+
+        //Shooter Ramp
         Ramp = new FXTCRServo("Ramp");
 
-        //Hopper
+        //Ring pusher
         RingPusher = new FXTServo("RingPusher");
 
         FrontRight.setMinimumSpeed(0.1);
@@ -54,12 +56,6 @@ public class Beyonce {
         BackRight.setMinimumSpeed(0.1);
         BackLeft.setMinimumSpeed(0.1);
     }
-
-
-    public void init(){
-        ClawOpen();
-    }
-
 
     //Robot Driving
     public void DriveForward(double speed){
@@ -91,7 +87,6 @@ public class Beyonce {
         FrontRight.setPower(-speed);
         BackLeft.setPower(-speed);
         BackRight.setPower(-speed);
-
     }
     public void TurnRight(double speed){
         FrontLeft.setPower(speed);
@@ -99,7 +94,6 @@ public class Beyonce {
         BackLeft.setPower(speed);
         BackRight.setPower(speed);
     }
-
     public void Stop(){
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
@@ -107,10 +101,10 @@ public class Beyonce {
         BackRight.setPower(0);
     }
 
+    //Set Position and Power
     public void ClawOpen() {
         Claw.setPosition(1);
     }
-
     public void ClawClose() {
         Claw.setPosition(0);
     }
@@ -118,11 +112,11 @@ public class Beyonce {
     public void ShooterOn() {
         Shooter.setPower(1);
     }
-
     public void ShooterOff() {
         Shooter.setPower(0);
     }
 
+    //Ring pusher method
     public void Shoot() {
         RingPusherExtend();
         sleep(750);
@@ -130,15 +124,10 @@ public class Beyonce {
         sleep(750);
         sleep(2500);
     }
-
-
-
     public void RingPusherExtend() {
         RingPusher.setPosition(0.2);
     }
-
     public void RingPusherRetract() {
         RingPusher.setPosition(0.8);
     }
-
 }

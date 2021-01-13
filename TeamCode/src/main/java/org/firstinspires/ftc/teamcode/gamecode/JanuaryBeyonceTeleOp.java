@@ -18,52 +18,15 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
 
     //probably going to be useful. if it aint broke, dont fix it
     private ElapsedTime runtime = new ElapsedTime();
-
-    //motors
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor backRight = null;
-    private DcMotor arm = null;
-    private DcMotor shooter = null;
-//
-//
-//    private boolean buttonpressed = false;
-//
-//    public boolean ShooterOn = false;
-//
-//    //servos
-//    private Servo claw = null;
-    private CRServo targetRamp = null;
-//    private Servo ringPusher = null;
-
-
-
-
+    
+    
+    
     public void runOpMode() {
         //indicate that the program is running
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        //find motors in the configuration file on phones
-        frontLeft = hardwareMap.get(DcMotor.class, "frontL");
-        frontRight = hardwareMap.get(DcMotor.class, "frontR");
-        backLeft = hardwareMap.get(DcMotor.class, "backL");
-        backRight = hardwareMap.get(DcMotor.class, "backR");
-        arm = hardwareMap.get(DcMotor.class, "Arm");
-        shooter = hardwareMap.get(DcMotor.class, "Shooter");
-
-        targetRamp = hardwareMap.get(CRServo.class, "Ramp");
-
-
-        //set all motors to drive in the same direction in the real world
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
-
         //gives user 2 drive control options
-//nice
         boolean leftHanded = true;
 
         //creates 3 vertical aiming options
@@ -116,46 +79,46 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
             }
 
             //drive calculations
-            frontLeft.setPower(pivot + (vertical + horizontal));
-            frontRight.setPower(-pivot + (vertical - horizontal));
-            backLeft.setPower(pivot + (vertical - horizontal));
-            backRight.setPower(-pivot + (vertical + horizontal));
+            beyonce.FrontLeft.setPower(pivot + (vertical + horizontal));
+            beyonce.FrontRight.setPower(-pivot + (vertical - horizontal));
+            beyonce.BackLeft.setPower(pivot + (vertical - horizontal));
+            beyonce.BackRight.setPower(-pivot + (vertical + horizontal));
 
-//            if (target < 4 && target > 0) {
-//                if (gamepad2.dpad_up) {
-//                    target++;
-//                } else if (gamepad2.dpad_down) {
-//                    target--;
-//                }
-//            }
-//            //sets ramp level to target
-//            //beyonce.setRampLevel(target);
-//
-//            targetRamp.setPower(gamepad2.left_stick_y);
-//
-//            arm.setPower(gamepad2.right_stick_y / 2);
-//
-//            //Wobble Grabber
-//            if (gamepad2.x) {
-//                beyonce.GrabberUp();
-//            } else if (gamepad2.b){
-//                beyonce.GrabberDown();
-//            }
-//
-//            //ring pusher
-//            if (gamepad2.right_trigger > 0) {
-//                beyonce.RingPusherExtend();
-//            } else {
-//                beyonce.RingPusherRetract();
-//            }
-//
-//            if (gamepad2.dpad_right) {
-//                shooter.setPower(1);
-//            }
-//
-//            if (gamepad2.dpad_left) {
-//                shooter.setPower(0);
-//            }
+            if (target < 4 && target > 0) {
+                if (gamepad2.dpad_up) {
+                    target++;
+                } else if (gamepad2.dpad_down) {
+                    target--;
+                }
+            }
+            //sets ramp level to target
+            //beyonce.setRampLevel(target);
+
+            beyonce.Ramp.setPower(gamepad2.left_stick_y);
+
+            beyonce.Arm.setPower(gamepad2.right_stick_y / 2);
+
+            //Wobble Grabber
+            if (gamepad2.x) {
+                beyonce.ClawOpen();
+            } else if (gamepad2.b){
+                beyonce.ClawClose();
+            }
+
+            //ring pusher
+            if (gamepad2.right_trigger > 0) {
+                beyonce.RingPusherExtend();
+            } else {
+                beyonce.RingPusherRetract();
+            }
+
+            if (gamepad2.dpad_right) {
+                beyonce.ShooterOn();
+            }
+
+            if (gamepad2.dpad_left) {
+                beyonce.ShooterOff();
+            }
 
 
             //keeps user updated

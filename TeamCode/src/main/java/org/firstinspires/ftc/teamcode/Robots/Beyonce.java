@@ -22,7 +22,7 @@ public class Beyonce {
 
     public Motor Shooter;
 
-    public FXTCRServo TargetRamp;
+    public FXTCRServo Ramp;
 
     public FXTServo RingPusher;
 
@@ -44,7 +44,7 @@ public class Beyonce {
 
         //Shooter
         Shooter = new Motor("Shooter");
-        TargetRamp = new FXTCRServo("Ramp");
+        Ramp = new FXTCRServo("Ramp");
 
         //Hopper
         RingPusher = new FXTServo("RingPusher");
@@ -107,23 +107,11 @@ public class Beyonce {
         BackRight.setPower(0);
     }
 
-    public void ArmsUp() {
-        Arm.setPower(1);
-    }
-
-    public void ArmsDown() {
-        Arm.setPower(-1);
-    }
-
-    public void ArmsStop() {
-        Arm.setPower(0);
-    }
-
     public void ClawOpen() {
         Claw.setPosition(1);
     }
 
-    public void Clawclose() {
+    public void ClawClose() {
         Claw.setPosition(0);
     }
 
@@ -144,28 +132,6 @@ public class Beyonce {
     }
 
 
-//
-//    public void RampLevelOne() {TargetRamp.setPosition(0); }
-//
-//    public void RampLevelTwo() {
-//        TargetRamp.setPosition(0.33);
-//    }
-//
-//    public void RampLevelThree() {
-//        TargetRamp.setPosition(0.66);
-//    }
-    //sets ramp level
-//    public void setRampLevel(int level) {
-//        if (level == 1) {
-//            RampLevelOne();
-//        }
-//        else if (level == 2) {
-//            RampLevelTwo();
-//        }
-//        else if (level == 3) {
-//            RampLevelThree();
-//        }
-//    }
 
     public void RingPusherExtend() {
         RingPusher.setPosition(0.2);

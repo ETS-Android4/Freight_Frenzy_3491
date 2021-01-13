@@ -146,11 +146,6 @@ public class TensorFlowExample extends LinearOpMode {
                           }
                       }
 
-
-
-
-
-
                       telemetry.update();
                     }
                 }

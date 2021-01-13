@@ -19,6 +19,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
+    @Override
     public void runOpMode() {
         //Indicate that the program is running
         telemetry.addData("Status", "Initialized");
@@ -32,6 +33,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
         runtime.reset();
 
         //While opMode is active do the stuff in the while loop
+        if(opModeIsActive()){
         while (opModeIsActive()) {
 
             //Declaring drive variables
@@ -107,6 +109,6 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
             //Keeps user updated
             telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)", horizontal, vertical, pivot);
             telemetry.update();
-        }
+        }}
     }
 }

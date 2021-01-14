@@ -89,7 +89,7 @@ public class JanuaryBeyonceTeleOpTest extends TeleOpMode {
         }
 
         //Shooter ramp
-        beyonce.Ramp.setPower(-gamepad2.left_stick_y);
+        beyonce.moveRamp(gamepad1.left_stick_y);
 
         //Shooter
         if (gamepad2.dpad_right) {

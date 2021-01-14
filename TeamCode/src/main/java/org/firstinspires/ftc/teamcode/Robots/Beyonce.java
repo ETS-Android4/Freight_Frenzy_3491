@@ -22,7 +22,7 @@ public class Beyonce {
 
     public Motor Shooter;
 
-    public FXTCRServo Ramp;
+    public FXTServo Ramp;
 
     public FXTServo RingPusher;
 
@@ -46,7 +46,7 @@ public class Beyonce {
         Shooter = new Motor("Shooter");
 
         //Shooter Ramp
-        Ramp = new FXTCRServo("Ramp");
+        Ramp = new FXTServo("Ramp");
 
         //Ring pusher
         RingPusher = new FXTServo("RingPusher");
@@ -66,7 +66,7 @@ public class Beyonce {
     }
     public void DriveBackward(double speed){
         FrontLeft.setPower(speed);
-        FrontRight.setPower(-speed);
+/*nice*/FrontRight.setPower(-speed);
         BackLeft.setPower(speed);
         BackRight.setPower(-speed);
     }
@@ -116,10 +116,22 @@ public class Beyonce {
         Shooter.setPower(0);
     }
 
+    private double position = 0;
+    public void moveRamp(double power) {
+        position = position + (power / 10);
+        if (position < 0.2) {position = 0.2;}
+        if (position > 0.8) {position = 0.8;}
+        Ramp.setPosition(power);
+    }
+
+    public void ArmDown(double power) {
+        Arm.setPower(power);
+    }
+
     //Ring pusher method
     public void Shoot() {
         RingPusherExtend();
-        sleep(750);
+        sleep(1250);
         RingPusherRetract();
         sleep(750);
         sleep(2500);

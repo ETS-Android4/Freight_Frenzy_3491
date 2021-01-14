@@ -66,7 +66,7 @@ public class RingRecognizeTestAuto extends AutoOpMode {
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
      * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
+nice * web site at https://developer.vuforia.com/license-manager.
      *
      * Vuforia license keys are always 380 characters long, and look as if they contain mostly
      * random data. As an example, here is a example of a fragment of a valid key:
@@ -113,7 +113,7 @@ public class RingRecognizeTestAuto extends AutoOpMode {
             // (typically 1.78 or 16/9).
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            //tfod.setZoom(2.5, 1.78);
+            tfod.setZoom(2.5, 1.78);
         }
 
         /** Wait for the game to begin */
@@ -121,61 +121,84 @@ public class RingRecognizeTestAuto extends AutoOpMode {
         telemetry.update();
         waitForStart();
 
+        beyonce.ShooterOn();
+        sleep(2000);
+        beyonce.Shoot();
+        beyonce.Shoot();
+        beyonce.Shoot();
+        beyonce.ShooterOff();
+        sleep(100);
 
-
-        //if (opModeIsActive()) {
-           // while (opModeIsActive()) {
-            int iterate = 0;
-            boolean targetFound = false;
-            while (iterate < 10000) {
-                if (tfod != null) {
-                    //cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      // step through the list of recognitions and display boundary info.
-                      int i = 0;
-                      for (Recognition recognition : updatedRecognitions) { //arraylist
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+        if (opModeIsActive()) {
+            while (opModeIsActive()) {
+                int iterate = 0;
+                boolean targetFound = false;
+                //while (iterate < 10000) {
+                    if (tfod != null) {
+                        //cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+                        // getUpdatedRecognitions() will return null if no new information is available since
+                        // the last time that call was made.
+                        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                        if (updatedRecognitions != null) {
+                            telemetry.addData("# Object Detected", updatedRecognitions.size());
+                            // step through the list of recognitions and display boundary info.
+                            int i = 0;
+                            for (Recognition recognition : updatedRecognitions) { //arraylist
+                                telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                                //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                 //recognition.getLeft(), recognition.getTop());
-                        //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 //recognition.getRight(), recognition.getBottom());
 
-                          if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
-                              telemetry.addData("quad:", "quad");
-                              beyonce.DriveForward(0.25);
-                              sleep(500);
-                              beyonce.Stop();
-                              targetFound = true;
-                          } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                              telemetry.addData("single", "single");
-                              beyonce.StrafeLeft(0.25);
-                              sleep(500);
-                              beyonce.Stop();
-                              targetFound = true;
-                          } else {
-                              telemetry.addData("no rings", "no rings");
-                              beyonce.DriveForward(0.25);
-                              sleep(500);
-                              beyonce.StrafeLeft(0.25);
-                              sleep(500);
-                              beyonce.Stop();
-                              targetFound = true;
-                          }
+                                if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
+                                    telemetry.addData("quad:", "quad");
+                                    beyonce.DriveBackward(0.5);
+                                    sleep(1000);
+                                    beyonce.StrafeRight(0.75);
+                                    sleep(5000);
+                                    beyonce.DriveForward(0.75);
+                                    sleep(250);
+                                    beyonce.Stop();
+                                    sleep(500);
+                                    beyonce.ArmDown(-0.5);
+                                    sleep(1800);
+                                    beyonce.ArmDown(-0.25);
+                                    sleep(250);
+                                    beyonce.ClawOpen();
+                                    sleep(100);
+                                    beyonce.DriveForward(0.75);
+                                    sleep(250);
+                                    beyonce.StrafeLeft(0.75);
+                                    sleep(1750);
+                                    beyonce.Stop();
+                                    targetFound = true;
+                                } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                                    telemetry.addData("single", "single");
+                                    beyonce.StrafeRight(0.5);
+                                    sleep(2000);
+                                    beyonce.Stop();
+                                    targetFound = true;
+                                } else {
+                                    telemetry.addData("no rings", "no rings");
+                                    beyonce.DriveBackward(0.5);
+                                    sleep(1000);
+                                    beyonce.StrafeRight(0.5);
+                                    sleep(1000);
+                                    beyonce.Stop();
+                                    targetFound = true;
+                                }
 
-                      }
+                            }
 
-                      telemetry.update();
+                            telemetry.update();
+                        }
+                //    }
+                    if (targetFound) {
+                        break;
                     }
                 }
-                if (targetFound) {
-                    break;
-                }
             }
-        //}
+        }
 
         if (tfod != null) {
             tfod.shutdown();

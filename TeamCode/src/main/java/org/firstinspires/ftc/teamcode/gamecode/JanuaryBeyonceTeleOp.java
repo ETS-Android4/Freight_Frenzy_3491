@@ -32,14 +32,13 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        double pivot;
+        double horizontal;
+        double vertical;
+
         //While opMode is active do the stuff in the while loop
         if(opModeIsActive()){
         while (opModeIsActive()) {
-
-            //Declaring drive variables
-            double horizontal;
-            double vertical;
-            double pivot;
 
             //Drive control option one
             if (leftHanded) {
@@ -56,7 +55,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
                     leftHanded = false;
                 }
 
-            //Drive control option two
+                //Drive control option two
             } else {
                 if (gamepad1.right_trigger > 0) {
                     pivot = gamepad1.right_stick_x / 3;
@@ -79,7 +78,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
             beyonce.BackRight.setPower(-pivot + (vertical + horizontal));
 
             //Wobble grabber Arm
-            beyonce.Arm.setPower(gamepad2.right_stick_y / 2);
+            beyonce.Arm.setPower(gamepad2.right_stick_y / 4);
 
             //Wobble grabber Claw
             if (gamepad2.x) {
@@ -96,7 +95,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
             }
 
             //Shooter ramp
-            beyonce.Ramp.setPower(gamepad2.left_stick_y);
+            beyonce.moveRamp(gamepad1.left_stick_y);
 
             //Shooter
             if (gamepad2.dpad_right) {
@@ -107,7 +106,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
             }
 
             //Keeps user updated
-            telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)", horizontal, vertical, pivot);
+            telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)\nslow button: (%.2f)", horizontal, vertical, pivot, gamepad1.right_trigger);
             telemetry.update();
         }}
     }

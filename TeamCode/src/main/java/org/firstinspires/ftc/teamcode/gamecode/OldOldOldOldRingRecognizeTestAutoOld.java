@@ -32,6 +32,9 @@ package org.firstinspires.ftc.teamcode.gamecode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -55,7 +58,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class RingRecognizeTestAuto extends AutoOpMode {
+public class OldOldOldOldRingRecognizeTestAutoOld extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -121,43 +124,47 @@ nice * web site at https://developer.vuforia.com/license-manager.
         telemetry.update();
         waitForStart();
 
-        beyonce.ShooterOn();
-        sleep(2000);
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.ShooterOff();
-        sleep(100);
+//        beyonce.ShooterOn();
+//        sleep(2000);
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        beyonce.ShooterOff();
+//        sleep(100);
+
+        int objects;
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 int iterate = 0;
                 boolean targetFound = false;
                 //while (iterate < 10000) {
-                    if (tfod != null) {
-                        //cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-                        // getUpdatedRecognitions() will return null if no new information is available since
-                        // the last time that call was made.
-                        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                        if (updatedRecognitions != null) {
-                            telemetry.addData("# Object Detected", updatedRecognitions.size());
-                            // step through the list of recognitions and display boundary info.
-                            int i = 0;
-                            for (Recognition recognition : updatedRecognitions) { //arraylist
-                                telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                                //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                //recognition.getLeft(), recognition.getTop());
-                                //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                //recognition.getRight(), recognition.getBottom());
+                if (tfod != null) {
+                    //cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                    if (updatedRecognitions != null) {
+                        objects = updatedRecognitions.size();
+                        telemetry.addData("# Object Detected", objects);
+                        // step through the list of recognitions and display boundary info.
+                        int i = 0;
+                        for (Recognition recognition : updatedRecognitions) { //arraylist
+                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
 
-                                if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
-                                    telemetry.addData("quad:", "quad");
+                            //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            //recognition.getLeft(), recognition.getTop());
+                            //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            //recognition.getRight(), recognition.getBottom());
+
+                            if (objects == 0) {
+                                    telemetry.addData("JHJ", "JJJ");
                                     beyonce.DriveBackward(0.5);
                                     sleep(1000);
                                     beyonce.StrafeRight(0.75);
-                                    sleep(5000);
+                                    sleep(2500);
                                     beyonce.DriveForward(0.75);
-                                    sleep(250);
+                                    sleep(600);
                                     beyonce.Stop();
                                     sleep(500);
                                     beyonce.ArmDown(-0.5);
@@ -167,41 +174,87 @@ nice * web site at https://developer.vuforia.com/license-manager.
                                     beyonce.ClawOpen();
                                     sleep(100);
                                     beyonce.DriveForward(0.75);
-                                    sleep(250);
-                                    beyonce.StrafeLeft(0.75);
-                                    sleep(1750);
                                     beyonce.Stop();
                                     targetFound = true;
-                                } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                                    telemetry.addData("single", "single");
-                                    beyonce.StrafeRight(0.5);
-                                    sleep(2000);
-                                    beyonce.Stop();
-                                    targetFound = true;
-                                } else {
-                                    telemetry.addData("no rings", "no rings");
-                                    beyonce.DriveBackward(0.5);
-                                    sleep(1000);
-                                    beyonce.StrafeRight(0.5);
-                                    sleep(1000);
-                                    beyonce.Stop();
-                                    targetFound = true;
-                                }
+                            } else if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
+                                telemetry.addData("quad:", "quad");
+                                beyonce.DriveBackward(0.5);
+                                sleep(1000);
+                                beyonce.StrafeRight(0.75);
+                                sleep(5000);
+                                beyonce.DriveForward(0.75);
+                                sleep(250);
+                                beyonce.Stop();
+                                sleep(500);
+                                beyonce.ArmDown(-0.5);
+                                sleep(1800);
+                                beyonce.ArmDown(-0.25);
+                                sleep(250);
+                                beyonce.ClawOpen();
+                                sleep(100);
+                                beyonce.DriveForward(0.75);
+                                sleep(250);
+                                beyonce.StrafeLeft(0.75);
+                                sleep(1750);
+                                beyonce.Stop();
+                                targetFound = true;
+                            } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) { //if single
+                                telemetry.addData("single", "single");
+                                beyonce.DriveBackward(0.5);
+                                sleep(1000);
+                                beyonce.StrafeRight(0.75);
+                                sleep(3200);
+                                beyonce.DriveForward(0.5);
+                                sleep(1500);
+                                beyonce.Stop();
+                                beyonce.ClawClose();
+                                sleep(500);
+                                beyonce.ArmDown(-0.45);
+                                sleep(1500);
+                                sleep(1500);
+                                beyonce.ClawOpen();
+                                sleep(100);
+                                beyonce.DriveForward(0.75);
+                                sleep(250);
+                                beyonce.StrafeLeft(0.75);
+                                sleep(700);
+                                beyonce.Stop();
+                                targetFound = true;
+                            }
+                            else{
+                                telemetry.addData("no", "rings");
+                                beyonce.DriveBackward(0.5);
+                                sleep(1000);
+                                beyonce.StrafeRight(0.75);
+                                sleep(2500);
+                                beyonce.DriveForward(0.75);
+                                sleep(600);
+                                beyonce.Stop();
+                                sleep(500);
+                                beyonce.ArmDown(-0.5);
+                                sleep(1800);
+                                beyonce.ArmDown(-0.25);
+                                sleep(250);
+                                beyonce.ClawOpen();
+                                sleep(100);
+                                beyonce.DriveForward(0.75);
+                                beyonce.Stop();
 
                             }
 
-                            telemetry.update();
                         }
-                //    }
+
+                        telemetry.update();
+                    }
                     if (targetFound) {
                         break;
                     }
                 }
             }
-        }
 
-        if (tfod != null) {
-            tfod.shutdown();
+            if (tfod != null) {
+                tfod.shutdown();
+            }
         }
     }
 

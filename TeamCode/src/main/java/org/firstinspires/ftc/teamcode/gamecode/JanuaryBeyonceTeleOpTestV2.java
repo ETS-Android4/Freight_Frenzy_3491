@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
 @TeleOp
-public class JanuaryBeyonceTeleOpTest extends TeleOpMode {
+public class JanuaryBeyonceTeleOpTestV2 extends TeleOpMode {
     Beyonce beyonce;
 
     public void initialize() {
@@ -40,10 +36,13 @@ public class JanuaryBeyonceTeleOpTest extends TeleOpMode {
                 pivot = gamepad1.left_stick_x / 5;
                 horizontal = -gamepad1.right_stick_x / 5;
                 vertical = gamepad1.right_stick_y / 5;
+                telemetry.addData("s", "slow");
             } else {
                 pivot = gamepad1.left_stick_x;
                 horizontal = -gamepad1.right_stick_x;
                 vertical = gamepad1.right_stick_y;
+                telemetry.addData("s", "fast");
+
             }
             if (gamepad1.dpad_right) {
                 leftHanded = false;
@@ -54,11 +53,15 @@ public class JanuaryBeyonceTeleOpTest extends TeleOpMode {
             if (gamepad1.right_trigger > 0) {
                 pivot = gamepad1.right_stick_x / 5;
                 horizontal = -gamepad1.left_stick_x / 5;
-                vertical = gamepad1.left_stick_y / 5;
+                vertical = gamepad1.left_stick_y /5;
+                telemetry.addData("s", "slow");
+
             } else {
                 pivot = gamepad1.right_stick_x;
                 horizontal = -gamepad1.left_stick_x;
                 vertical = gamepad1.left_stick_y;
+                telemetry.addData("s", "fast");
+
             }
             if (gamepad1.dpad_left) {
                 leftHanded = true;

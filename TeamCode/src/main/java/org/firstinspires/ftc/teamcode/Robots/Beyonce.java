@@ -17,6 +17,7 @@ public class Beyonce {
     public Motor BackRight;
     public Motor BackLeft;
     public Motor Arm;
+    public Motor Led;
 
     public FXTServo Claw;
 
@@ -37,6 +38,8 @@ public class Beyonce {
         FrontLeft = new Motor("frontL");
         BackRight = new Motor("backR");
         BackLeft = new Motor("backL");
+        Led = new Motor ("LED");
+
 
         //Wobble Grabber
         Claw = new FXTServo("Claw");
@@ -55,6 +58,8 @@ public class Beyonce {
         FrontLeft.setMinimumSpeed(0.1);
         BackRight.setMinimumSpeed(0.1);
         BackLeft.setMinimumSpeed(0.1);
+
+        Led.setPower(1);
     }
 
     //Robot Driving

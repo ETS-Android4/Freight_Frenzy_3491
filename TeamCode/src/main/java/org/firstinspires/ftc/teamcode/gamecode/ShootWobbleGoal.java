@@ -66,7 +66,7 @@ public class ShootWobbleGoal extends AutoOpMode {
                 telemetry.addData("status", getMilliSeconds(1));
                 telemetry.addData("red", colorSensorL.red());
 
-                beyonce.StrafeRight(0.05);
+/*nice*/        beyonce.StrafeRight(0.05);
             }
             telemetry.addData("red", colorSensorL.red());
 

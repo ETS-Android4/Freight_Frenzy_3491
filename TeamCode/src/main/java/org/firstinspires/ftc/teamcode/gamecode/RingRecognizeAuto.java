@@ -66,7 +66,7 @@ public class RingRecognizeAuto extends AutoOpMode {
     Beyonce beyonce = new Beyonce();
 
     /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
+nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
      * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
 nice * web site at https://developer.vuforia.com/license-manager.
@@ -223,13 +223,13 @@ nice * web site at https://developer.vuforia.com/license-manager.
                             beyonce.DriveForward(0.5);
                             sleep(1500);
                             beyonce.Stop();
-                            beyonce.ClawClose();
                             sleep(500);
-                            beyonce.ArmDown(-0.45);
-                            sleep(1500);
-                            sleep(1500);
+                            beyonce.ArmDown(-0.5);
+                            sleep(1800);
+                            beyonce.ArmDown(-0.25);
+                            sleep(250);
+                            sleep(500);
                             beyonce.ClawOpen();
-                            sleep(100);
                             beyonce.DriveForward(0.75);
                             sleep(250);
                             beyonce.StrafeLeft(0.75);
@@ -245,11 +245,11 @@ nice * web site at https://developer.vuforia.com/license-manager.
                             beyonce.DriveForward(0.75);
                             sleep(600);
                             beyonce.Stop();
-                            sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
                             beyonce.ArmDown(-0.25);
                             sleep(250);
+                            sleep(500);
                             beyonce.ClawOpen();
                             sleep(100);
                             beyonce.DriveForward(0.75);

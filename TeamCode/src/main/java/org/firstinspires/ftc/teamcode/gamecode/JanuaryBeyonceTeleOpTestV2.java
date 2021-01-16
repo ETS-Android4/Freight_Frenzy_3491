@@ -66,7 +66,7 @@ public class JanuaryBeyonceTeleOpTestV2 extends TeleOpMode {
             if (gamepad1.dpad_left) {
                 leftHanded = true;
             }
-        }
+/*nice*/}
 
         //Drive calculations
         beyonce.FrontLeft.setPower(pivot + (vertical + horizontal));
@@ -79,10 +79,15 @@ public class JanuaryBeyonceTeleOpTestV2 extends TeleOpMode {
 
         //Wobble grabber Claw
         if (gamepad2.x) {
-            beyonce.ClawOpen();
-        } else if (gamepad2.b){
             beyonce.ClawClose();
+        } else if (gamepad2.b){
+            beyonce.ClawOpen();
         }
+
+        if (gamepad2.y) {
+            beyonce.Led.setPower(0);
+        }
+        beyonce.Led.setPower(1);
 
         //Ring pusher
         if (gamepad2.right_trigger > 0) {

@@ -66,7 +66,7 @@ public class Test extends AutoOpMode {
 //
 //        beyonce.Stop();
 
-//        sleep(500);
+//nice    sleep(500);
 //
 //        beyonce.StrafeLeft(0.1);
 //        sleep(1250);

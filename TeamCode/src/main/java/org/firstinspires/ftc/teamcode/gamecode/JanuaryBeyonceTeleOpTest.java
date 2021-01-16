@@ -66,7 +66,7 @@ public class JanuaryBeyonceTeleOpTest extends TeleOpMode {
         }
 
         //Drive calculations
-        beyonce.FrontLeft.setPower(pivot + (vertical + horizontal));
+/*nice*/beyonce.FrontLeft.setPower(pivot + (vertical + horizontal));
         beyonce.FrontRight.setPower(-pivot + (vertical - horizontal));
         beyonce.BackLeft.setPower(pivot + (vertical - horizontal));
         beyonce.BackRight.setPower(-pivot + (vertical + horizontal));

@@ -66,7 +66,7 @@ public class JanuaryBeyonceTeleOp extends LinearOpMode {
                     horizontal = -gamepad1.left_stick_x;
                     vertical = gamepad1.left_stick_y;
                 }
-                if (gamepad1.dpad_left) {
+/*nice*/        if (gamepad1.dpad_left) {
                     leftHanded = true;
                 }
             }

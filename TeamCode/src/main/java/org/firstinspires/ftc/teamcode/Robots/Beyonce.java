@@ -66,7 +66,7 @@ public class Beyonce {
     public void DriveForward(double speed){
         FrontLeft.setPower(-speed);
         FrontRight.setPower(speed);
-        BackLeft.setPower(-speed);
+/*nice*/BackLeft.setPower(-speed);
         BackRight.setPower(speed);
     }
     public void DriveBackward(double speed){
@@ -108,10 +108,10 @@ public class Beyonce {
 
     //Set Position and Power
     public void ClawOpen() {
-        Claw.setPosition(1);
+        Claw.setPosition(0);
     }
     public void ClawClose() {
-        Claw.setPosition(0);
+        Claw.setPosition(1);
     }
 
     public void ShooterOn() {

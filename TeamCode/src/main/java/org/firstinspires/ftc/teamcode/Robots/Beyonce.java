@@ -71,7 +71,7 @@ public class Beyonce {
     }
     public void DriveBackward(double speed){
         FrontLeft.setPower(speed);
-/*nice*/FrontRight.setPower(-speed);
+        FrontRight.setPower(-speed);
         BackLeft.setPower(speed);
         BackRight.setPower(-speed);
     }

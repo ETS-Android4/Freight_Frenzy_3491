@@ -29,12 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.gamecode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -42,8 +38,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.RC;
-import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoderTest;
+import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 import java.util.List;
 
@@ -58,12 +55,15 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class OldOldOldOldRingRecognizeTestAutoOld extends AutoOpMode {
+public class RingRecognizeAutoEncoderTest extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
-    Beyonce beyonce = new Beyonce();
+    BeyonceEncoderTest beyonce = new BeyonceEncoderTest();
+
+
+
 
     /*
 nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -98,6 +98,7 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
         // first.
         initVuforia();
         initTfod();
+        int state = 0;
 
 
         /**
@@ -124,13 +125,13 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
         telemetry.update();
         waitForStart();
 
-//        beyonce.ShooterOn();
-//        sleep(2000);
-//        beyonce.Shoot();
-//        beyonce.Shoot();
-//        beyonce.Shoot();
-//        beyonce.ShooterOff();
-//        sleep(100);
+        beyonce.ShooterOn();
+        sleep(2000);
+        beyonce.Shoot();
+        beyonce.Shoot();
+        beyonce.Shoot();
+        beyonce.ShooterOff();
+        sleep(100);
 
         int objects;
 
@@ -152,95 +153,107 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                         for (Recognition recognition : updatedRecognitions) { //arraylist
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
 
-                            //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                            //recognition.getLeft(), recognition.getTop());
-                            //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                            //recognition.getRight(), recognition.getBottom());
+                            if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
+                                state = 1;
+                                telemetry.addData("state", 1);
 
-                            if (objects == 0) {
-                                    telemetry.addData("JHJ", "JJJ");
-                                    beyonce.DriveBackward(0.5);
-                                    sleep(1000);
-                                    beyonce.StrafeRight(0.75);
-                                    sleep(2500);
-                                    beyonce.DriveForward(0.75);
-                                    sleep(600);
-                                    beyonce.Stop();
-                                    sleep(500);
-                                    beyonce.ArmDown(-0.5);
-                                    sleep(1800);
-                                    beyonce.ArmDown(-0.25);
-                                    sleep(250);
-                                    beyonce.ClawOpen();
-                                    sleep(100);
-                                    beyonce.DriveForward(0.75);
-                                    beyonce.Stop();
-                                    targetFound = true;
-                            } else if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) { //if quad
-                                telemetry.addData("quad:", "quad");
-                                beyonce.DriveBackward(0.5);
-                                sleep(1000);
-                                beyonce.StrafeRight(0.75);
-                                sleep(5000);
-                                beyonce.DriveForward(0.75);
-                                sleep(250);
-                                beyonce.Stop();
-                                sleep(500);
-                                beyonce.ArmDown(-0.5);
-                                sleep(1800);
-                                beyonce.ArmDown(-0.25);
-                                sleep(250);
-                                beyonce.ClawOpen();
-                                sleep(100);
-                                beyonce.DriveForward(0.75);
-                                sleep(250);
-                                beyonce.StrafeLeft(0.75);
-                                sleep(1750);
-                                beyonce.Stop();
-                                targetFound = true;
-                            } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) { //if single
-                                telemetry.addData("single", "single");
-                                beyonce.DriveBackward(0.5);
-                                sleep(1000);
-                                beyonce.StrafeRight(0.75);
-                                sleep(3200);
-                                beyonce.DriveForward(0.5);
-                                sleep(1500);
-                                beyonce.Stop();
-                                beyonce.ClawClose();
-                                sleep(500);
-                                beyonce.ArmDown(-0.45);
-                                sleep(1500);
-                                sleep(1500);
-                                beyonce.ClawOpen();
-                                sleep(100);
-                                beyonce.DriveForward(0.75);
-                                sleep(250);
-                                beyonce.StrafeLeft(0.75);
-                                sleep(700);
-                                beyonce.Stop();
-                                targetFound = true;
-                            }
-                            else{
-                                telemetry.addData("no", "rings");
-                                beyonce.DriveBackward(0.5);
-                                sleep(1000);
-                                beyonce.StrafeRight(0.75);
-                                sleep(2500);
-                                beyonce.DriveForward(0.75);
-                                sleep(600);
-                                beyonce.Stop();
-                                sleep(500);
-                                beyonce.ArmDown(-0.5);
-                                sleep(1800);
-                                beyonce.ArmDown(-0.25);
-                                sleep(250);
-                                beyonce.ClawOpen();
-                                sleep(100);
-                                beyonce.DriveForward(0.75);
-                                beyonce.Stop();
+                            } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                                state = 2;
+                                telemetry.addData("state", 1);
 
                             }
+                            telemetry.addData("in", 0);
+                            break;
+                        }
+
+                        telemetry.addData("out", 0);
+                        //telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                        //recognition.getLeft(), recognition.getTop());
+                        //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                        //recognition.getRight(), recognition.getBottom());
+
+                        if (state == 0) {
+                            telemetry.addData("STATE", "0");
+                            beyonce.DriveBackward(0.5);
+                            sleep(1000);
+                            beyonce.StrafeRight(0.75);
+                            sleep(2500);
+                            beyonce.DriveForward(0.75);
+                            sleep(500);
+                            beyonce.Stop();
+                            sleep(500);
+                            beyonce.ArmDown(-0.5);
+                            sleep(1800);
+                            beyonce.ArmDown(-0.25);
+                            sleep(250);
+                            beyonce.ClawOpen();
+                            sleep(100);
+                            beyonce.DriveForward(0.75);
+                            beyonce.Stop();
+                            targetFound = true;
+                        } else if (state == 1) { //if quad
+                            telemetry.addData("quad:", "quad");
+                            beyonce.DriveBackward(0.5);
+                            sleep(1000);
+                            beyonce.StrafeRight(0.75);
+                            sleep(5000);
+                            beyonce.DriveForward(0.75);
+                            sleep(250);
+                            beyonce.Stop();
+                            sleep(500);
+                            beyonce.ArmDown(-0.5);
+                            sleep(1800);
+                            beyonce.ArmDown(-0.25);
+                            sleep(250);
+                            sleep(500);
+                            beyonce.ClawOpen();
+                            sleep(100);
+                            beyonce.DriveForward(0.75);
+                            sleep(250);
+                            beyonce.StrafeLeft(0.75);
+                            sleep(1750);
+                            beyonce.Stop();
+                            targetFound = true;
+                        } else if (state == 2) { //if single
+                            telemetry.addData("single", "single");
+                            beyonce.DriveBackward(0.5);
+                            sleep(1000);
+                            beyonce.StrafeRight(0.75);
+                            sleep(3200);
+                            beyonce.DriveForward(0.5);
+                            sleep(1500);
+                            beyonce.Stop();
+                            sleep(500);
+                            beyonce.ArmDown(-0.5);
+                            sleep(1800);
+                            beyonce.ArmDown(-0.25);
+                            sleep(250);
+                            sleep(500);
+                            beyonce.ClawOpen();
+                            beyonce.DriveForward(0.75);
+                            sleep(250);
+                            beyonce.StrafeLeft(0.75);
+                            sleep(700);
+                            beyonce.Stop();
+                            targetFound = true;
+                        } else {
+                            telemetry.addData("no", "rings");
+                            beyonce.DriveBackward(0.5);
+                            sleep(1000);
+                            beyonce.StrafeRight(0.75);
+                            sleep(2500);
+                            beyonce.DriveForward(0.75);
+                            sleep(600);
+                            beyonce.Stop();
+                            beyonce.ArmDown(-0.5);
+                            sleep(1800);
+                            beyonce.ArmDown(-0.25);
+                            sleep(250);
+                            sleep(500);
+                            beyonce.ClawOpen();
+                            sleep(100);
+                            beyonce.DriveForward(0.75);
+                            beyonce.Stop();
 
                         }
 
@@ -281,10 +294,12 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
      */
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-            "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-       tfodParameters.minResultConfidence = 0.8f;
-       tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-       tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
+
+
 }

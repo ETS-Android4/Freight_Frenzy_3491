@@ -65,8 +65,8 @@ public class JanuaryBeyonceTeleOp extends TeleOpMode {
             beyonce.BackLeft.setPower(pivot + (vertical - horizontal));
             beyonce.BackRight.setPower(-pivot + (vertical + horizontal));
             telemetry.addData("s", "fast");
-/*nice*/}
-
+        }
+//nice
 
         //Wobble grabber Arm
         beyonce.Arm.setPower(gamepad2.right_stick_y / 4);

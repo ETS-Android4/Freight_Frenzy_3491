@@ -66,7 +66,7 @@ public class BeyonceTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             //variables to control mechanisms
-            int target = 1;
+/*nice*/    int target = 1;
 
             //so that i dont have to write gamepad1.left_stick every single time for the calculations
             double horizontal = gamepad1.left_stick_x;

@@ -1,58 +1,67 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import static android.os.SystemClock.sleep;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 
 public class BeyonceEncoderTest {
+    public Motor FrontRight;
+    public Motor FrontLeft;
+    public Motor BackRight;
+    public Motor BackLeft;
+    public Motor Arm;
+    public Motor Led;
 
-    static final double COUNTS_PER_MOTOR_REV = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1.0 ;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0 ;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    public DcMotorEx Shooter;
 
-    public DcMotorEx FrontRight;
-    public DcMotorEx FrontLeft;
-    public DcMotorEx BackRight;
-    public DcMotorEx BackLeft;
+    public FXTServo Claw;
 
-
-    public Motor LinearSlide;
-    public FXTServo Grabber;
-
-    public Motor Shooter;
-    //public FXTServo TargetRamp;
+    public FXTServo Ramp;
 
     public FXTServo RingPusher;
 
-    ColorSensor colorSensorL;
-    ColorSensor colorSensorR;
 
+//    ColorSensor colorSensorL;
+//    ColorSensor colorSensorR;
 
-
-    HardwareMap hwMap = null;
-    public BeyonceEncoderTest(HardwareMap ahwMap){
-        hwMap = ahwMap;
+    //Declaring stuff
+    public BeyonceEncoderTest(){
 
         //Drivebase
-        FrontRight = hwMap.get(DcMotorEx.class, "frontR");
-        FrontLeft = hwMap.get(DcMotorEx.class, "frontL");
-        BackRight = hwMap.get(DcMotorEx.class, "backR");
-        BackLeft = hwMap.get(DcMotorEx.class, "backR");
+        FrontRight = new Motor("frontR");
+        FrontLeft = new Motor("frontL");
+        BackRight = new Motor("backR");
+        BackLeft = new Motor("backL");
+        Led = new Motor ("LED");
 
-        FrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Wobble Grabber
+        Claw = new FXTServo("Claw");
+        Arm = new Motor("Arm");
+
+        //Shooter
+        Shooter = hardwareMap.get(DcMotorEx.class, "Shooter");
+
+        //Shooter Ramp
+        Ramp = new FXTServo("Ramp");
+
+        //Ring pusher
+        RingPusher = new FXTServo("RingPusher");
+
+        FrontRight.setMinimumSpeed(0.1);
+        FrontLeft.setMinimumSpeed(0.1);
+        BackRight.setMinimumSpeed(0.1);
+        BackLeft.setMinimumSpeed(0.1);
+
+        Led.setPower(1);
+        Shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
-
 
     //Robot Driving
     public void DriveForward(double speed){
@@ -63,7 +72,7 @@ public class BeyonceEncoderTest {
     }
     public void DriveBackward(double speed){
         FrontLeft.setPower(speed);
-        FrontRight.setPower(-speed);
+/*nice*/FrontRight.setPower(-speed);
         BackLeft.setPower(speed);
         BackRight.setPower(-speed);
     }
@@ -84,7 +93,6 @@ public class BeyonceEncoderTest {
         FrontRight.setPower(-speed);
         BackLeft.setPower(-speed);
         BackRight.setPower(-speed);
-
     }
     public void TurnRight(double speed){
         FrontLeft.setPower(speed);
@@ -92,7 +100,6 @@ public class BeyonceEncoderTest {
         BackLeft.setPower(speed);
         BackRight.setPower(speed);
     }
-
     public void Stop(){
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
@@ -100,4 +107,45 @@ public class BeyonceEncoderTest {
         BackRight.setPower(0);
     }
 
+    //Set Position and Power
+    public void ClawOpen() {
+        Claw.setPosition(0);
+    }
+    public void ClawClose() {
+        Claw.setPosition(1);
+    }
+
+    public void ShooterOn() {
+        Shooter.setVelocity(200);
+    }
+    public void ShooterOff() {
+        Shooter.setVelocity(0);
+    }
+
+    private double position = 0;
+    public void moveRamp(double power) {
+        position = position + (power / 10);
+        if (position < 0.2) {position = 0.2;}
+        if (position > 0.8) {position = 0.8;}
+        Ramp.setPosition(power);
+    }
+
+    public void ArmDown(double power) {
+        Arm.setPower(power);
+    }
+
+    //Ring pusher method
+    public void Shoot() {
+        RingPusherExtend();
+        sleep(1250);
+        RingPusherRetract();
+        sleep(750);
+        sleep(2500);
+    }
+    public void RingPusherExtend() {
+        RingPusher.setPosition(0.2);
+    }
+    public void RingPusherRetract() {
+        RingPusher.setPosition(0.8);
+    }
 }

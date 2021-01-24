@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.newhardware.Motor;
 
 import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 
 public class BeyonceEncoderTest {
@@ -19,6 +20,7 @@ public class BeyonceEncoderTest {
     public Motor Led;
 
     public DcMotorEx Shooter;
+    public DcMotor ShooterDcMotor = Shooter;
 
     public FXTServo Claw;
 
@@ -46,7 +48,14 @@ public class BeyonceEncoderTest {
         Arm = new Motor("Arm");
 
         //Shooter
-        Shooter = hardwareMap.get(DcMotorEx.class, "Shooter");
+
+
+//        try {
+            ShooterDcMotor = hardwareMap.get(DcMotorEx.class, "Shooter");
+//        } catch (NullPointerException) {
+//            telemetry.addData("Encoder null test: ", "failed");
+//            telemetry.update();
+//        }
 
         //Shooter Ramp
         Ramp = new FXTServo("Ramp");
@@ -60,7 +69,7 @@ public class BeyonceEncoderTest {
         BackLeft.setMinimumSpeed(0.1);
 
         Led.setPower(1);
-        Shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        Shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     //Robot Driving
@@ -115,12 +124,12 @@ public class BeyonceEncoderTest {
         Claw.setPosition(1);
     }
 
-    public void ShooterOn() {
-        Shooter.setVelocity(200);
-    }
-    public void ShooterOff() {
-        Shooter.setVelocity(0);
-    }
+//    public void ShooterOn() {
+//        Shooter.setVelocity(200);
+//    }
+//    public void ShooterOff() {
+//        Shooter.setVelocity(0);
+//    }
 
     private double position = 0;
     public void moveRamp(double power) {

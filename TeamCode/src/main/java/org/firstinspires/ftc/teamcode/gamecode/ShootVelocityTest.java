@@ -19,10 +19,10 @@ public class ShootVelocityTest extends AutoOpMode {
 
         waitForStart();
 
-        beyonce.ShooterOn();
+//        beyonce.ShooterOn();
         sleep(5000);
 
-        beyonce.ShooterOff();
+//        beyonce.ShooterOff();
 
     }
 }

@@ -125,12 +125,12 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
         telemetry.update();
         waitForStart();
 
-        beyonce.ShooterOn();
-        sleep(2000);
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.ShooterOff();
+//        beyonce.ShooterOn();
+//        sleep(2000);
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        beyonce.ShooterOff();
         sleep(100);
 
         int objects;

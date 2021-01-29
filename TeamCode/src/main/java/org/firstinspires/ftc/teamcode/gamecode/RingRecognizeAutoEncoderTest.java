@@ -131,7 +131,7 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
 //        beyonce.Shoot();
 //        beyonce.Shoot();
 //        beyonce.ShooterOff();
-        sleep(100);
+//        sleep(100);
 
         int objects;
 

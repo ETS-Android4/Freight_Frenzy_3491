@@ -18,7 +18,7 @@ public class Test extends AutoOpMode {
     public void runOp() throws InterruptedException {
         Beyonce beyonce = new Beyonce();
         ColorSensor colorSensorL;
-        colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorR");
+        colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
         boolean white = opModeIsActive() && 38 > colorSensorL.red();
 
         //beyonce.GrabberUp();

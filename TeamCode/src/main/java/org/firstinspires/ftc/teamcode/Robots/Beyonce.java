@@ -27,8 +27,8 @@ public class Beyonce {
 
     public FXTServo RingPusher;
 
-//    ColorSensor colorSensorL;
-//    ColorSensor colorSensorR;
+    ColorSensor colorSensorL;
+    ColorSensor colorSensorR;
 
     //Declaring stuff
     public Beyonce(){

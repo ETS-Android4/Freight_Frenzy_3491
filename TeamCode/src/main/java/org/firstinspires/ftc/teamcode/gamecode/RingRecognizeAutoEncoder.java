@@ -30,11 +30,7 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -43,6 +39,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.RC;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoder;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 import java.util.List;
@@ -58,12 +55,12 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class RingRecognizeAuto extends AutoOpMode {
+public class RingRecognizeAutoEncoder extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
-    Beyonce beyonce = new Beyonce();
+    BeyonceEncoder beyonce = new BeyonceEncoder();
 
     /*
 nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -125,13 +122,25 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
         telemetry.update();
         waitForStart();
 
-//        beyonce.ShooterOn();
-//        sleep(2000);
-//        beyonce.Shoot();
-//        beyonce.Shoot();
-//        beyonce.Shoot();
-//        beyonce.ShooterOff();
-//        sleep(100);
+        beyonce.ShooterOn();
+        sleep(2000);
+        telemetry.addData("Velocity: ", beyonce.getShooterVelocity());
+        telemetry.update();
+
+        beyonce.Shoot();
+        telemetry.addData("Velocity: ", beyonce.getShooterVelocity());
+        telemetry.update();
+
+        beyonce.Shoot();
+        telemetry.addData("Velocity: ", beyonce.getShooterVelocity());
+        telemetry.update();
+
+        beyonce.Shoot();
+        telemetry.addData("Velocity: ", beyonce.getShooterVelocity());
+        telemetry.update();
+
+        beyonce.ShooterOff();
+        sleep(100);
 
         int objects;
 

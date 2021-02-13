@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Robots.Robot;
-import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import static android.os.SystemClock.sleep;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap; //idfk idfc as long as it works
 
 
-public class Beyonce {
+public class BeyonceEncoder {
     public Motor FrontRight;
     public Motor FrontLeft;
     public Motor BackRight;
@@ -21,7 +21,9 @@ public class Beyonce {
 
     public FXTServo Claw;
 
-    public Motor Shooter;
+    public DcMotor shooter = null;
+    double shooterPower = 0.0;  // not used in this example
+    double shooterVelocity = 0.0;  // used to read velocity in this example
 
     public FXTServo Ramp;
 
@@ -31,7 +33,7 @@ public class Beyonce {
     ColorSensor colorSensorR;
 
     //Declaring stuff
-    public Beyonce(){
+    public BeyonceEncoder(){
 
         //Drivebase
         FrontRight = new Motor("frontR");
@@ -46,7 +48,7 @@ public class Beyonce {
         Arm = new Motor("Arm");
 
         //Shooter
-        Shooter = new Motor("Shooter");
+        shooter = hardwareMap.get(DcMotor.class, "Shooter");
 
         //Shooter Ramp
         Ramp = new FXTServo("Ramp");
@@ -58,6 +60,11 @@ public class Beyonce {
         FrontLeft.setMinimumSpeed(0.1);
         BackRight.setMinimumSpeed(0.1);
         BackLeft.setMinimumSpeed(0.1);
+
+        shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shooter.setDirection(DcMotor.Direction.FORWARD);
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ((DcMotorEx) shooter).setVelocity(0);
 
         Led.setPower(1);
     }
@@ -115,11 +122,15 @@ public class Beyonce {
     }
 
     public void ShooterOn() {
-        Shooter.setPower(1);
+        ((DcMotorEx) shooter).setVelocity(500);
     }
     public void ShooterOff() {
-        Shooter.setPower(0);
+        ((DcMotorEx) shooter).setVelocity(0);
     }
+    public double getShooterVelocity() {
+        return ((DcMotorEx) shooter).getVelocity();
+    }
+
 
     private double position = 0;
     public void moveRamp(double power) {

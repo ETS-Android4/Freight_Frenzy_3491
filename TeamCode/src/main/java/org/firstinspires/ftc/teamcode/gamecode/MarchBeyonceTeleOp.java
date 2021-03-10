@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
 @TeleOp
-public class JanuaryBeyonceTeleOp extends TeleOpMode {
+public class MarchBeyonceTeleOp extends TeleOpMode {
     Beyonce beyonce;
 
     public void initialize() {
@@ -72,11 +72,15 @@ public class JanuaryBeyonceTeleOp extends TeleOpMode {
         beyonce.Arm.setPower(gamepad2.right_stick_y / 4);
 
         //Wobble grabber Claw
-        if (gamepad2.x) {
+        if (gamepad2.left_trigger > 0) {
             beyonce.ClawClose();
-        } else if (gamepad2.b){
+            telemetry.addData("Claw ", "closing");
+        } else if (gamepad2.left_bumper) {
             beyonce.ClawOpen();
+            telemetry.addData("claw", "open");
         }
+
+
 
 //        if (gamepad2.y) {
 //            beyonce.Led.setPower(0);
@@ -91,7 +95,7 @@ public class JanuaryBeyonceTeleOp extends TeleOpMode {
         }
 
         //Shooter ramp
-        beyonce.moveRamp(gamepad1.left_stick_y);
+        //beyonce.moveRamp(gamepad1.left_stick_y);
 
         //Shooter
         if (gamepad2.dpad_right) {
@@ -100,6 +104,28 @@ public class JanuaryBeyonceTeleOp extends TeleOpMode {
         if (gamepad2.dpad_left) {
             beyonce.ShooterOff();
         }
+
+        if (gamepad2.dpad_down){
+            beyonce.HoldWall();
+            telemetry.addData("wall", "hold");
+        }
+        else if (gamepad2.dpad_up){
+            beyonce.ReleaseWall();
+            telemetry.addData("wall", "release");
+        }
+
+        if (gamepad2.a){
+            beyonce.feeder.setPower(-1);
+
+            beyonce.ziptiepuller.setPower(0.5);}
+
+        if (gamepad2.y){
+            beyonce.feeder.setPower(0);
+
+            beyonce.ziptiepuller.setPower(0);
+        }
+
+
 
         //Keeps user updated
         telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)\nslow button: (%.2f)", horizontal, vertical, pivot, gamepad1.right_trigger);

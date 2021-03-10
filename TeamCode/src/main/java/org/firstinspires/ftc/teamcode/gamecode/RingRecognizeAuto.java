@@ -58,7 +58,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class RingRecognizeAuto extends AutoOpMode {
+public class    RingRecognizeAuto extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";

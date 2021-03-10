@@ -4,7 +4,12 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 
@@ -12,16 +17,23 @@ import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 public class TestIMU extends AutoOpMode {
     org.firstinspires.ftc.teamcode.Robots.Beyonce Beyonce;
 
-    @Override
+    public BNO055IMU imu;
     public void runOp() throws InterruptedException {
 
         //beyonce.GrabberUp();
         BNO055IMU imu;
-
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         waitForStart();
 
+        //yaw = imu.getAngularOrientation(angles.firstAngle);
+
         while (opModeIsActive()) {
+
+
 
 
 

@@ -16,14 +16,19 @@ public class Beyonce {
     public Motor FrontLeft;
     public Motor BackRight;
     public Motor BackLeft;
+    public Motor feeder;
+    public Motor ziptiepuller;
     public Motor Arm;
-    public Motor Led;
+    //public Motor Led;
 
     public FXTServo Claw;
 
     public Motor Shooter;
 
-    public FXTServo Ramp;
+    //public FXTServo Ramp;
+
+    public FXTServo WallHolder;
+
 
     public FXTServo RingPusher;
 
@@ -38,7 +43,10 @@ public class Beyonce {
         FrontLeft = new Motor("frontL");
         BackRight = new Motor("backR");
         BackLeft = new Motor("backL");
-        Led = new Motor ("LED");
+       // Led = new Motor ("LED");
+
+        ziptiepuller= new Motor("ziptiepuller");
+        feeder = new Motor("feeder");
 
 
         //Wobble Grabber
@@ -49,7 +57,9 @@ public class Beyonce {
         Shooter = new Motor("Shooter");
 
         //Shooter Ramp
-        Ramp = new FXTServo("Ramp");
+        //Ramp = new FXTServo("Ramp");
+
+        WallHolder = new FXTServo("WallHolder");
 
         //Ring pusher
         RingPusher = new FXTServo("RingPusher");
@@ -59,7 +69,7 @@ public class Beyonce {
         BackRight.setMinimumSpeed(0.1);
         BackLeft.setMinimumSpeed(0.1);
 
-        Led.setPower(1);
+        //Led.setPower(1);
     }
 
     //Robot Driving
@@ -126,7 +136,7 @@ public class Beyonce {
         position = position + (power / 10);
         if (position < 0.2) {position = 0.2;}
         if (position > 0.8) {position = 0.8;}
-        Ramp.setPosition(power);
+        //Ramp.setPosition(power);
     }
 
     public void ArmDown(double power) {
@@ -144,7 +154,24 @@ public class Beyonce {
     public void RingPusherExtend() {
         RingPusher.setPosition(0.2);
     }
-    public void RingPusherRetract() {
-        RingPusher.setPosition(0.8);
+    public void RingPusherRetract() { RingPusher.setPosition(0.8); }
+
+    public void feedingOn(){
+        feeder.setPower(1);
+        ziptiepuller.setPower(1);
     }
+
+    public void feedingOff(){
+        feeder.setPower(0);
+        ziptiepuller.setPower(0);
+    }
+
+    public void HoldWall(){
+        WallHolder.setPosition(0.1);
+    }
+    public void ReleaseWall(){
+        WallHolder.setPosition(0.9);
+    }
+
+
 }

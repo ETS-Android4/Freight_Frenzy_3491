@@ -152,9 +152,9 @@ public class Beyonce {
         sleep(2500);
     }
     public void RingPusherExtend() {
-        RingPusher.setPosition(0.2);
+        RingPusher.setPosition(1);
     }
-    public void RingPusherRetract() { RingPusher.setPosition(0.8); }
+    public void RingPusherRetract() { RingPusher.setPosition(0); }
 
     public void feedingOn(){
         feeder.setPower(1);

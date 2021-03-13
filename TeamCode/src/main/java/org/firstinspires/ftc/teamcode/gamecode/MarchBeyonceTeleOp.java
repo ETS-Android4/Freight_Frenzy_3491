@@ -72,12 +72,22 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
         beyonce.Arm.setPower(gamepad2.right_stick_y / 4);
 
         //Wobble grabber Claw
-        if (gamepad2.left_trigger > 0) {
+        if (gamepad2.b) {
             beyonce.ClawClose();
             telemetry.addData("Claw ", "closing");
-        } else if (gamepad2.left_bumper) {
+        } else if (gamepad2.x) {
             beyonce.ClawOpen();
             telemetry.addData("claw", "open");
+        }
+
+
+        if (gamepad2.left_trigger > 0){
+            beyonce.HoldWall();
+            telemetry.addData("wall", "hold");
+        }
+        else if (gamepad2.left_bumper){
+            beyonce.ReleaseWall();
+            telemetry.addData("wall", "release");
         }
 
 
@@ -112,14 +122,6 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
             beyonce.Ramp.setPosition(0.2);
         }
 
-        if (gamepad2.b){
-            beyonce.HoldWall();
-            telemetry.addData("wall", "hold");
-        }
-        else if (gamepad2.x){
-            beyonce.ReleaseWall();
-            telemetry.addData("wall", "release");
-        }
 
         if (gamepad2.a){
             beyonce.feeder.setPower(-1);

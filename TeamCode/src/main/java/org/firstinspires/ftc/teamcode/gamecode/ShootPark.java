@@ -28,9 +28,21 @@ public class ShootPark extends AutoOpMode {
         sleep(1000);
         beyonce.ShooterOff();
 
+        beyonce.ClawClose();
+        beyonce.StrafeLeft(0.2);
+        sleep(500);
+        beyonce.Stop();
+
+        sleep(200);
+
+        beyonce.DriveBackward(0.5);
+        sleep(1000);
+        beyonce.Stop();
+
+        sleep(200);
 
         beyonce.StrafeRight(0.5);
-        sleep(1000);
+        sleep(2200);
         beyonce.Stop();
 
 

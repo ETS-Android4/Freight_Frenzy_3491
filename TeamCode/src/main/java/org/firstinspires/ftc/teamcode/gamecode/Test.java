@@ -21,9 +21,17 @@ public class Test extends AutoOpMode {
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
         boolean white = opModeIsActive() && 38 > colorSensorL.red();
 
-        //beyonce.GrabberUp();
-
         waitForStart();
+
+        beyonce.DriveForward(0.5);
+        sleep(500);
+        beyonce.DriveBackward(0.5);
+        sleep(500);
+        beyonce.StrafeRight(0.5);
+        sleep(500);
+        beyonce.StrafeLeft(0.5);
+        sleep(500);
+        beyonce.Stop();
 
         colorSensorL.enableLed(true);
 

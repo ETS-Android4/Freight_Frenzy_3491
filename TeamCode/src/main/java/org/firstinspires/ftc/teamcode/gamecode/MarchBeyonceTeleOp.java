@@ -105,11 +105,18 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
             beyonce.ShooterOff();
         }
 
-        if (gamepad2.dpad_down){
+        if (gamepad1.left_bumper){
+            beyonce.Ramp.setPosition(0.8);
+        }
+        if (gamepad1.right_bumper){
+            beyonce.Ramp.setPosition(0.2);
+        }
+
+        if (gamepad2.b){
             beyonce.HoldWall();
             telemetry.addData("wall", "hold");
         }
-        else if (gamepad2.dpad_up){
+        else if (gamepad2.x){
             beyonce.ReleaseWall();
             telemetry.addData("wall", "release");
         }

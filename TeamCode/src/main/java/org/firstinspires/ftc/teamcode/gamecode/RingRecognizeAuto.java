@@ -172,15 +172,28 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                         //telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                         //recognition.getRight(), recognition.getBottom());
 
-                        if (state == 0) {
+                        if (state == 0) {//if none
                             telemetry.addData("STATE", "0");
-                            beyonce.DriveBackward(0.5);
+                            beyonce.ShooterOn();
+                            sleep(2000);
+                            beyonce.Shoot();
                             sleep(1000);
-                            beyonce.StrafeRight(0.75);
-                            sleep(2500);
-                            beyonce.DriveForward(0.75);
-                            sleep(500);
-                            beyonce.Stop();
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.ShooterOff();
+
+
+                            beyonce.ClawClose();
+                            beyonce.DriveBackward(0.5);
+                            sleep(1500);
+                            beyonce.StrafeRight(1);
+                            sleep(5000);
+//                            beyonce.DriveBackward(1);
+//                            sleep(400);
+//                            beyonce.Stop();
+
                             sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
@@ -189,11 +202,28 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             beyonce.ClawOpen();
                             sleep(200);
                             beyonce.DriveForward(0.75);
-                            sleep(200);
+                            sleep(400);
                             beyonce.Stop();
+                            beyonce.StrafeLeft(0.5);
+                            sleep(1000);
+                            beyonce.Stop();
+
                             targetFound = true;
                         } else if (state == 1) { //if quad
                             telemetry.addData("quad:", "quad");
+
+                            beyonce.ShooterOn();
+                            sleep(2000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.ShooterOff();
+
+
+                            beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
                             sleep(1000);
                             beyonce.StrafeRight(0.75);
@@ -217,10 +247,23 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             targetFound = true;
                         } else if (state == 2) { //if single
                             telemetry.addData("single", "single");
+
+                            beyonce.ShooterOn();
+                            sleep(2000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.ShooterOff();
+
+
+                            beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
                             sleep(1000);
                             beyonce.StrafeRight(0.75);
-                            sleep(3600);
+                            sleep(4000);
                             beyonce.DriveForward(0.5);
                             sleep(1500);
                             beyonce.Stop();
@@ -240,6 +283,7 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             targetFound = true;
                         } else {
                             telemetry.addData("no", "rings");
+                            beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
                             sleep(1000);
                             beyonce.StrafeRight(0.75);

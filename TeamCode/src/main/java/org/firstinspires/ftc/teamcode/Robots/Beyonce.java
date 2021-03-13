@@ -25,7 +25,7 @@ public class Beyonce {
 
     public Motor Shooter;
 
-    //public FXTServo Ramp;
+    public FXTServo Ramp;
 
     public FXTServo WallHolder;
 
@@ -57,7 +57,7 @@ public class Beyonce {
         Shooter = new Motor("Shooter");
 
         //Shooter Ramp
-        //Ramp = new FXTServo("Ramp");
+        Ramp = new FXTServo("Ramp");
 
         WallHolder = new FXTServo("WallHolder");
 
@@ -124,9 +124,7 @@ public class Beyonce {
         Claw.setPosition(1);
     }
 
-    public void ShooterOn() {
-        Shooter.setPower(1);
-    }
+    public void ShooterOn() { Shooter.setPower(1); }
     public void ShooterOff() {
         Shooter.setPower(0);
     }
@@ -136,7 +134,7 @@ public class Beyonce {
         position = position + (power / 10);
         if (position < 0.2) {position = 0.2;}
         if (position > 0.8) {position = 0.8;}
-        //Ramp.setPosition(power);
+        Ramp.setPosition(power);
     }
 
     public void ArmDown(double power) {
@@ -154,7 +152,7 @@ public class Beyonce {
     public void RingPusherExtend() {
         RingPusher.setPosition(1);
     }
-    public void RingPusherRetract() { RingPusher.setPosition(0); }
+    public void RingPusherRetract() { RingPusher.setPosition(0.4); }
 
     public void feedingOn(){
         feeder.setPower(1);
@@ -167,10 +165,10 @@ public class Beyonce {
     }
 
     public void HoldWall(){
-        WallHolder.setPosition(0.1);
+        WallHolder.setPosition(0.2);
     }
     public void ReleaseWall(){
-        WallHolder.setPosition(0.9);
+        WallHolder.setPosition(0.8);
     }
 
 

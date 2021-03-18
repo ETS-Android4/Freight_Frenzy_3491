@@ -126,12 +126,19 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
         if (gamepad2.a){
             beyonce.feeder.setPower(-1);
 
-            beyonce.ziptiepuller.setPower(0.5);}
+            beyonce.ziptiepuller.setPower(0.5);
+        }
 
         if (gamepad2.y){
             beyonce.feeder.setPower(0);
 
             beyonce.ziptiepuller.setPower(0);
+        }
+
+        if (gamepad2.left_stick_y < 0) {
+            beyonce.feeder.setPower(1);
+
+            beyonce.ziptiepuller.setPower(-0.5);
         }
 
 

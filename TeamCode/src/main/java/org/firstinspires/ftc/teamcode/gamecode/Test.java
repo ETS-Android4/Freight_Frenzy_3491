@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
@@ -14,11 +15,16 @@ import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 public class Test extends AutoOpMode {
     org.firstinspires.ftc.teamcode.Robots.Beyonce Beyonce;
 
+    public VoltageSensor voltageSensor;
+
+
     @Override
     public void runOp() throws InterruptedException {
         Beyonce beyonce = new Beyonce();
+
         ColorSensor colorSensorL;
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
+        voltageSensor = (VoltageSensor)hardwareMap.get("VoltageSensor");
         boolean white = opModeIsActive() && 38 > colorSensorL.red();
 
         waitForStart();
@@ -37,7 +43,6 @@ public class Test extends AutoOpMode {
 
 
         while (opModeIsActive()) {
-
 
 
             telemetry.addData("red", colorSensorL.red());

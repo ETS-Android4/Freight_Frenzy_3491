@@ -31,7 +31,10 @@ public class TestEncoder extends AutoOpMode {
                 velocity = tics2 - tics1;
                 clearTimer();
             }
+
             telemetry.addData("Velocity: ", velocity);
+
+
             telemetry.update();
 //            beyonce.Shooter.setPower(0.5);
 

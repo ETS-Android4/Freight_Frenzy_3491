@@ -35,6 +35,8 @@ public class TestEncoder extends AutoOpMode {
 
 //            beyonce.Shooter.setPower(0.5);
 
+
+
         }
     }
 }

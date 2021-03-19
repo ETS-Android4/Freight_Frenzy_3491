@@ -9,48 +9,59 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
-
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 @Autonomous
 public class Test extends AutoOpMode {
     org.firstinspires.ftc.teamcode.Robots.Beyonce Beyonce;
 
-    public VoltageSensor voltageSensor;
+
+    private VoltageSensor ExpansionHub2_VoltageSensor;
 
 
     @Override
-    public void runOp() throws InterruptedException {
+    public void runOp(){
+        ExpansionHub2_VoltageSensor = hardwareMap.get(VoltageSensor.class, "Expansion Hub 2");
+
         Beyonce beyonce = new Beyonce();
 
         ColorSensor colorSensorL;
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
-        voltageSensor = (VoltageSensor)hardwareMap.get("VoltageSensor");
-        boolean white = opModeIsActive() && 38 > colorSensorL.red();
+
+        //boolean white = opModeIsActive() && 38 > colorSensorL.red();
 
         waitForStart();
 
-        beyonce.DriveForward(0.5);
-        sleep(500);
-        beyonce.DriveBackward(0.5);
-        sleep(500);
-        beyonce.StrafeRight(0.5);
-        sleep(500);
-        beyonce.StrafeLeft(0.5);
-        sleep(500);
-        beyonce.Stop();
-
-        colorSensorL.enableLed(true);
+        while (opModeIsActive()){
+            telemetry.addData("Battery", ExpansionHub2_VoltageSensor.getVoltage());}
 
 
-        while (opModeIsActive()) {
 
 
-            telemetry.addData("red", colorSensorL.red());
-        //telemetry.addData("blue", colorSensorL.blue());
-      //  telemetry.addData("green", colorSensorL.green());
-        //telemetry.addData("light", colorSensorL.alpha());
-       // telemetry.addData("4 colour channels", colorSensorL.argb());
-            }
+
+
+//        beyonce.DriveForward(0.5);
+//        sleep(500);
+//        beyonce.DriveBackward(0.5);
+//        sleep(500);
+//        beyonce.StrafeRight(0.5);
+//        sleep(500);
+//        beyonce.StrafeLeft(0.5);
+//        sleep(500);
+//        beyonce.Stop();
+//
+//        colorSensorL.enableLed(true);
+
+
+//        while (opModeIsActive()) {
+//
+//
+//            telemetry.addData("red", colorSensorL.red());
+//        //telemetry.addData("blue", colorSensorL.blue());
+//      //  telemetry.addData("green", colorSensorL.green());
+//        //telemetry.addData("light", colorSensorL.alpha());
+//       // telemetry.addData("4 colour channels", colorSensorL.argb());
+//            }
 
 //        beyonce.StrafeLeft(0.2);
 //        telemetry.addData("staus", "left");
@@ -109,6 +120,16 @@ public class Test extends AutoOpMode {
         //red in between like 30 and 36
 
     }
+
+    double getBatteryVoltage() {
+        double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;}
 
 
 }

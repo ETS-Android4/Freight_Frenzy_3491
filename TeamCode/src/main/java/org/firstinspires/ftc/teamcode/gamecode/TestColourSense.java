@@ -24,20 +24,19 @@ public class TestColourSense extends AutoOpMode {
         ColorSensor colorSensorL;
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
 
-        boolean white = opModeIsActive() && 38 > colorSensorL.red();
+        boolean red = opModeIsActive() && 120 < colorSensorL.red();
 
         waitForStart();
 
         colorSensorL.enableLed(true);
 
 
-        while (opModeIsActive()) {
 
 
-            telemetry.addData("red", colorSensorL.red());}
-
-        while (white){
-            beyonce.DriveForward(0.5);
+        while (opModeIsActive() && 120 > colorSensorL.red()){
+            beyonce.DriveForward(0.25);
+            //red = opModeIsActive() && 120 < colorSensorL.red();
+            telemetry.addData("red", colorSensorL.red());
         }
         beyonce.Stop();
 

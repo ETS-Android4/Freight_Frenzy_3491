@@ -32,16 +32,14 @@ public class Test extends AutoOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()){
-            telemetry.addData("Battery", ExpansionHub2_VoltageSensor.getVoltage());}
+        beyonce.DriveBackward(0.1);
+        sleep(2000);
+        beyonce.Stop();
+
+        telemetry.addData("Battery", ExpansionHub2_VoltageSensor.getVoltage());
+        sleep(10000);
 
 
-
-
-
-
-//        beyonce.DriveForward(0.5);
-//        sleep(500);
 //        beyonce.DriveBackward(0.5);
 //        sleep(500);
 //        beyonce.StrafeRight(0.5);
@@ -70,7 +68,7 @@ public class Test extends AutoOpMode {
 //
 //        sleep(200);
 //
-//        beyonce.DriveForward(0.1);
+//nice    beyonce.DriveForward(0.1);
 //        telemetry.addData("staus", "forward");
 //        sleep(700);
 //        beyonce.Stop();
@@ -90,7 +88,7 @@ public class Test extends AutoOpMode {
 //
 //        beyonce.Stop();
 
-//nice    sleep(500);
+//        sleep(500);
 //
 //        beyonce.StrafeLeft(0.1);
 //        sleep(1250);

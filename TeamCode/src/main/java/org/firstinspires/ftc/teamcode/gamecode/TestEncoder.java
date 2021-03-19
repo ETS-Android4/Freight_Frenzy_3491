@@ -16,26 +16,23 @@ public class TestEncoder extends AutoOpMode {
         waitForStart();
         addTimer();
         beyonce.Shooter.setPower(1);
-
-
-
-        int velocity = 0;
+        double velocity = 0;
         int tics1 = 0;
         int tics2 = 0;
         while (opModeIsActive()) {
             if (getSeconds() == 0) {
                 tics1 = beyonce.Shooter.getPosition();
             }
-            if(getSeconds() == 5) {
+            if(getMilliSeconds() == 1600) {
                 tics2 = beyonce.Shooter.getPosition();
-                velocity = tics2 - tics1;
+                velocity = (tics2 - tics1);
+            }
+            if(getSeconds() == 3){
+                telemetry.addData("Velocity: ", velocity);
+                telemetry.update();
                 clearTimer();
             }
 
-            telemetry.addData("Velocity: ", velocity);
-
-
-            telemetry.update();
 //            beyonce.Shooter.setPower(0.5);
 
         }

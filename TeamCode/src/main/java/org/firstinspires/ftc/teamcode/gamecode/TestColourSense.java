@@ -33,9 +33,7 @@ public class TestColourSense extends AutoOpMode {
 
 
 
-        while (opModeIsActive() && 120 > colorSensorL.red()){
-            beyonce.DriveForward(0.25);
-            //red = opModeIsActive() && 120 < colorSensorL.red();
+        while (opModeIsActive() ){
             telemetry.addData("red", colorSensorL.red());
         }
         beyonce.Stop();

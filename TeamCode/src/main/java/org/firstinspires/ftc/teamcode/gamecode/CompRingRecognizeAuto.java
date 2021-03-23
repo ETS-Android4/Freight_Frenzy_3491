@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.gamecode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -58,7 +59,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class    RingRecognizeAuto extends AutoOpMode {
+public class CompRingRecognizeAuto extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -99,6 +100,11 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
         initVuforia();
         initTfod();
         int state = 0;
+        ColorSensor colorSensorL;
+        colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
+
+        ColorSensor colorSensorR;
+        colorSensorR = (ColorSensor) hardwareMap.get("ColourSensorR");
 
 
         /**
@@ -188,12 +194,38 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
                             sleep(1500);
-                            beyonce.StrafeRight(1);
-                            sleep(5000);
-//                            beyonce.DriveBackward(1);
-//                            sleep(400);
-//                            beyonce.Stop();
 
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 1", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            beyonce.StrafeRight(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 2", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(700);
+                            beyonce.Stop();
+
+                            beyonce.DriveForward(0.5);
+                            sleep(1200);
+                            beyonce.Stop();
                             sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
@@ -227,10 +259,21 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             beyonce.DriveBackward(0.5);
                             sleep(1000);
                             beyonce.StrafeRight(0.75);
-                            sleep(5000);
-                            beyonce.DriveForward(0.75);
-                            sleep(250);
+                            sleep(5300);
+
                             beyonce.Stop();
+
+                            //fowards until detect red
+                            while (opModeIsActive() && 120 > colorSensorL.red()){
+                                beyonce.DriveForward(0.25);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line", "Detected");
+
+
+
                             sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
@@ -257,16 +300,81 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             beyonce.Shoot();
                             sleep(1000);
                             beyonce.ShooterOff();
-
+//
 
                             beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
                             sleep(1000);
-                            beyonce.StrafeRight(0.75);
-                            sleep(4000);
-                            beyonce.DriveForward(0.5);
-                            sleep(1500);
+                        ;
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
                             beyonce.Stop();
+                            telemetry.addData("Red Line 1", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            beyonce.StrafeRight(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 2", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(500);
+                            beyonce.Stop();
+
+                            beyonce.StrafeRight(0.5);
+                            sleep(500);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 3", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(1000);
+                            beyonce.Stop();
+                            sleep(1000);
+
+
+
+                            while (opModeIsActive() && 150 > colorSensorR.red()){
+                                beyonce.DriveForward(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorR.red());
+                            }
+                            telemetry.addData("line", "detect");
+                            beyonce.Stop();
+                            sleep(500);
+
+                            beyonce.DriveForward(0.5);
+                            sleep(400);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && 150 > colorSensorR.red()){
+                                beyonce.DriveForward(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorR.red());
+                            }
+                            telemetry.addData("line", "detect");
+                            beyonce.Stop();
+
                             sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
@@ -282,23 +390,67 @@ nice * IMPORTANT: You need to obtain your own license key to use Vuforia. The st
                             beyonce.Stop();
                             targetFound = true;
                         } else {
-                            telemetry.addData("no", "rings");
+                            beyonce.ShooterOn();
+                            sleep(2000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.Shoot();
+                            sleep(1000);
+                            beyonce.ShooterOff();
+
+
                             beyonce.ClawClose();
                             beyonce.DriveBackward(0.5);
-                            sleep(1000);
-                            beyonce.StrafeRight(0.75);
-                            sleep(2500);
-                            beyonce.DriveForward(0.75);
-                            sleep(600);
+                            sleep(1500);
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
                             beyonce.Stop();
+                            telemetry.addData("Red Line 1", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            beyonce.StrafeRight(0.5);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && 150 > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 2", "Detected");
+
+                            beyonce.DriveBackward(0.5);
+                            sleep(700);
+                            beyonce.Stop();
+
+                            beyonce.DriveForward(0.5);
+                            sleep(1200);
+                            beyonce.Stop();
+                            sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
                             beyonce.ArmDown(-0.25);
-                            sleep(750);
+                            sleep(250);
                             beyonce.ClawOpen();
-                            sleep(500);
+                            sleep(200);
                             beyonce.DriveForward(0.75);
+                            sleep(400);
                             beyonce.Stop();
+                            beyonce.StrafeLeft(0.5);
+                            sleep(1000);
+                            beyonce.Stop();
+
+                            targetFound = true;
 
                         }
 

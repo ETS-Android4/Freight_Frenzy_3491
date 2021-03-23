@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 @Autonomous
-public class ShootPark extends AutoOpMode {
+public class CompShootPark extends AutoOpMode {
 
     @Override
     public void runOp() throws InterruptedException {
@@ -35,7 +35,7 @@ public class ShootPark extends AutoOpMode {
 
         sleep(200);
 
-        beyonce.DriveBackward(0.5);
+        beyonce.DriveForward(0.5);
         sleep(1000);
         beyonce.Stop();
 

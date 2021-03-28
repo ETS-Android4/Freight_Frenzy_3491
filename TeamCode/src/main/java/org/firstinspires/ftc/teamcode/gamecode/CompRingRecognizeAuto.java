@@ -187,7 +187,7 @@ nice
                             beyonce.Shoot();
                             sleep(1000);
                             beyonce.Shoot();
-                            sleep(1000);
+                            sleep(100);
                             beyonce.ShooterOff();
 
 
@@ -248,23 +248,25 @@ nice
                             beyonce.Shoot();
                             sleep(1000);
                             beyonce.Shoot();
-                            sleep(1000);
+                            //sleep(100);
                             beyonce.ShooterOff();
 
 
                             beyonce.ClawClose();
-                            beyonce.StrafeLeft(0.5);//i added this to straighten it out more
-                            sleep(500);
-                            beyonce.DriveBackward(0.5);
-                            sleep(1000);
-                            beyonce.StrafeRight(0.75);
-                            sleep(5300);
+                            beyonce.StrafeLeft(0.7);//i added this to straighten it out more
+                            sleep(250);
+                            beyonce.DriveBackward(0.7);
+                            sleep(750);
+                            beyonce.StrafeRight(0.7);
+                            sleep(5600);
+                            beyonce.DriveBackward(0.7);
+                            sleep(750);
 
                             beyonce.Stop();
 
                             //fowards until detect red
                             while (opModeIsActive() && 120 > colorSensorL.red()){
-                                beyonce.DriveForward(0.25);
+                                beyonce.DriveForward(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -297,7 +299,7 @@ nice
                             beyonce.Shoot();
                             sleep(1000);
                             beyonce.Shoot();
-//                            sleep(1000);
+                            sleep(100);
                             beyonce.ShooterOff();
 //
 

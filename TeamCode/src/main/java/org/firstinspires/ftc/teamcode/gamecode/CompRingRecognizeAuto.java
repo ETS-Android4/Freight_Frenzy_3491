@@ -253,26 +253,27 @@ nice
 
 
                             beyonce.ClawClose();
-                            beyonce.StrafeLeft(0.5);//i added this to straighten it out more
+                            beyonce.StrafeLeft(0.7);//i added this to straighten it out more
                             sleep(500);
-                            beyonce.DriveBackward(0.5);
+                            beyonce.DriveBackward(0.6);
                             sleep(1000);
-                            beyonce.StrafeRight(0.75);
-                            sleep(5300);
+                            beyonce.StrafeRight(0.9);
+                            sleep(4000);
 
                             beyonce.Stop();
 
                             //fowards until detect red
-                            while (opModeIsActive() && 120 > colorSensorL.red()){
-                                beyonce.DriveForward(0.25);
-                                //red = opModeIsActive() && 120 < colorSensorL.red();
-                                telemetry.addData("red", colorSensorL.red());
-                            }
+//                            while (opModeIsActive() && 120 > colorSensorL.red()){
+//                                beyonce.DriveForward(0.3);
+//                                //red = opModeIsActive() && 120 < colorSensorL.red();
+//                                telemetry.addData("red", colorSensorL.red());
+//                            }
+//                            beyonce.Stop();
+//                            telemetry.addData("Red Line", "Detected");
+
+                            beyonce.DriveForward(0.5);
+                            sleep(500);
                             beyonce.Stop();
-                            telemetry.addData("Red Line", "Detected");
-
-
-
                             sleep(500);
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
@@ -283,8 +284,8 @@ nice
                             sleep(500);
                             beyonce.DriveForward(0.75);
                             sleep(250);
-                            beyonce.StrafeLeft(0.75);
-                            sleep(1750);
+                            beyonce.StrafeLeft(1);
+                            sleep(1300);
                             beyonce.Stop();
                             targetFound = true;
                         } else if (state == 2) { //if single
@@ -384,7 +385,7 @@ nice
                             sleep(500);
                             beyonce.DriveForward(0.75);
                             sleep(250);
-                            beyonce.StrafeLeft(0.75);
+                            beyonce.StrafeLeft(1);
                             sleep(700);
                             beyonce.Stop();
                             targetFound = true;

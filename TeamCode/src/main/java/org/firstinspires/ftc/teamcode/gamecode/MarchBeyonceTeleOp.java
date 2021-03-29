@@ -144,7 +144,7 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
 
 
         //Keeps user updated
-        telemetry.addData("Motors", "horizontal (%.2f), vertical (%.2f), pivot (%.2f)\nslow button: (%.2f)", horizontal, vertical, pivot, gamepad1.right_trigger);
+        telemetry.addData("arm:", (gamepad2.right_stick_y/4));
         telemetry.update();
 
     }

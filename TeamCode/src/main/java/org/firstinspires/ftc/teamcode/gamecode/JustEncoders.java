@@ -67,6 +67,7 @@ public class JustEncoders extends AutoOpMode {
 //        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 //nice
+
     public void StrafeRightEncoder(double speed, int ticks){
         while (backLeft.getCurrentPosition() < ticks) {
             frontLeft.setPower(speed);

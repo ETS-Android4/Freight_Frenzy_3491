@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.gamecode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoderQualcommDcMotorExTest;
 import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoderTest;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 @Autonomous
-public class R1WobbleCopyTest extends AutoOpMode {
+public class EncoderMotorWhyIsItNotStrafingProperlySolutionToProblemUsingEncoderTelemetry extends AutoOpMode {
 
     @Override
     public void runOp() throws InterruptedException {
-        BeyonceEncoderTest beyonce = new BeyonceEncoderTest();
+        BeyonceEncoderQualcommDcMotorExTest beyonce = new BeyonceEncoderQualcommDcMotorExTest();
 
         //beyonce.init();
 
@@ -19,21 +20,9 @@ public class R1WobbleCopyTest extends AutoOpMode {
 
         waitForStart();
 
-        beyonce.StrafeLeft(0.2);
+        beyonce.StrafeRight(0.3);
         sleep(400);
         beyonce.Stop();
-
-        sleep(500);
-
-        beyonce.DriveBackward(0.3);
-        sleep(1400);
-        beyonce.Stop();
-
-        beyonce.DriveForward(0.3);
-        sleep(100);
-        beyonce.Stop();
-
-
     }
 }
 

@@ -42,7 +42,7 @@ public class CompShootPark extends AutoOpMode {
         sleep(200);
 
         beyonce.StrafeRight(0.5);
-        sleep(2200);
+        sleep(2000);
         beyonce.Stop();
 
 

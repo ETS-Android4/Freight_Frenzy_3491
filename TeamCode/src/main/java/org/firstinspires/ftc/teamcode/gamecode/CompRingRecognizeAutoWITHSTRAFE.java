@@ -30,12 +30,7 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -59,20 +54,19 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class CompRingRecognizeAuto extends AutoOpMode {
+public class CompRingRecognizeAutoWITHSTRAFE extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
     Beyonce beyonce = new Beyonce();
      /*
-nice
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
      * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
      * web site at https://developer.vuforia.com/license-manager.
      *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
+nice * Vuforia license keys are always 380 characters long, and look as if they contain mostly
      * random data. As an example, here is a example of a fragment of a valid key:
      *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
      * Once you've obtained a license key, copy the string from the Vuforia web site
@@ -287,7 +281,7 @@ nice
                             beyonce.DriveForward(0.75);
                             sleep(250);
                             beyonce.StrafeLeft(1);
-                            sleep(1500);
+                            sleep(1300);
                             beyonce.Stop();
                             targetFound = true;
                         } else if (state == 2) { //if single
@@ -310,7 +304,7 @@ nice
                         ;
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.7);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -326,7 +320,7 @@ nice
                             beyonce.Stop();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.8);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -342,7 +336,7 @@ nice
                             beyonce.Stop();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.7);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -354,7 +348,7 @@ nice
 
 
                             while (opModeIsActive() && redVal > colorSensorR.red()){
-                                beyonce.DriveForward(1);
+                                beyonce.DriveForward(0.7);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
@@ -405,7 +399,7 @@ nice
                             sleep(1500);
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -421,7 +415,7 @@ nice
                             beyonce.Stop();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }

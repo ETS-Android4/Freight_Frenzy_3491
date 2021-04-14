@@ -19,6 +19,7 @@ public class Beyonce {
     public Motor feeder;
     public Motor ziptiepuller;
     public Motor Arm;
+    public FXTCRServo BeatInStick;
     //public Motor Led;
 
     public FXTServo Claw;
@@ -45,9 +46,10 @@ public class Beyonce {
         BackLeft = new Motor("backL");
        // Led = new Motor ("LED");
 
-        ziptiepuller= new Motor("ziptiepuller");
+        ziptiepuller = new Motor("ziptiepuller");
         feeder = new Motor("feeder");
 
+        BeatInStick = new FXTCRServo("BeatinStick");
 
         //Wobble Grabber
         Claw = new FXTServo("Claw");
@@ -116,6 +118,10 @@ public class Beyonce {
         BackRight.setPower(0);
     }
 
+    public void Beat(double power){
+        BeatInStick.setPower(power);
+    }
+
     //Set Position and Power
     public void ClawOpen() {
         Claw.setPosition(0);
@@ -131,10 +137,12 @@ public class Beyonce {
 
     private double position = 0;
     public void moveRamp(double power) {
-        position = position + (power / 10);
-        if (position < 0.2) {position = 0.2;}
-        if (position > 0.8) {position = 0.8;}
-        Ramp.setPosition(power);
+        if (power > 0 && position < 0.8) {
+            position = position + 0.01;
+        } else if (power < 0 && position > 0.2) {
+            position = position - 0.01;
+        }
+        Ramp.setPosition(position);
     }
 
     public void ArmDown(double power) {
@@ -152,7 +160,9 @@ public class Beyonce {
     public void RingPusherExtend() {
         RingPusher.setPosition(1);
     }
-    public void RingPusherRetract() { RingPusher.setPosition(0.4); }
+    public void RingPusherRetract() {
+        RingPusher.setPosition(0.45);
+    }
 
     public void feedingOn(){
         feeder.setPower(1);
@@ -170,8 +180,4 @@ public class Beyonce {
     public void ReleaseWall(){
         WallHolder.setPosition(0.8);
     }
-
-
-
-
 }

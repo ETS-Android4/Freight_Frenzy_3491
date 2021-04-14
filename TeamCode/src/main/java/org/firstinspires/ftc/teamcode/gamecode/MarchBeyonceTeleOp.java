@@ -80,6 +80,8 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
             telemetry.addData("claw", "open");
         }
 
+        beyonce.Beat(gamepad2.left_stick_x);
+
 
         if (gamepad2.left_trigger > 0){
             beyonce.HoldWall();
@@ -106,6 +108,8 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
 
         //Shooter ramp
         //beyonce.moveRamp(gamepad1.left_stick_y);
+
+        //rightStick
 
         //Shooter
         if (gamepad2.dpad_right) {
@@ -135,7 +139,7 @@ public class MarchBeyonceTeleOp extends TeleOpMode {
             beyonce.ziptiepuller.setPower(0);
         }
 
-        if (gamepad2.left_stick_y < 0) {
+        if (gamepad2.left_stick_button) {
             beyonce.feeder.setPower(1);
 
             beyonce.ziptiepuller.setPower(-0.5);

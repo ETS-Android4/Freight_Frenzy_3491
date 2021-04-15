@@ -46,7 +46,6 @@ public class Encoder3 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
@@ -67,7 +66,7 @@ public class Encoder3 extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-
+//nice
         ((DcMotorEx) shooter).setVelocity(2800); // start motor moving
         // for Ultraplanetary motor values can be from 0 to just over 2000 2060 2120
         // you can setPower to 1.0 and use telemetry to read getVelocity to see max velocity.

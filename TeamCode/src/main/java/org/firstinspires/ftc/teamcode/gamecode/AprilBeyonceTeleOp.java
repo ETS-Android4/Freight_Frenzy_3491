@@ -13,25 +13,21 @@ import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 @TeleOp
 public class AprilBeyonceTeleOp extends TeleOpMode {
-    private DcMotor shooter = null;
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
-    private DcMotor arm = null;
 
+    private DcMotor shooter = null;
+    private DcMotor arm = null;
     private DcMotor feeder;
     private DcMotor ziptiePuller;
+    //public DcMotor Led;
+
     private CRServo beatInStick;
-    //public Motor Led;
-
     private Servo claw;
-
     private Servo ramp = null;
-
     private Servo wallHolder;
-
-
     private Servo ringPusher;
 
 
@@ -68,6 +64,10 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
     double vertical;
     double pivot;
 
+
+
+//nice
+
     public void loopOpMode() {
         //Drive control option one
         if (leftHanded) {
@@ -93,19 +93,35 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
         //Drive calculations
 
         if (gamepad1.right_trigger > 0) {
-            frontLeft.setPower((pivot + (vertical + horizontal))/2);
-            frontRight.setPower((-pivot + (vertical - horizontal))/2);
-            backLeft.setPower((pivot + (vertical - horizontal))/2);
-            backRight.setPower((-pivot + (vertical + horizontal))/2);
-            telemetry.addData("s", "slow");
+            if (gamepad1.left_trigger > 0) {
+                frontLeft.setPower((pivot + (-(vertical + horizontal))) / 2);
+                frontRight.setPower((-pivot + (-(vertical - horizontal))) / 2);
+                backLeft.setPower((pivot + (-(vertical - horizontal))) / 2);
+                backRight.setPower((-pivot + (-(vertical + horizontal))) / 2);
+                telemetry.addData("s", "slow");
+            } else {
+                frontLeft.setPower((pivot + (vertical + horizontal)) / 2);
+                frontRight.setPower((-pivot + (vertical - horizontal)) / 2);
+                backLeft.setPower((pivot + (vertical - horizontal)) / 2);
+                backRight.setPower((-pivot + (vertical + horizontal)) / 2);
+                telemetry.addData("s", "slow");
+            }
         } else {
-            frontLeft.setPower(pivot + (vertical + horizontal));
-            frontRight.setPower(-pivot + (vertical - horizontal));
-            backLeft.setPower(pivot + (vertical - horizontal));
-            backRight.setPower(-pivot + (vertical + horizontal));
-            telemetry.addData("s", "fast");
+            if (gamepad1.left_trigger > 0) {
+                frontLeft.setPower((pivot + (vertical + horizontal)) * -1);
+                frontRight.setPower((-pivot + (vertical - horizontal)) * -1);
+                backLeft.setPower((pivot + (vertical - horizontal)) * -1);
+                backRight.setPower((-pivot + (vertical + horizontal)) * -1);
+                telemetry.addData("s", "fast");
+            } else {
+                frontLeft.setPower((pivot + (vertical + horizontal)));
+                frontRight.setPower((-pivot + (vertical - horizontal)));
+                backLeft.setPower((pivot + (vertical - horizontal)));
+                backRight.setPower((-pivot + (vertical + horizontal)));
+                telemetry.addData("s", "fast");
+            }
         }
-//nice
+
 
         //Wobble grabber Arm
         moveArm(gamepad2.right_stick_y);
@@ -146,11 +162,6 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
         }
 
         moveRamp(gamepad2.dpad_up, gamepad2.dpad_down);
-
-        //Shooter ramp
-        //beyonce.moveRamp(gamepad1.left_stick_y);
-
-        //rightStick
 
         //Shooter
         if (gamepad2.dpad_right) {

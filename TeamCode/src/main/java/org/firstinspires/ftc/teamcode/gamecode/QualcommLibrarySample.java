@@ -24,25 +24,22 @@ import static android.os.SystemClock.sleep;
 public class QualcommLibrarySample extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor shooter = null;
+
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
-    private DcMotor arm = null;
 
+    private DcMotor shooter = null;
+    private DcMotor arm = null;
     private DcMotor feeder;
     private DcMotor ziptiePuller;
+    //public DcMotor Led;
+
     private CRServo beatInStick;
-    //public Motor Led;
-
     private Servo claw;
-
     private Servo ramp = null;
-
     private Servo wallHolder;
-
-
     private Servo ringPusher;
 
     ColorSensor colorSensorL;
@@ -75,8 +72,8 @@ public class QualcommLibrarySample extends LinearOpMode {
         ringPusher = hardwareMap.get (Servo.class, "RingPusher");
         claw = hardwareMap.get(Servo.class, "Claw");
 
-
-
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("Status", "Resetting Encoder");
         telemetry.update();
@@ -93,9 +90,6 @@ public class QualcommLibrarySample extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
         ((DcMotorEx) shooter).setVelocity(0);
 
         telemetry.addData("Status", "Initialized");
@@ -109,110 +103,114 @@ public class QualcommLibrarySample extends LinearOpMode {
         ((DcMotorEx) shooter).setVelocity(0);
     }
 
-    private void DriveForward(double speed){
+    private void driveForward(double speed){
         ((DcMotorEx)frontLeft).setVelocity(speed);
         ((DcMotorEx)frontRight).setVelocity(speed);
         ((DcMotorEx)backLeft).setVelocity(speed);
         ((DcMotorEx)backRight).setVelocity(speed);
     }
 
-    private void DriveBackwards(double speed){
+    private void driveBackwards(double speed){
         ((DcMotorEx)frontLeft).setVelocity(-speed);
         ((DcMotorEx)frontRight).setVelocity(-speed);
         ((DcMotorEx)backLeft).setVelocity(-speed);
         ((DcMotorEx)backRight).setVelocity(-speed);
     }
 
-    private void StrafeLeft(double speed){
+    private void strafeLeft(double speed){
         ((DcMotorEx)frontLeft).setVelocity(-speed);
         ((DcMotorEx)frontRight).setVelocity(speed);
         ((DcMotorEx)backLeft).setVelocity(speed);
         ((DcMotorEx)backRight).setVelocity(-speed);
     }
 
-    private void StrafeRight(double speed){
+    private void strafeRight(double speed){
         ((DcMotorEx)frontLeft).setVelocity(speed);
         ((DcMotorEx)frontRight).setVelocity(-speed);
         ((DcMotorEx)backLeft).setVelocity(-speed);
         ((DcMotorEx)backRight).setVelocity(speed);
     }
 
-    private void TurnRight(double speed){
+    private void turnRight(double speed){
         ((DcMotorEx)frontLeft).setVelocity(speed);
         ((DcMotorEx)frontRight).setVelocity(-speed);
         ((DcMotorEx)backLeft).setVelocity(speed);
         ((DcMotorEx)backRight).setVelocity(-speed);
     }
 
-    private void TurnLeft(double speed){
+    private void turnLeft(double speed){
         ((DcMotorEx)frontLeft).setVelocity(-speed);
         ((DcMotorEx)frontRight).setVelocity(speed);
         ((DcMotorEx)backLeft).setVelocity(-speed);
         ((DcMotorEx)backRight).setVelocity(speed);
     }
 
-    private void Stop() {
+    private void stopMotors() {
         ((DcMotorEx)frontLeft).setVelocity(0);
         ((DcMotorEx)frontRight).setVelocity(0);
         ((DcMotorEx)backLeft).setVelocity(0);
         ((DcMotorEx)backRight).setVelocity(0);
     }
 
-    private void MoveArm(double joystickValue) {
+    private void moveArm(double joystickValue) {
         ((DcMotorEx)arm).setVelocity(joystickValue * 1440);
     }
 
-    private void Beat(double power) {
+    public void armDown(double power) {
+        ((DcMotorEx)arm).setVelocity(power * 1440);
+    }
+
+    private void beat(double power) {
         beatInStick.setPower(power);
     }
 
-    public void ClawOpen() {
+    private void clawOpen() {
         claw.setPosition(0);
     }
-    public void ClawClose() {
+    private void clawClose() {
         claw.setPosition(1);
     }
 
-    public void ShooterOn() {
+    private void shooterOn() {
         ((DcMotorEx)shooter).setVelocity(2800);
     }
-    public void ShooterOff() {
+    private void shooterOff() {
         ((DcMotorEx)shooter).setVelocity(0);
     }
 
     private double position = 0;
-    public void MoveRamp(double power) {
-        if (power > 0 && position < 0.8) {
-            position = position + 0.005;
-        } else if (power < 0 && position > 0.2) {
-            position = position - 0.005;
+    private void moveRamp(boolean dPadUp, boolean dPadDown) {
+        if (dPadUp && position < 0.8) {
+            position = position + 0.001;
+        } else if (dPadDown && position > 0.2) {
+            position = position - 0.001;
         }
         ramp.setPosition(position);
     }
 
-    private void ArmAuto(double power) {
+    private void armAuto(double power) {
         arm.setPower(power);
     }
 
-    private void RingPusherExtend() {
+    private void ringPusherExtend() {
         ringPusher.setPosition(1);
     }
-    private void RingPusherRetract() {
+    private void ringPusherRetract() {
         ringPusher.setPosition(0.45);
     }
 
-    private void Shoot() {
-        RingPusherExtend();
+    private void shoot() {
+        ringPusherExtend();
         sleep(1250);
-        RingPusherRetract();
+        ringPusherRetract();
         sleep(750);
         sleep(2500);
     }
 
-    private void HoldWall(){
+    private void holdWall(){
         wallHolder.setPosition(0.2);
     }
-    private void ReleaseWall(){
+    private void releaseWall(){
         wallHolder.setPosition(0.8);
     }
 

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
@@ -20,8 +21,8 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
     private DcMotor shooter = null;
     private DcMotor arm = null;
-    private DcMotor feeder;
-    private DcMotor ziptiePuller;
+    private Motor feeder;
+    private Motor ziptiePuller;
     //public DcMotor Led;
 
     private CRServo beatInStick;
@@ -39,8 +40,8 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
         arm = hardwareMap.get(DcMotor.class, "Arm");
-        ziptiePuller = hardwareMap.get(DcMotor.class, "ziptiepuller");
-        feeder = hardwareMap.get(DcMotor.class, "feeder");
+        ziptiePuller = new Motor("ziptiepuller");
+        feeder = new Motor("feeder");
         beatInStick = hardwareMap.get(CRServo.class, "BeatinStick");
 
         ramp = hardwareMap.get(Servo.class, "Ramp");
@@ -94,10 +95,10 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
         if (gamepad1.right_trigger > 0) {
             if (gamepad1.left_trigger > 0) {
-                frontLeft.setPower((pivot + (-(vertical + horizontal))) / 2);
-                frontRight.setPower((-pivot + (-(vertical - horizontal))) / 2);
-                backLeft.setPower((pivot + (-(vertical - horizontal))) / 2);
-                backRight.setPower((-pivot + (-(vertical + horizontal))) / 2);
+                frontLeft.setPower((-pivot + (vertical + horizontal)) / -2);
+                frontRight.setPower((pivot + (vertical - horizontal)) / -2);
+                backLeft.setPower((-pivot + (vertical - horizontal)) / -2);
+                backRight.setPower((pivot + (vertical + horizontal)) / -2);
                 telemetry.addData("s", "slow");
             } else {
                 frontLeft.setPower((pivot + (vertical + horizontal)) / 2);
@@ -108,10 +109,10 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
             }
         } else {
             if (gamepad1.left_trigger > 0) {
-                frontLeft.setPower((pivot + (vertical + horizontal)) * -1);
-                frontRight.setPower((-pivot + (vertical - horizontal)) * -1);
-                backLeft.setPower((pivot + (vertical - horizontal)) * -1);
-                backRight.setPower((-pivot + (vertical + horizontal)) * -1);
+                frontLeft.setPower((-pivot + (vertical + horizontal)) * -1);
+                frontRight.setPower((pivot + (vertical - horizontal)) * -1);
+                backLeft.setPower((-pivot + (vertical - horizontal)) * -1);
+                backRight.setPower((pivot + (vertical + horizontal)) * -1);
                 telemetry.addData("s", "fast");
             } else {
                 frontLeft.setPower((pivot + (vertical + horizontal)));

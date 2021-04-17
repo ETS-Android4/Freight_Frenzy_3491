@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.gamecode;
+package org.firstinspires.ftc.teamcode.Robots;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -56,10 +56,10 @@ public class QualcommLibrarySample extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
 
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontL");
+        frontRight = hardwareMap.get(DcMotor.class, "frontR");
+        backLeft = hardwareMap.get(DcMotor.class, "backL");
+        backRight = hardwareMap.get(DcMotor.class, "backR");
 
         shooter = hardwareMap.get(DcMotor.class, "Shooter");
         arm = hardwareMap.get(DcMotor.class, "Arm");

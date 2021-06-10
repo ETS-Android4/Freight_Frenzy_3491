@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
 import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import static android.os.SystemClock.sleep;
 
@@ -38,7 +40,6 @@ public class Beyonce {
 
     //Declaring stuff
     public Beyonce(){
-
         //Drivebase
         FrontRight = new Motor("frontR");
         FrontLeft = new Motor("frontL");
@@ -130,7 +131,9 @@ public class Beyonce {
         Claw.setPosition(1);
     }
 
-    public void ShooterOn() { Shooter.setPower(1); }
+    public void ShooterOn() {
+        Shooter.setPower(1);
+    }
     public void ShooterOff() {
         Shooter.setPower(0);
     }
@@ -152,10 +155,9 @@ public class Beyonce {
     //Ring pusher method
     public void Shoot() {
         RingPusherExtend();
-        sleep(1250);
+        sleep(1300);
         RingPusherRetract();
-        sleep(750);
-        sleep(2500);
+        sleep(1300);
     }
     public void RingPusherExtend() {
         RingPusher.setPosition(1);

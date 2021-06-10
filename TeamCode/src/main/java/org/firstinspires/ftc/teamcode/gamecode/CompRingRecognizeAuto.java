@@ -34,7 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -64,6 +66,7 @@ public class CompRingRecognizeAuto extends AutoOpMode {
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
+    private DcMotor shooter = null;
     Beyonce beyonce = new Beyonce();
      /*
 nice
@@ -92,6 +95,8 @@ nice
      */
     private TFObjectDetector tfod;
 
+    private VoltageSensor ExpansionHub2_VoltageSensor;
+
 
     @Override
     public void runOp() throws InterruptedException {
@@ -106,7 +111,11 @@ nice
         ColorSensor colorSensorR;
         colorSensorR = (ColorSensor) hardwareMap.get("ColourSensorR");
 
-        int redVal = 250;
+        ExpansionHub2_VoltageSensor = hardwareMap.get(VoltageSensor.class, "Expansion Hub 2");
+
+        shooter = hardwareMap.get(DcMotor.class, "Shooter");
+
+        int redVal = 200;
 
 
         /**
@@ -133,13 +142,15 @@ nice
         telemetry.update();
         waitForStart();
 
-//        beyonce.ShooterOn();
+//        shooterOn();
 //        sleep(2000);
 //        beyonce.Shoot();
 //        beyonce.Shoot();
 //        beyonce.Shoot();
-//        beyonce.ShooterOff();
+//        shooterOff();
 //        sleep(100);
+
+        beyonce.Ramp.setPosition(0.38);
 
         int objects;
 
@@ -182,7 +193,7 @@ nice
 
                         if (state == 0) {//if none
                             telemetry.addData("STATE", "0");
-                            beyonce.ShooterOn();
+                            shooterOn();
                             sleep(2000);
                             beyonce.Shoot();
                             sleep(1000);
@@ -190,7 +201,7 @@ nice
                             sleep(1000);
                             beyonce.Shoot();
                             sleep(1000);
-                            beyonce.ShooterOff();
+                            shooterOff();
 
 
                             beyonce.ClawClose();
@@ -208,22 +219,22 @@ nice
                             beyonce.DriveBackward(0.5);
                             sleep(350);
                             beyonce.Stop();
+////
+////                            beyonce.StrafeRight(0.5);
+////                            sleep(200);
+////                            beyonce.Stop();
 //
-//                            beyonce.StrafeRight(0.5);
-//                            sleep(200);
+////                            while (opModeIsActive() && redVal > colorSensorL.red()){
+////                                beyonce.StrafeRight(0.5);
+////                                //red = opModeIsActive() && 120 < colorSensorL.red();
+////                                telemetry.addData("red", colorSensorL.red());
+////                            }
+////                            beyonce.Stop();
+////                            telemetry.addData("Red Line 2", "Detected");
+//
+//                            beyonce.DriveBackward(0.5);
+//                            sleep(700);
 //                            beyonce.Stop();
-
-//                            while (opModeIsActive() && redVal > colorSensorL.red()){
-//                                beyonce.StrafeRight(0.5);
-//                                //red = opModeIsActive() && 120 < colorSensorL.red();
-//                                telemetry.addData("red", colorSensorL.red());
-//                            }
-//                            beyonce.Stop();
-//                            telemetry.addData("Red Line 2", "Detected");
-
-                            beyonce.DriveBackward(0.5);
-                            sleep(700);
-                            beyonce.Stop();
 
                             beyonce.DriveForward(0.5);
                             sleep(550);
@@ -243,7 +254,7 @@ nice
                         } else if (state == 1) { //if quad
                             telemetry.addData("quad:", "quad");
 
-                            beyonce.ShooterOn();
+                            shooterOn();
                             sleep(2000);
                             beyonce.Shoot();
                             sleep(1000);
@@ -251,7 +262,7 @@ nice
                             sleep(1000);
                             beyonce.Shoot();
                             sleep(1000);
-                            beyonce.ShooterOff();
+                            shooterOff();
 
 
                             beyonce.ClawClose();
@@ -273,7 +284,7 @@ nice
 //                            beyonce.Stop();
 //                            telemetry.addData("Red Line", "Detected");
 
-                            beyonce.DriveBackward(0.5);
+                            beyonce.DriveForward(0.5);
                             sleep(500);
                             beyonce.Stop();
                             sleep(500);
@@ -293,7 +304,7 @@ nice
                         } else if (state == 2) { //if single
                             telemetry.addData("single", "single");
 
-                            beyonce.ShooterOn();
+                            shooterOn();
                             sleep(2000);
                             beyonce.Shoot();
                             sleep(1000);
@@ -301,7 +312,7 @@ nice
                             sleep(1000);
                             beyonce.Shoot();
 //                            sleep(1000);
-                            beyonce.ShooterOff();
+                            shooterOff();
 //
 
                             beyonce.ClawClose();
@@ -310,7 +321,7 @@ nice
                         ;
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -318,31 +329,31 @@ nice
                             telemetry.addData("Red Line 1", "Detected");
 
                             beyonce.DriveBackward(0.7);
-                            sleep(200);
+                            sleep(400);
                             beyonce.Stop();
-
-                            beyonce.StrafeRight(0.8);
-                            sleep(100);
-                            beyonce.Stop();
-
-                            while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
-                                //red = opModeIsActive() && 120 < colorSensorL.red();
-                                telemetry.addData("red", colorSensorL.red());
-                            }
-                            beyonce.Stop();
-                            telemetry.addData("Red Line 2", "Detected");
-
-//                            beyonce.DriveBackward(0.7);
-//                            sleep(500);
-//                            beyonce.Stop();
 
                             beyonce.StrafeRight(0.7);
                             sleep(300);
                             beyonce.Stop();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                beyonce.StrafeRight(1);
+                                beyonce.StrafeRight(0.5);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorL.red());
+                            }
+                            beyonce.Stop();
+                            telemetry.addData("Red Line 2", "Detected");
+
+                            beyonce.DriveBackward(0.7);
+                            sleep(200);
+                            beyonce.Stop();
+
+                            beyonce.StrafeRight(0.7);
+                            sleep(300);
+                            beyonce.Stop();
+
+                            while (opModeIsActive() && redVal > colorSensorL.red()){
+                                beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -354,7 +365,7 @@ nice
 
 
                             while (opModeIsActive() && redVal > colorSensorR.red()){
-                                beyonce.DriveForward(1);
+                                beyonce.DriveForward(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
@@ -362,8 +373,8 @@ nice
                             beyonce.Stop();
                             sleep(500);
 
-                            beyonce.DriveForward(0.5);
-                            sleep(150);
+                            beyonce.DriveForward(0.7);
+                            sleep(200);
                             beyonce.Stop();
 
 //                            while (opModeIsActive() && redVal > colorSensorR.red()){
@@ -383,13 +394,13 @@ nice
                             beyonce.ClawOpen();
                             sleep(500);
                             beyonce.DriveForward(0.75);
-                            sleep(250);
-                            beyonce.StrafeLeft(1);
-                            sleep(700);
+                            sleep(300);
+                            beyonce.StrafeLeft(0.7);
+                            sleep(800);
                             beyonce.Stop();
                             targetFound = true;
                         } else {
-                            beyonce.ShooterOn();
+                            shooterOn();
                             sleep(2000);
                             beyonce.Shoot();
                             sleep(1000);
@@ -397,7 +408,7 @@ nice
                             sleep(1000);
                             beyonce.Shoot();
                             sleep(1000);
-                            beyonce.ShooterOff();
+                            shooterOff();
 
 
                             beyonce.ClawClose();
@@ -495,6 +506,15 @@ nice
         tfodParameters.minResultConfidence = 0.8f;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+    }
+
+
+
+    private void shooterOn() {
+        ((DcMotorEx)shooter).setVelocity(2800);
+    }
+    private void shooterOff() {
+        ((DcMotorEx)shooter).setVelocity(0);
     }
 
 

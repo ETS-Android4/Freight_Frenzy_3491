@@ -27,7 +27,7 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
     private CRServo beatInStick;
     private Servo claw;
-    private Servo ramp = null;
+    private Servo ramp;
     private Servo wallHolder;
     private Servo ringPusher;
 
@@ -99,28 +99,30 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
                 frontRight.setPower((pivot + (vertical - horizontal)) / -2);
                 backLeft.setPower((-pivot + (vertical - horizontal)) / -2);
                 backRight.setPower((pivot + (vertical + horizontal)) / -2);
-                telemetry.addData("s", "slow");
+                telemetry.addData("Drive Mode: ", "Reverse");
             } else {
                 frontLeft.setPower((pivot + (vertical + horizontal)) / 2);
                 frontRight.setPower((-pivot + (vertical - horizontal)) / 2);
                 backLeft.setPower((pivot + (vertical - horizontal)) / 2);
                 backRight.setPower((-pivot + (vertical + horizontal)) / 2);
-                telemetry.addData("s", "slow");
+                telemetry.addData("Drive Mode: ", "Forward");
             }
+            telemetry.addData("Speed Mode: ", "slow");
         } else {
             if (gamepad1.left_trigger > 0) {
                 frontLeft.setPower((-pivot + (vertical + horizontal)) * -1);
                 frontRight.setPower((pivot + (vertical - horizontal)) * -1);
                 backLeft.setPower((-pivot + (vertical - horizontal)) * -1);
                 backRight.setPower((pivot + (vertical + horizontal)) * -1);
-                telemetry.addData("s", "fast");
+                telemetry.addData("Drive Mode: ", "Reverse");
             } else {
                 frontLeft.setPower((pivot + (vertical + horizontal)));
                 frontRight.setPower((-pivot + (vertical - horizontal)));
                 backLeft.setPower((pivot + (vertical - horizontal)));
                 backRight.setPower((-pivot + (vertical + horizontal)));
-                telemetry.addData("s", "fast");
+                telemetry.addData("Drive Mode: ", "Forward");
             }
+            telemetry.addData("Speed Mode:", "fast");
         }
 
 
@@ -207,7 +209,7 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
     }
 
     private void moveArm(double joystickValue) {
-        ((DcMotorEx)arm).setVelocity(joystickValue * 1440);
+        arm.setPower(-joystickValue / 1.5);
     }
 
     private void beat(double power) {
@@ -228,7 +230,7 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
         ((DcMotorEx)shooter).setVelocity(0);
     }
 
-    private double position = 0;
+    private double position = 0.6;
     private void moveRamp(boolean dPadUp, boolean dPadDown) {
         if (dPadUp && position < 0.8) {
             position = position + 0.001;

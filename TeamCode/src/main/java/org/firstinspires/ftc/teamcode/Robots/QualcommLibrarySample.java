@@ -104,45 +104,45 @@ public class QualcommLibrarySample extends LinearOpMode {
     }
 
     private void driveForward(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed);
-        ((DcMotorEx)frontRight).setVelocity(speed);
-        ((DcMotorEx)backLeft).setVelocity(speed);
-        ((DcMotorEx)backRight).setVelocity(speed);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(speed * 2986.6);
     }
 
     private void driveBackwards(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed);
-        ((DcMotorEx)frontRight).setVelocity(-speed);
-        ((DcMotorEx)backLeft).setVelocity(-speed);
-        ((DcMotorEx)backRight).setVelocity(-speed);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
     }
 
     private void strafeLeft(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed);
-        ((DcMotorEx)frontRight).setVelocity(speed);
-        ((DcMotorEx)backLeft).setVelocity(speed);
-        ((DcMotorEx)backRight).setVelocity(-speed);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
     }
 
     private void strafeRight(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed);
-        ((DcMotorEx)frontRight).setVelocity(-speed);
-        ((DcMotorEx)backLeft).setVelocity(-speed);
-        ((DcMotorEx)backRight).setVelocity(speed);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(speed * 2986.6);
     }
 
     private void turnRight(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed);
-        ((DcMotorEx)frontRight).setVelocity(-speed);
-        ((DcMotorEx)backLeft).setVelocity(speed);
-        ((DcMotorEx)backRight).setVelocity(-speed);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
     }
 
     private void turnLeft(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed);
-        ((DcMotorEx)frontRight).setVelocity(speed);
-        ((DcMotorEx)backLeft).setVelocity(-speed);
-        ((DcMotorEx)backRight).setVelocity(speed);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)backRight).setVelocity(speed * 2986.6);
     }
 
     private void stopMotors() {

@@ -43,6 +43,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.RC;
+import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
 import java.util.List;
@@ -58,7 +59,7 @@ import java.util.List;
  * is explained below.
  */
 @Autonomous
-public class NewCompRingRecognizeAuto extends AutoOpMode {
+public class OldNewCompRingRecognizeAuto extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
@@ -136,16 +137,16 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
         telemetry.update();
 
         shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -198,6 +199,7 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+                int iterate = 0;
                 boolean targetFound = false;
                 //while (iterate < 10000) {
                 if (tfod != null) {
@@ -309,9 +311,9 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             clawClose();
                             strafeLeft(0.7);//i added this to straighten it out more
                             sleep(500);
-                            driveBackwards(0.6);
+                            driveBackwards(0.5);
                             sleep(1000);
-                            strafeRight(0.9);
+                            strafeRight(0.5);
                             sleep(4000);
 
                             stopMotors();
@@ -336,50 +338,49 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             sleep(500);
                             clawOpen();
                             sleep(500);
-                            driveForward(0.75);
+                            driveForward(0.5);
                             sleep(250);
-                            strafeLeft(1);
+                            strafeLeft(0.5);
                             sleep(1500);
                             stopMotors();
                             targetFound = true;
                         } else if (state == 2) { //if single
                             telemetry.addData("single", "single");
 
-                            telemetry.addData("STATE", "0");
                             shooterOn();
+                            sleep(2000);
+                            shoot();
                             sleep(1000);
                             shoot();
-                            sleep(750);
+                            sleep(1000);
                             shoot();
-                            sleep(750);
-                            shoot();
-                            sleep(200);
+//                            sleep(1000);
                             shooterOff();
-
+//
 
                             clawClose();
-                            driveBackwards(0.7);
+                            driveBackwards(0.2);
                             sleep(800);
                         ;
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                strafeRight(0.5);
+                                strafeRight(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             stopMotors();
                             telemetry.addData("Red Line 1", "Detected");
 
-                            driveBackwards(0.7);
-                            sleep(400);
+                            driveBackwards(0.2);
+                            sleep(200);
                             stopMotors();
 
-                            strafeRight(0.7);
+                            strafeRight(0.2);
                             sleep(100);
                             stopMotors();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                strafeRight(0.5);
+                                strafeRight(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
@@ -390,24 +391,24 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
 //                            sleep(500);
 //                            stopMotors();
 
-                            strafeRight(0.7);
+                            strafeRight(0.2);
                             sleep(300);
                             stopMotors();
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
-                                strafeRight(0.5);
+                                strafeRight(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             stopMotors();
                             telemetry.addData("Red Line 3", "Detected");
 
-                            driveBackwards(0.7);
+                            driveBackwards(0.2);
                             sleep(750);
 
 
                             while (opModeIsActive() && redVal > colorSensorR.red()){
-                                driveForward(0.5);
+                                driveForward(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
@@ -415,8 +416,8 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             stopMotors();
                             sleep(500);
 
-                            driveForward(0.7);
-                            sleep(400);
+                            driveForward(0.2);
+                            sleep(150);
                             stopMotors();
 
 //                            while (opModeIsActive() && redVal > colorSensorR.red()){
@@ -428,16 +429,17 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
 //                            stopMotors();
 
                             sleep(500);
-                            armDown(-0.5);
+                            armDown(-0.2);
                             sleep(1800);
                             armDown(-0.25);
-                            sleep(750);
+                            sleep(250);
+                            sleep(500);
                             clawOpen();
                             sleep(500);
-                            driveForward(0.75);
-                            sleep(300);
-                            strafeLeft(0.7);
-                            sleep(800);
+                            driveForward(0.2);
+                            sleep(250);
+                            strafeLeft(0.2);
+                            sleep(700);
                             stopMotors();
                             targetFound = true;
                         } else {
@@ -453,7 +455,7 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
 
 
                             clawClose();
-                            driveBackwards(0.5);
+                            driveBackwards(0.2);
                             sleep(1500);
 
                             while (opModeIsActive() && redVal > colorSensorL.red()){
@@ -464,11 +466,11 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             stopMotors();
                             telemetry.addData("Red Line 1", "Detected");
 
-                            driveBackwards(0.5);
+                            driveBackwards(0.2);
                             sleep(200);
                             stopMotors();
 
-                            strafeRight(0.5);
+                            strafeRight(0.2);
                             sleep(200);
                             stopMotors();
 
@@ -480,11 +482,11 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             stopMotors();
                             telemetry.addData("Red Line 2", "Detected");
 
-                            driveBackwards(0.5);
+                            driveBackwards(0.2);
                             sleep(700);
                             stopMotors();
 
-                            driveForward(0.5);
+                            driveForward(0.2);
                             sleep(1200);
                             stopMotors();
                             sleep(500);
@@ -494,10 +496,10 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
                             sleep(250);
                             clawOpen();
                             sleep(200);
-                            driveForward(0.75);
+                            driveForward(0.2);
                             sleep(400);
                             stopMotors();
-                            strafeLeft(0.5);
+                            strafeLeft(0.2);
                             sleep(1000);
                             stopMotors();
 
@@ -550,45 +552,45 @@ public class NewCompRingRecognizeAuto extends AutoOpMode {
     }
 
     private void driveForward(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backRight).setVelocity(speed * 2986.6);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(speed * 2000);
     }
 
     private void driveBackwards(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)frontRight).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)backLeft).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2000);
     }
 
     private void strafeLeft(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2000);
     }
 
     private void strafeRight(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)frontRight).setPower(-speed * 2986.6);
-        ((DcMotorEx)backLeft).setPower(-speed * 2986.6);
-        ((DcMotorEx)backRight).setPower((speed * 2986.6) /*- 0.15*/);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(speed * 2000);
     }
 
     private void turnRight(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)frontRight).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)backLeft).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backRight).setVelocity(-speed * 2986.6);
+        ((DcMotorEx)frontLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(-speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(-speed * 2000);
     }
 
     private void turnLeft(double speed){
-        ((DcMotorEx)frontLeft).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)frontRight).setVelocity(speed * 2986.6);
-        ((DcMotorEx)backLeft).setVelocity(-speed * 2986.6);
-        ((DcMotorEx)backRight).setVelocity(speed * 2986.6);
+        ((DcMotorEx)frontLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)frontRight).setVelocity(speed * 2000);
+        ((DcMotorEx)backLeft).setVelocity(-speed * 2000);
+        ((DcMotorEx)backRight).setVelocity(speed * 2000);
     }
 
     private void stopMotors() {

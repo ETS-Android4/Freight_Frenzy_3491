@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoderQualcommDcMotorExTest;
 import org.firstinspires.ftc.teamcode.Robots.BeyonceEncoderTest;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
+
+@Disabled
 
 @Autonomous
 public class EncoderMotorWhyIsItNotStrafingProperlySolutionToProblemUsingEncoderTelemetry extends AutoOpMode {

@@ -7,6 +7,8 @@
 //
 //import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 //
+//@Disabled
+//
 //@TeleOp
 //public class BasicTeleOp extends LinearOpMode {
 //    Beyonce beyonce = new Beyonce();

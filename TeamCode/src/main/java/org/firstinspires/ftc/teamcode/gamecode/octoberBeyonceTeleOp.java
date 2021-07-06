@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
+@Disabled
 
 @TeleOp
 public class octoberBeyonceTeleOp extends LinearOpMode {

@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
+@Disabled
 
 @TeleOp
 public class MarchBeyonceTeleOp extends TeleOpMode {

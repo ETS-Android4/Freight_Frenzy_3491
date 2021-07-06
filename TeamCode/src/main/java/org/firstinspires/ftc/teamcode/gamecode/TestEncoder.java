@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode.gamecode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
+
+@Disabled
+
 @Autonomous
 public class TestEncoder extends AutoOpMode {
     Beyonce beyonce = new Beyonce();

@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.util.Range;
  * ((DcMotorEx) shooter).setVelocity(x);
  *
  */
+@Disabled
+
 @Autonomous(name="Encoder2", group="Linear Opmode")
 
 public class Encoder2 extends LinearOpMode {

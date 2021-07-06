@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
 
 @TeleOp
-public class AprilBeyonceTeleOp extends TeleOpMode {
+public class JulyBeyonceTeleOp extends TeleOpMode {
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
@@ -30,6 +30,7 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
     private Servo ramp;
     private Servo wallHolder;
     private Servo ringPusher;
+    private Servo mechanicalBlock;
 
 
     public void initialize() {
@@ -48,6 +49,7 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
         wallHolder = hardwareMap.get(Servo.class, "WallHolder");
         ringPusher = hardwareMap.get (Servo.class, "RingPusher");
         claw = hardwareMap.get(Servo.class, "Claw");
+        mechanicalBlock = hardwareMap.get(Servo.class, "MechanicalBlock");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,6 +57,9 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
         //Indicate that the program is running
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+        //extend mechanical block
+        setMechanicalBlockTurnOn();
     }
 
     //Gives user 2 drive control options
@@ -64,10 +69,6 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
     double horizontal;
     double vertical;
     double pivot;
-
-
-
-//nice
 
     public void loopOpMode() {
         //Drive control option one
@@ -95,10 +96,10 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
         if (gamepad1.right_trigger > 0) {
             if (gamepad1.left_trigger > 0) {
-                frontLeft.setPower((-pivot + (vertical + horizontal)) / -2);
-                frontRight.setPower((pivot + (vertical - horizontal)) / -2);
-                backLeft.setPower((-pivot + (vertical - horizontal)) / -2);
-                backRight.setPower((pivot + (vertical + horizontal)) / -2);
+                frontLeft.setPower((-pivot + (vertical + horizontal)) / -3);
+                frontRight.setPower((pivot + (vertical - horizontal)) / -3);
+                backLeft.setPower((-pivot + (vertical - horizontal)) / -3);
+                backRight.setPower((pivot + (vertical + horizontal)) / -3);
                 telemetry.addData("Drive Mode: ", "Reverse");
             } else {
                 frontLeft.setPower((pivot + (vertical + horizontal)) / 2);
@@ -152,6 +153,8 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
 
 
 
+
+
 //        if (gamepad2.y) {
 //            beyonce.Led.setPower(0);
 //        }
@@ -174,11 +177,11 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
             shooterOff();
         }
 
-        if (gamepad1.left_bumper){
-            ramp.setPosition(0.8);
+        if (gamepad1.right_bumper) {
+            setMechanicalBlockTurnOn();
         }
-        if (gamepad1.right_bumper){
-            ramp.setPosition(0.2);
+        else if (gamepad1.left_bumper) {
+            setMechanicalBlockTurnOff();
         }
 
 
@@ -256,5 +259,12 @@ public class AprilBeyonceTeleOp extends TeleOpMode {
     }
     private void releaseWall(){
         wallHolder.setPosition(0.8);
+    }
+
+    private void setMechanicalBlockTurnOn() {
+        mechanicalBlock.setPosition(0.5);
+    }
+    private void setMechanicalBlockTurnOff() {
+        mechanicalBlock.setPosition(0.2);
     }
 }

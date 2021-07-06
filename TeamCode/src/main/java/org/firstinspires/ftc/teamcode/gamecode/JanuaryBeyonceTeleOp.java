@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
-@Disabled
+//@Disabled
 
 @TeleOp
 public class JanuaryBeyonceTeleOp extends TeleOpMode {

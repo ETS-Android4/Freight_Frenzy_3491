@@ -12,8 +12,6 @@ import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.newhardware.Motor;
 import org.firstinspires.ftc.teamcode.opmodesupport.TeleOpMode;
 
-@Disabled
-
 @TeleOp
 public class JulyBeyonceTeleOp extends TeleOpMode {
     private DcMotor frontLeft = null;

@@ -5,6 +5,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RC;
@@ -16,6 +17,8 @@ import java.util.List;
 /**
  * Created by FIXIT on 16-10-05.
  */
+@Disabled
+
 @Autonomous
 public abstract class AutoOpMode extends LinearOpMode {
 

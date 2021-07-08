@@ -66,6 +66,8 @@ public class CompRingRecognizeAuto extends AutoOpMode {
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
+    private Servo mechanicalBlock;
+
     private DcMotor shooter = null;
     Beyonce beyonce = new Beyonce();
      /*
@@ -105,6 +107,9 @@ nice
         initVuforia();
         initTfod();
         int state = 0;
+
+        mechanicalBlock = hardwareMap.get(Servo.class, "MechanicalBlock");
+
         ColorSensor colorSensorL;
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
 
@@ -140,6 +145,9 @@ nice
         /** Wait for the game to begin */
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
+
+        setMechanicalBlockTurnOff();
+
         waitForStart();
 
 //        shooterOn();
@@ -217,7 +225,7 @@ nice
                             telemetry.addData("Red Line 1", "Detected");
 
                             beyonce.DriveBackward(0.5);
-                            sleep(350);
+                            sleep(600);
                             beyonce.Stop();
 ////
 ////                            beyonce.StrafeRight(0.5);
@@ -515,6 +523,14 @@ nice
     }
     private void shooterOff() {
         ((DcMotorEx)shooter).setVelocity(0);
+    }
+
+    private void setMechanicalBlockTurnOn() {
+        mechanicalBlock.setPosition(0.5);
+    }
+    private void setMechanicalBlockTurnOff()
+    {
+        mechanicalBlock.setPosition(0.2);
     }
 
 

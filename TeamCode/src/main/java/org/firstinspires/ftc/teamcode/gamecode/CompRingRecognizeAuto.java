@@ -150,13 +150,13 @@ nice
 
         waitForStart();
 
-        shooterOn();
-        sleep(2000);
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
-        shooterOff();
-        sleep(100);
+//        shooterOn();
+//        sleep(2000);
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        beyonce.Shoot();
+//        shooterOff();
+//        sleep(100);
 
         beyonce.Ramp.setPosition(0.38);
 

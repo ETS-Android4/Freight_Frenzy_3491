@@ -140,27 +140,17 @@ public class CompFinalAuto extends AutoOpMode {
             tfod.setZoom(2.5, 1.78);
         }
 
+        //Initializing electronics
+        beyonce.Ramp.setPosition(0.38);
+        setMechanicalBlockTurnOff();
+
         //Wait for the game to begin
+        waitForStart();
         telemetry.addData(">", "Press Play to start op mode");
         telemetry.update();
 
-        setMechanicalBlockTurnOff();
-
-        waitForStart();
 
         //Start of Autonomous
-
-        //Shooting rings
-        shooterOn();
-        sleep(2000);
-        beyonce.Shoot();
-        beyonce.Shoot();
-        beyonce.Shoot();
-        shooterOff();
-        sleep(100);
-
-
-        beyonce.Ramp.setPosition(0.38);
 
         //Declaring variables
         int objects;
@@ -193,12 +183,12 @@ public class CompFinalAuto extends AutoOpMode {
                             //Detecting 1 Ring
                             if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
                                 state = 2;
-                                telemetry.addData("state", 2);
+                                telemetry.addData("state:", 2);
 
                             //Detecting 4 Rings
                             } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                                 state = 1;
-                                telemetry.addData("state", 1);
+                                telemetry.addData("state:", 1);
                             }
                             telemetry.addData("in", 0);
                             break;
@@ -583,11 +573,10 @@ public class CompFinalAuto extends AutoOpMode {
     }
 
     //Functions for Wobble Grabber Mechanical Block
-    private void setMechanicalBlockTurnOn() {
-        mechanicalBlock.setPosition(0.5);
-    }
-    private void setMechanicalBlockTurnOff()
-    {
+//    private void setMechanicalBlockTurnOn() {
+//        mechanicalBlock.setPosition(0.5);
+//    }
+    private void setMechanicalBlockTurnOff() {
         mechanicalBlock.setPosition(0.2);
     }
 }

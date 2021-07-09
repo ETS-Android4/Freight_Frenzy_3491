@@ -28,7 +28,6 @@
  */
 
 package org.firstinspires.ftc.teamcode.gamecode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -57,6 +56,7 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
+
 @Autonomous
 public class CompAutoNOSHOOT extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
@@ -67,8 +67,8 @@ public class CompAutoNOSHOOT extends AutoOpMode {
 
     private DcMotor shooter = null;
     Beyonce beyonce = new Beyonce();
+
      /*
-nice
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
      * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
@@ -80,6 +80,7 @@ nice
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
+
     private static final String VUFORIA_KEY = RC.VUFORIA_LICENSE_KEY;
 
     /**
@@ -99,14 +100,16 @@ nice
 
     @Override
     public void runOp() throws InterruptedException {
-        // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
-        // first.
+        /**
+         * The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
+         * first.
+         */
+
         initVuforia();
         initTfod();
         int state = 1;
 
         mechanicalBlock = hardwareMap.get(Servo.class, "MechanicalBlock");
-
         ColorSensor colorSensorL;
         colorSensorL = (ColorSensor) hardwareMap.get("ColourSensorL");
 

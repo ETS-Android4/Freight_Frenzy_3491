@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 
-@Disabled
+//@Disabled
 
 @Autonomous
 public class TestColourSense extends AutoOpMode {
@@ -33,7 +33,9 @@ public class TestColourSense extends AutoOpMode {
 
         colorSensorL.enableLed(true);
 
-
+//        beyonce.Beat(-0.2);
+//        sleep(100);
+//        beyonce.Stop();
 
 
         while (opModeIsActive() ){

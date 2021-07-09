@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
 @Disabled
 
 @Autonomous
-public class Test extends AutoOpMode {
+public class TestDrive extends AutoOpMode {
     org.firstinspires.ftc.teamcode.Robots.Beyonce Beyonce;
 
 

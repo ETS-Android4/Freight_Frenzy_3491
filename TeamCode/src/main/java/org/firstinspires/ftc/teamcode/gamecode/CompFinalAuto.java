@@ -60,8 +60,8 @@ import java.util.List;
 @Autonomous
 public class CompFinalAuto extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
-    private static final String LABEL_FIRST_ELEMENT = "Quad";
-    private static final String LABEL_SECOND_ELEMENT = "Single";
+    private static final String LABEL_FIRST_ELEMENT = "Single";
+    private static final String LABEL_SECOND_ELEMENT = "Quad";
 
     private Servo mechanicalBlock;
 
@@ -182,13 +182,13 @@ public class CompFinalAuto extends AutoOpMode {
 
                             //Detecting 1 Ring
                             if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
-                                state = 2;
-                                telemetry.addData("state:", 2);
+                                state = 1;
+                                telemetry.addData("state:", 1);
 
                             //Detecting 4 Rings
                             } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                                state = 1;
-                                telemetry.addData("state:", 1);
+                                state = 2;
+                                telemetry.addData("state:", 2);
                             }
                             telemetry.addData("in", 0);
                             break;

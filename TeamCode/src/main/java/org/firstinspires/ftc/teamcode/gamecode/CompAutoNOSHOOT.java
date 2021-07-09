@@ -107,7 +107,7 @@ public class CompAutoNOSHOOT extends AutoOpMode {
 
         initVuforia();
         initTfod();
-        int state = 1;
+        int state = 2;
 
         mechanicalBlock = hardwareMap.get(Servo.class, "MechanicalBlock");
         ColorSensor colorSensorL;
@@ -291,8 +291,9 @@ public class CompAutoNOSHOOT extends AutoOpMode {
                             beyonce.Stop();
                             targetFound = true;
                         } else if (state == 2) { //if single
-                            telemetry.addData("single", "single");
+                            telemetry.addData("Randomization:", "Single");
 
+//                            //Shooting Rings
 //                            shooterOn();
 //                            sleep(2000);
 //                            beyonce.Shoot();
@@ -300,105 +301,92 @@ public class CompAutoNOSHOOT extends AutoOpMode {
 //                            beyonce.Shoot();
 //                            sleep(1000);
 //                            beyonce.Shoot();
-////                            sleep(1000);
+//                            sleep(1000);
 //                            shooterOff();
-//
 
+                            //Close Wobble Grabber, Drive into field wall
                             beyonce.ClawClose();
                             beyonce.DriveBackward(0.7);
                             sleep(800);
 
+                            //Drive along field wall
                             beyonce.StrafeRight(1);
                             sleep(2000);
                             beyonce.Stop();
 
-                            beyonce.DriveBackward(0.5);
-                            sleep(500);
-                            beyonce.Stop();
-
-                            while (opModeIsActive() && redVal > colorSensorL.red()){
+                            //Continues driving along field wall until detecting first red line
+                            while (opModeIsActive() && redVal > colorSensorL.red()) {
                                 beyonce.StrafeRight(0.5);
-                                //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             beyonce.Stop();
-                            telemetry.addData("Red Line 1", "Detected");
+                            telemetry.addData("Red Line 1:", "Detected");
 
-                            beyonce.DriveBackward(0.7);
-                            sleep(400);
-                            beyonce.Stop();
-
+                            //Drive along field wall
                             beyonce.StrafeRight(0.7);
                             sleep(300);
                             beyonce.Stop();
 
-//                            while (opModeIsActive() && redVal > colorSensorL.red()){
-//                                beyonce.StrafeRight(0.3);
-//                                //red = opModeIsActive() && 120 < colorSensorL.red();
-//                                telemetry.addData("red", colorSensorL.red());
-//                            }
-//                            beyonce.Stop();
-//                            telemetry.addData("White Line 2", "Detected");
-//
-//                            beyonce.DriveBackward(0.7);
-//                            sleep(500);
-//                            beyonce.Stop();
-//
-//                            beyonce.StrafeRight(0.7);
-//                            sleep(300);
-//                            beyonce.Stop();
-
-                            while (opModeIsActive() && redVal > colorSensorL.red()){
+                            //Continues driving along field wall until detecting second red line
+                            while (opModeIsActive() && redVal > colorSensorL.red()) {
                                 beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             beyonce.Stop();
-                            telemetry.addData("Red Line 3", "Detected");
+                            telemetry.addData("Red Line 3:", "Detected");
 
+                            //Drive into field wall
                             beyonce.DriveBackward(0.7);
                             sleep(750);
 
-
-                            while (opModeIsActive() && redVal > colorSensorR.red()){
-                                beyonce.DriveForward(0.5);
+                            //Continues driving until detecting target zone edge
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
-                            telemetry.addData("line", "detect");
+                            telemetry.addData("Target Zone B Edge:", "Detected");
                             beyonce.Stop();
-                            sleep(500);
+                            sleep(1000);
 
-                            beyonce.DriveForward(0.7);
-                            sleep(200);
+                            //Drive forward to allow arm to drop inside of Target Zone
+                            beyonce.DriveForward(0.2);
+                            sleep(2000);
                             beyonce.Stop();
 
-//                            while (opModeIsActive() && redVal > colorSensorR.red()){
-//                                beyonce.DriveForward(0.7);
-//                                //red = opModeIsActive() && 120 < colorSensorL.red();
-//                                telemetry.addData("red", colorSensorR.red());
-//                            }
-//                            telemetry.addData("line", "detect");
-//                            beyonce.Stop();
+                            //Continues driving until detecting target zone edge
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorR.red());
+                            }
+                            telemetry.addData("Target Zone B Edge:", "Detected");
+                            beyonce.Stop();
+                            sleep(1000);
 
-                            sleep(500);
+                            //Drop Wobble Goal
                             beyonce.ArmDown(-0.5);
                             sleep(1800);
                             beyonce.ArmDown(-0.25);
-                            sleep(250);
-                            sleep(500);
+                            sleep(750);
                             beyonce.ClawOpen();
                             sleep(500);
                             beyonce.DriveForward(0.75);
                             sleep(300);
-                            beyonce.StrafeLeft(0.7);
-                            sleep(800);
-                            beyonce.Stop();
-                            targetFound = true;
 
-                            beyonce.Beat(0.2);
-                            sleep(2000);
+                            //Drive to park
+                            beyonce.StrafeLeft(0.7);
+                            sleep(1000);
                             beyonce.Stop();
+
+                            //Deploy BeatInStick
+                            beyonce.Beat(-0.5);
+                            sleep(275);
+                            beyonce.Stop();
+
+                            //Terminate Program
+                            targetFound = true;
                         } else {
                             shooterOn();
                             sleep(2000);

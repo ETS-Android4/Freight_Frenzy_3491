@@ -309,36 +309,36 @@ public class CompAutoNOSHOOT extends AutoOpMode {
                             beyonce.DriveBackward(0.7);
                             sleep(800);
 
-                            //Drive along field wall
-                            beyonce.StrafeRight(1);
-                            sleep(2000);
-                            beyonce.Stop();
-
                             //Continues driving along field wall until detecting first red line
                             while (opModeIsActive() && redVal > colorSensorL.red()) {
-                                beyonce.StrafeRight(0.5);
+                                beyonce.StrafeRight(1);
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             beyonce.Stop();
                             telemetry.addData("Red Line 1:", "Detected");
-
-                            //Drive along field wall
-                            beyonce.StrafeRight(0.7);
-                            sleep(300);
-                            beyonce.Stop();
+                            sleep(1000);
 
                             //Continues driving along field wall until detecting second red line
-                            while (opModeIsActive() && redVal > colorSensorL.red()) {
+                            while (opModeIsActive() && redVal > colorSensorR.red()) {
                                 beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
-                                telemetry.addData("red", colorSensorL.red());
+                                telemetry.addData("red", colorSensorR.red());
                             }
                             beyonce.Stop();
                             telemetry.addData("Red Line 3:", "Detected");
+                            sleep(1000);
+
+                            //Drive along field wall
+                            beyonce.StrafeLeft(0.5);
+                            sleep(750);
+                            beyonce.Stop();
+
+                            //Stop
+                            sleep(1000);
 
                             //Drive into field wall
                             beyonce.DriveBackward(0.7);
-                            sleep(750);
+                            sleep(800);
 
                             //Continues driving until detecting target zone edge
                             while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
@@ -376,7 +376,7 @@ public class CompAutoNOSHOOT extends AutoOpMode {
                             sleep(300);
 
                             //Drive to park
-                            beyonce.StrafeLeft(0.7);
+                            beyonce.StrafeLeft(1);
                             sleep(1000);
                             beyonce.Stop();
 

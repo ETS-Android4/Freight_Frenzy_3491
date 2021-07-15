@@ -141,7 +141,7 @@ public class CompFinalAuto extends AutoOpMode {
         }
 
         //Initializing electronics
-        beyonce.Ramp.setPosition(0.38);
+        beyonce.Ramp.setPosition(0.41);
         setMechanicalBlockTurnOff();
 
         //Wait for the game to begin

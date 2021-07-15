@@ -3,43 +3,24 @@ package org.firstinspires.ftc.teamcode.robots;
 
 
 
-import android.graphics.Paint;
-import android.hardware.Sensor;
 import android.util.Log;
 
-import org.firstinspires.ftc.teamcode.RC;
-import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
-import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.DigitalColourSensor;
-import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.FXTAnalogUltrasonicSensor;
-import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
-import org.firstinspires.ftc.teamcode.newhardware.Motor;
-import org.firstinspires.ftc.teamcode.roboticslibrary.TaskHandler;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTCRServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.TaskHandler;
 
 import com.qualcomm.hardware.lynx.LynxEmbeddedIMU;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import org.firstinspires.ftc.teamcode.opmodesupport.AutoOpMode;
-import org.firstinspires.ftc.teamcode.robots.Joules;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 //import com.qualcomm.robotcore.util.ElapsedTime;​
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.util.MathUtils;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.MathUtils;
 //import org.firstinspires.ftc.robotcore.external.Func;​
-import java.util.Locale;
-
 
 
 public class Joules  {

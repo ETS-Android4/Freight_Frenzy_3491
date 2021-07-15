@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import com.qualcomm.hardware.adafruit.AdafruitBNO055IMU;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxEmbeddedIMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
-import org.firstinspires.ftc.teamcode.RC;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.FXTAnalogUltrasonicSensor;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTServo;

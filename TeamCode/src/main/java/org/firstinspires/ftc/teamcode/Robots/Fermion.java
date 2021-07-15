@@ -11,7 +11,7 @@
 //import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 //import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-//import org.firstinspires.ftc.teamcode.RC;
+//import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.FXTAnalogUltrasonicSensor;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.TrackBall;
 //import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
@@ -19,10 +19,10 @@
 //import org.firstinspires.ftc.teamcode.newhardware.Motor;
 //import org.firstinspires.ftc.teamcode.roboticslibrary.FXTCamera;
 //import org.firstinspires.ftc.teamcode.roboticslibrary.TaskHandler;
-//import org.firstinspires.ftc.teamcode.util.CircleDetector;
-//import org.firstinspires.ftc.teamcode.util.MathUtils;
-//import org.firstinspires.ftc.teamcode.util.PID;
-//import org.firstinspires.ftc.teamcode.util.VortexUtils;
+//import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.CircleDetector;
+//import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.MathUtils;
+//import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.PID;
+//import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.VortexUtils;
 //
 ///**
 // * Created by FIXIT on 16-10-07.

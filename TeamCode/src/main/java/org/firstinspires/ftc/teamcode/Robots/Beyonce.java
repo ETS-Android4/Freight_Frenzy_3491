@@ -2,13 +2,9 @@
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.teamcode.Robots.Robot;
-import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
-import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
-import org.firstinspires.ftc.teamcode.newhardware.Motor;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTCRServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
 
 import static android.os.SystemClock.sleep;
 

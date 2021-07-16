@@ -3,6 +3,7 @@
  *
  * It is extraordinarily rare that you will ever need to edit this file.
  */
+import java.util.regex.Pattern
 
 configurations {
     doc { transitive false }
@@ -15,7 +16,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.2.1'
     }
 }
 

@@ -2,13 +2,12 @@ package org.firstinspires.ftc.teamcode.Robots;
 
 import android.hardware.Sensor;
 
-import org.firstinspires.ftc.teamcode.RC;
-import org.firstinspires.ftc.teamcode.Robots.Robot;
-import org.firstinspires.ftc.teamcode.newhardware.FXTCRServo;
-import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.OnBoardSensorManager;
-import org.firstinspires.ftc.teamcode.newhardware.Motor;
-import org.firstinspires.ftc.teamcode.newhardware.FXTServo;
-import org.firstinspires.ftc.teamcode.newhardware.FXTSensors.OnBoardSensor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTCRServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTSensors.OnBoardSensorManager;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTServo;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.FXTSensors.OnBoardSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 /**

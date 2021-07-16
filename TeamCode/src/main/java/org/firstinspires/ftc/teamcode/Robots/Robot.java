@@ -5,11 +5,10 @@ import android.util.Log;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.RC;
-import org.firstinspires.ftc.teamcode.newhardware.Motor;
-import org.firstinspires.ftc.teamcode.util.MathUtils;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.util.MathUtils;
 
 /**
  * Created by FIXIT on 15-08-18.

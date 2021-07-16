@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robots;
 
-import org.firstinspires.ftc.teamcode.Robots.Robot;
-import org.firstinspires.ftc.teamcode.newhardware.Motor;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**

@@ -126,3 +126,13 @@ repositories {
     jcenter()
 }
 
+/**
+ * Other EasyOpenCV programs seems to have a line above which states:
+ * apply from: 'build.release.gradle'
+ *
+ * That file does not exist in this repository, nor the official FtcRobotController Repository.
+ * However, the file does exist in the now archived SkyStone Repository. If EasyOpenCV does not
+ * work, we could try to add the line above, and import the files. Here is the link to find the
+ * said files:
+ * https://github.com/FIRST-Tech-Challenge/SkyStone/find/master
+ */

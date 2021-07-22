@@ -16,7 +16,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 @TeleOp
-public class EasyOpenCVExample extends LinearOpMode {
+public class EasyOpenCVExample_RobotControllerPhone extends LinearOpMode {
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
 
@@ -153,4 +153,7 @@ public class EasyOpenCVExample extends LinearOpMode {
  *
  * Program was adapted, modified, and changed to fix errors and to test and experiment in
  * EasyOpenCv.
+ *
+ * This program is able to used the Robot Controller phone and its camera, to detect the ring stack
+ * from the Ultimate Goal 2020-2021 season.
  */

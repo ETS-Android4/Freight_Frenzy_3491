@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Test.zReference;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -23,7 +24,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode {
     @Override
     public void runOpMode() {
         int cameraMonitorViewID = hardwareMap.appContext.getResources().getIdentifier("CameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewID);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewID);
         pipeline = new SkystoneDeterminationPipeline();
         webcam.setPipeline(pipeline);
 

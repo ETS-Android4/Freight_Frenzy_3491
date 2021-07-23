@@ -25,7 +25,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode {
         int cameraMonitorViewID = hardwareMap.appContext.getResources().getIdentifier("CameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewID);
 //        pipeline = new SkystoneDeterminationPipeline();
-        webcam.setPipeline(new EasyOpenCVExample_ControlHubWebcam.SamplePipeline());
+        webcam.setPipeline(new SamplePipeline());
 
         /*
          * We set the viewport policy to optimized view so the preview doesn't appear 90 deg

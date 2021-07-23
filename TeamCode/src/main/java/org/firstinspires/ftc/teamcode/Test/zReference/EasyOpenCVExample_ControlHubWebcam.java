@@ -18,13 +18,13 @@ import org.openftc.easyopencv.OpenCvPipeline;
 @TeleOp
 public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode {
     OpenCvCamera webcam;
-    SkystoneDeterminationPipeline pipeline;
+//    SkystoneDeterminationPipeline pipeline;
 
     @Override
     public void runOpMode() {
         int cameraMonitorViewID = hardwareMap.appContext.getResources().getIdentifier("CameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewID);
-        pipeline = new SkystoneDeterminationPipeline();
+//        pipeline = new SkystoneDeterminationPipeline();
         webcam.setPipeline(new EasyOpenCVExample_ControlHubWebcam.SamplePipeline());
 
         /*
@@ -32,7 +32,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode {
          * out when the RC activity is in portrait. We do our actual image processing assuming
          * landscape orientation, though.
          */
-        webcam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
+//        webcam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
@@ -61,14 +61,14 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.addData("Position", pipeline.position);
-            telemetry.update();
-
-            // Don't burn CPU cycles busy-looping in this sample
-            sleep(50);
-        }
+//        while (opModeIsActive()) {
+//            telemetry.addData("Analysis", pipeline.getAnalysis());
+//            telemetry.addData("Position", pipeline.position);
+//            telemetry.update();
+//
+//            // Don't burn CPU cycles busy-looping in this sample
+//            sleep(50);
+//        }
     }
 
     public static class SkystoneDeterminationPipeline extends OpenCvPipeline {

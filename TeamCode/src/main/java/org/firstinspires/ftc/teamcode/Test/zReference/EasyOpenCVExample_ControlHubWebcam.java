@@ -96,7 +96,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
 
             // Telemetry Ring Data
-            telemetry.addData("Analysis", pipeline.getAnalysis());
+//            telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.addData("Position", pipeline.position);
 
             // Telemetry Update
@@ -314,9 +314,9 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             return input;
         }
 
-        public int getAnalysis() {
-            return avg1;
-        }
+//        public int getAnalysis() {
+//            return avg1;
+//        }
     }
 }
 

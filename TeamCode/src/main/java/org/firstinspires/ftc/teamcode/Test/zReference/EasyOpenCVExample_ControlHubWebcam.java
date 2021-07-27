@@ -21,6 +21,8 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
     OpenCvCamera webcam;
     Pipeline pipeline;
 
+    public static int avg1;
+
     @Override
     public void runOpMode()
     {
@@ -97,7 +99,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 
             // Telemetry Ring Data
             telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.addData("Position", pipeline.position);
+//            telemetry.addData("Position", pipeline.position);
 
             // Telemetry Update
             telemetry.update();
@@ -262,7 +264,6 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
         Mat region1_Cb;
         Mat YCrCb = new Mat();
         Mat Cb = new Mat();
-        int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile Pipeline.RingPosition position = RingPosition.FOUR;

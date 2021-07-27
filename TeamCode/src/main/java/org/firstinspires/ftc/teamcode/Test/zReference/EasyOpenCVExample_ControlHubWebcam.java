@@ -97,7 +97,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 
             // Telemetry Ring Data
 //            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.addData("Position", pipeline.position);
+            //telemetry.addData("Position", pipeline.position);
 
             // Telemetry Update
             telemetry.update();
@@ -236,16 +236,16 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             ONE,
             NONE
         }
-
-        // Some color constants
+//
+//        // Some color constants
         final Scalar BLUE = new Scalar(0, 0, 255);
 //        static final Scalar GREEN = new Scalar(0, 255, 0);
-
+//
         // The core values which define the location and size of the sample regions
         final Point REGION1_TOP_LEFT_ANCHOR_POINT = new Point(181, 90);
 
-        static final int REGION_WIDTH = 35;
-        static final int REGION_HEIGHT = 25;
+        static final int REGION_HEIGHT = 25;        static final int REGION_WIDTH = 35;
+
 
         final int FOUR_RING_THRESHOLD = 150;
         final int ONE_RING_THRESHOLD = 135;

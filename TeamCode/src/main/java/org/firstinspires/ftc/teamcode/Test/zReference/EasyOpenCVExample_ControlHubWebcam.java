@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Test.zReference;
 
+import android.annotation.SuppressLint;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,12 +21,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 {
     OpenCvCamera webcam;
-    Pipeline pipeline;
 
-    public static int avg1 = 0;
     public static int analysis = 0;
     public static volatile Pipeline.RingPosition positionOfRing = Pipeline.RingPosition.FOUR;
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode()
     {
@@ -164,46 +165,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
     {
         // Camera View set-up
         boolean viewportPaused;
-        private OpenCvCamera webcam;
-
-        /*
-         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
-         * highly recommended to declare them here as instance variables and re-use them for
-         * each invocation of processFrame(), rather than declaring them as new local variables
-         * each time through processFrame(). This removes the danger of causing a memory leak
-         * by forgetting to call mat.release(), and it also reduces memory pressure by not
-         * constantly allocating and freeing large chunks of memory.
-         */
-
-//        @Override
-//        public Mat processFrame(Mat input)
-//        {
-//            /*
-//             * IMPORTANT NOTE: the input Mat that is passed in as a parameter to this method
-//             * will only dereference to the same image for the duration of this particular
-//             * invocation of this method. That is, if for some reason you'd like to save a copy
-//             * of this particular frame for later use, you will need to either clone it or copy
-//             * it to another Mat.
-//             */
-//
-//            // Draw a simple box around the middle 1/2 of the entire frame
-//            Imgproc.rectangle(
-//                    input,
-//                    new Point(
-//                            input.cols()/4,
-//                            input.rows()/4),
-//                    new Point(
-//                            input.cols()*(3f/4f),
-//                            input.rows()*(3f/4f)),
-//                    new Scalar(0, 255, 0), 4);
-//
-//            /*
-//             * NOTE: to see how to get data from your pipeline to your OpMode as well as how
-//             * to change which stage of the pipeline is rendered to the viewport when it is
-//             * tapped, please see {@link PipelineStageSwitchingExample}
-//             */
-//            return input;
-//        }
+        public OpenCvCamera webcam;
 
         @Override
         public void onViewportTapped()
@@ -219,7 +181,6 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
              *
              * Here we demonstrate dynamically pausing/resuming the viewport when the user taps it
              */
-
             viewportPaused = !viewportPaused;
 
             if(viewportPaused)
@@ -265,9 +226,10 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
         Mat region1_Cb;
         Mat YCrCb = new Mat();
         Mat Cb = new Mat();
+        int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile Pipeline.RingPosition position = RingPosition.FOUR;
+        Pipeline.RingPosition position = RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -284,6 +246,14 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
         }
 
+        /*
+         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
+         * highly recommended to declare them here as instance variables and re-use them for
+         * each invocation of processFrame(), rather than declaring them as new local variables
+         * each time through processFrame(). This removes the danger of causing a memory leak
+         * by forgetting to call mat.release(), and it also reduces memory pressure by not
+         * constantly allocating and freeing large chunks of memory.
+         */
         @Override
         public Mat processFrame(Mat input) {
 
@@ -323,8 +293,11 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 }
 
 /*
- * Program based on the example program shown in "https://www.youtube.com/watch?v=-QFoOCoaW7I",
- * By team "Wizards.exe 9794".
+ * Program is a mix of two different programs, one based on the example program shown in
+ * "https://www.youtube.com/watch?v=-QFoOCoaW7I", By team "Wizards.exe 9794".
+ *
+ * The other is a program copied from the EasyOpenCV example library:
+ * "https://github.com/OpenFTC/EasyOpenCV/blob/master/examples/src/main/java/org/openftc/easyopencv/examples/WebcamExample.java"
  *
  * Program was adapted, modified, and changed to fix errors and to test and experiment in
  * EasyOpenCv.

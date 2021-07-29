@@ -22,6 +22,8 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
     Pipeline pipeline;
 
     public static int avg1 = 0;
+    public static int analysis = 0;
+    public static volatile Pipeline.RingPosition positionOfRing = Pipeline.RingPosition.FOUR;
 
     @Override
     public void runOpMode()
@@ -98,8 +100,8 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
 
             // Telemetry Ring Data
-            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.addData("Position", pipeline.position);
+            telemetry.addData("Analysis", analysis);
+            telemetry.addData("Position", positionOfRing);
 
             // Telemetry Update
             telemetry.update();
@@ -312,11 +314,10 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
                     BLUE, // The colour of the rectangle is drawn in
                     -1); // Thickness of the rectangle lines
 
-            return input;
-        }
+            analysis = avg1;
+            positionOfRing = position;
 
-        public int getAnalysis() {
-            return avg1;
+            return input;
         }
     }
 }

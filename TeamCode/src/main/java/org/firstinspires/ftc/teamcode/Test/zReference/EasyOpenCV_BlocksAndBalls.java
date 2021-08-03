@@ -18,12 +18,14 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 @TeleOp
-public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
+public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
 {
     OpenCvCamera webcam;
 
-    public static int analysis = 0;
-    public static volatile Pipeline.RingPosition positionOfRing = Pipeline.RingPosition.FOUR;
+    public static int randomization = 0;
+
+//    public static int analysis = 0;
+//    public static volatile Pipeline.RingPosition positionOfRing = Pipeline.RingPosition.FOUR;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -84,6 +86,7 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
             }
         });
 
+        // Telemetry Update
         telemetry.addLine("Waiting for start");
         telemetry.update();
 
@@ -92,17 +95,16 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 
         while (opModeIsActive())
         {
-            // Telemetry Data
+            // Telemetry Blocks and Balls Data
+            telemetry.addData("Randomization", randomization);
+
+            // Webcam Telemetry Data
             telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
             telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
             telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
-
-            // Telemetry Ring Data
-            telemetry.addData("Analysis", analysis);
-            telemetry.addData("Position", positionOfRing);
 
             // Telemetry Update
             telemetry.update();
@@ -134,7 +136,6 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
                  * the above "important note".
                  */
                 webcam.stopStreaming();
-                //webcam.closeCameraDevice();
             }
 
             /*
@@ -195,29 +196,26 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 
         // Ring Detection set-up
 
-        // An enum to define the skystone position
-        public enum RingPosition {
-            FOUR,
-            ONE,
-            NONE
+        // An enum to define the colours of the Blocks and Balls
+        public enum Randomization {
+            One,
+            Two,
+            Three
         }
 
         // Some color constants
         final Scalar BLUE = new Scalar(0, 0, 255);
-//        static final Scalar GREEN = new Scalar(0, 255, 0);
 
         // The core values which define the location and size of the sample regions
         final Point REGION1_TOP_LEFT_ANCHOR_POINT = new Point(181, 90);
 
         static final int REGION_HEIGHT = 25;        static final int REGION_WIDTH = 35;
 
-
-        final int FOUR_RING_THRESHOLD = 150;
-        final int ONE_RING_THRESHOLD = 135;
-
+        // Location of rectangle corner
         Point region1_pointA = new Point(
                 REGION1_TOP_LEFT_ANCHOR_POINT.x,
                 REGION1_TOP_LEFT_ANCHOR_POINT.y);
+        // Location of opposite rectangle corner
         Point region1_pointB = new Point(
                 REGION1_TOP_LEFT_ANCHOR_POINT.x + REGION_WIDTH,
                 REGION1_TOP_LEFT_ANCHOR_POINT.y + REGION_HEIGHT);
@@ -227,9 +225,10 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
         Mat YCrCb = new Mat();
         Mat Cb = new Mat();
         int avg1;
+        int gameElement = 0;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        Pipeline.RingPosition position = RingPosition.FOUR;
+//        RingPosition position = RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -261,31 +260,18 @@ public class EasyOpenCVExample_ControlHubWebcam extends LinearOpMode
 
             avg1 = (int) Core.mean(region1_Cb).val[0];
 
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    region1_pointA, // First point which defines the rectangle
-                    region1_pointB, // Second point which defines the rectangle
-                    BLUE, // The colour of the rectangle is drawn in
-                    2); // Thickness of the rectangle lines
+            Imgproc.rectangle(input, region1_pointA, region1_pointB, BLUE, 2);
 
-            // Record out analysis
-            if (avg1 > FOUR_RING_THRESHOLD) {
-                position = RingPosition.FOUR;
-            } else if (avg1 > ONE_RING_THRESHOLD) {
-                position = RingPosition.ONE;
-            } else {
-                position = RingPosition.NONE;
-            }
+//            // Record out analysis
+//            if (avg1 > ) {
+//                 = Randomization.One;
+//            } else if (avg1 > ) {
+//                 = Randomization.Two;
+//            } else {
+//                 = .Randomization.Three;
+//            }
 
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    region1_pointA, // First point which defines the rectangle
-                    region1_pointB, // Second point which defines the rectangle
-                    BLUE, // The colour of the rectangle is drawn in
-                    -1); // Thickness of the rectangle lines
-
-            analysis = avg1;
-            positionOfRing = position;
+            randomization = avg1;
 
             return input;
         }

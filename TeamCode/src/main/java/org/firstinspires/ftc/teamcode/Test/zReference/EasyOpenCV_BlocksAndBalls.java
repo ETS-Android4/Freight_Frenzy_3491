@@ -207,9 +207,11 @@ public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
         final Scalar BLUE = new Scalar(0, 0, 255);
 
         // The core values which define the location and size of the sample regions
-        final Point REGION1_TOP_LEFT_ANCHOR_POINT = new Point(181, 90);
+        final Point REGION1_TOP_LEFT_ANCHOR_POINT = new Point(160, 120);
 
-        static final int REGION_HEIGHT = 25;        static final int REGION_WIDTH = 35;
+        static final int REGION_HEIGHT = 25;        static final int REGION_WIDTH = 25;
+
+        final int elementThreshold = 100;
 
         // Location of rectangle corner
         Point region1_pointA = new Point(
@@ -222,7 +224,7 @@ public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
 
         // Working variables
         Mat region1_Cb;
-        Mat YCrCb = new Mat();
+        Mat HSV = new Mat();
         Mat Cb = new Mat();
         int avg1;
         int gameElement = 0;
@@ -235,8 +237,8 @@ public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
          * and extracts the Cb channel to the 'Cb' variable
          */
         void inputToCb(Mat input) {
-            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-            Core.extractChannel(YCrCb, Cb, 1);
+//            Imgproc.cvtColor(input, HSV, Imgproc.);
+            Core.extractChannel(HSV, Cb, 1);
         }
 
         @Override
@@ -263,10 +265,10 @@ public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
             Imgproc.rectangle(input, region1_pointA, region1_pointB, BLUE, 2);
 
 //            // Record out analysis
-//            if (avg1 > ) {
+//            if (avg1 > elementThreshold) {
 //                 = Randomization.One;
-//            } else if (avg1 > ) {
-//                 = Randomization.Two;
+////            } else if (avg1 > ) {
+////                 = Randomization.Two;
 //            } else {
 //                 = .Randomization.Three;
 //            }

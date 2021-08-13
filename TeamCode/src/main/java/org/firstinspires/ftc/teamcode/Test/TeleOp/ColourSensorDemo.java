@@ -44,7 +44,12 @@ public class ColourSensorDemo extends LinearOpMode {
             colorValue = Color.rgb(ColorSensorL.red(), ColorSensorL.green(), ColorSensorL.blue());
             telemetry.addData("Hue", JavaUtil.colorToHue(colorValue));
             // Put loop blocks here.
-            if (JavaUtil.colorToHue(colorValue) > 120 && (JavaUtil.colorToHue(colorValue) < 140)){
+            if (JavaUtil.colorToHue(colorValue) > 330){
+                FrontL.setPower(-1);
+                FrontR.setPower(-1);
+                BackL.setPower(-1);
+                BackR.setPower(-1);
+                sleep(100);
                 FrontL.setPower(0);
                 FrontR.setPower(0);
                 BackL.setPower(0);

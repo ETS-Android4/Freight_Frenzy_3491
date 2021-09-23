@@ -19,3 +19,11 @@ dependencies {
     implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 }
+
+dependencies {
+    // EasyOpenCV Setup
+    implementation 'org.openftc:easyopencv:1.4.4'
+
+    // Road Runner Set-up
+    implementation 'com.acmerobotics.roadrunner:core:0.5.3'
+}

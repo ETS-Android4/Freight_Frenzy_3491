@@ -60,8 +60,8 @@ import java.util.List;
 @Autonomous
 public class CompFinalAuto_UltimateGoal extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
-    private static final String LABEL_FIRST_ELEMENT = "Single";
-    private static final String LABEL_SECOND_ELEMENT = "Quad";
+    private static final String LABEL_FIRST_ELEMENT = "Quad";
+    private static final String LABEL_SECOND_ELEMENT = "Single";
 
     private Servo mechanicalBlock;
 
@@ -141,7 +141,7 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
         }
 
         //Initializing electronics
-        beyonce.Ramp.setPosition(0.38);
+        beyonce.Ramp.setPosition(0.41);
         setMechanicalBlockTurnOff();
 
         //Wait for the game to begin
@@ -182,13 +182,13 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
 
                             //Detecting 1 Ring
                             if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
-                                state = 1;
-                                telemetry.addData("state:", 1);
+                                state = 2;
+                                telemetry.addData("state:", 2);
 
                             //Detecting 4 Rings
                             } else if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                                state = 2;
-                                telemetry.addData("state:", 2);
+                                state = 1;
+                                telemetry.addData("state:", 1);
                             }
                             telemetry.addData("in", 0);
                             break;
@@ -223,6 +223,12 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             }
                             beyonce.Stop();
                             telemetry.addData("Red Line 1:", "Detected");
+                            sleep(1000);
+
+                            //Driving towards drop zone
+                            beyonce.StrafeLeft(0.5);
+                            sleep(750);
+                            beyonce.Stop();
 
                             //Drive into field wall
                             beyonce.DriveBackward(0.5);
@@ -235,8 +241,8 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.Stop();
 
                             //Continues driving until detecting target zone edge
-                            while (opModeIsActive() && redVal > colorSensorR.red()) {
-                                beyonce.DriveForward(0.5);
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
@@ -260,8 +266,8 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.Stop();
 
                             //Deploy BeatInStick
-                            beyonce.Beat(-0.1);
-                            sleep(100);
+                            beyonce.Beat(-0.5);
+                            sleep(275);
                             beyonce.Stop();
 
                             //Terminate Program
@@ -287,69 +293,54 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.DriveBackward(0.7);
                             sleep(800);
 
-                            //Drive along field wall
-                            beyonce.StrafeRight(1);
-                            sleep(2000);
-                            beyonce.Stop();
-
-                            //Drive into field wall
-                            beyonce.DriveBackward(0.5);
-                            sleep(500);
-                            beyonce.Stop();
-
                             //Continues driving along field wall until detecting first red line
                             while (opModeIsActive() && redVal > colorSensorL.red()) {
-                                beyonce.StrafeRight(0.5);
+                                beyonce.StrafeRight(1);
                                 telemetry.addData("red", colorSensorL.red());
                             }
                             beyonce.Stop();
                             telemetry.addData("Red Line 1:", "Detected");
+                            sleep(1000);
 
-                            //Drive into field wall
-                            beyonce.DriveBackward(0.7);
-                            sleep(400);
-                            beyonce.Stop();
-
-                            //Drive along field wall
-                            beyonce.StrafeRight(0.7);
-                            sleep(300);
-                            beyonce.Stop();
-
-                            //Continues driving along field wall until detecting first red line
-                            while (opModeIsActive() && redVal > colorSensorL.red()) {
-                                beyonce.StrafeRight(0.5);
-                                //red = opModeIsActive() && 120 < colorSensorL.red();
-                                telemetry.addData("red", colorSensorL.red());
-                            }
-                            beyonce.Stop();
-                            telemetry.addData("Red Line 3:", "Detected");
-
-                            //Drive into field wall
-                            beyonce.DriveBackward(0.7);
-                            sleep(750);
-
-                            //Continues driving until detecting target zone
+                            //Continues driving along field wall until detecting second red line
                             while (opModeIsActive() && redVal > colorSensorR.red()) {
-                                beyonce.DriveForward(0.5);
+                                beyonce.StrafeRight(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
-                            telemetry.addData("Target Zone B:", "Detected");
                             beyonce.Stop();
+                            telemetry.addData("Red Line 3:", "Detected");
                             sleep(500);
 
-//                            //Drive forward to allow arm to drop inside of Target Zone
-//                            beyonce.DriveForward(0.7);
-//                            sleep(200);
-//                            beyonce.Stop();
+                            //Drive along field wall
+                            beyonce.StrafeLeft(0.5);
+                            sleep(750);
+                            beyonce.Stop();
+
+                            //Stop
+                            sleep(500);
+
+                            //Drive into field wall
+                            beyonce.DriveBackward(1);
+                            sleep(500);
 
                             //Continues driving until detecting target zone edge
-                            while (opModeIsActive() && redVal > colorSensorR.red()) {
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
                                 beyonce.DriveForward(0.5);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
                             telemetry.addData("Target Zone B Edge:", "Detected");
+                            beyonce.Stop();
+                            sleep(1000);
+
+                            //Continues driving until detecting target zone edge
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
+                                //red = opModeIsActive() && 120 < colorSensorL.red();
+                                telemetry.addData("red", colorSensorR.red());
+                            }
+                            telemetry.addData("Target Zone B Edge 2:", "Detected");
                             beyonce.Stop();
                             sleep(1000);
 
@@ -364,13 +355,13 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             sleep(300);
 
                             //Drive to park
-                            beyonce.StrafeLeft(0.7);
+                            beyonce.StrafeLeft(1);
                             sleep(1000);
                             beyonce.Stop();
 
                             //Deploy BeatInStick
-                            beyonce.Beat(-0.1);
-                            sleep(100);
+                            beyonce.Beat(-0.5);
+                            sleep(275);
                             beyonce.Stop();
 
                             //Terminate Program
@@ -395,6 +386,10 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.ClawClose();
                             beyonce.DriveBackward(0.7);
                             sleep(800);
+                            beyonce.Stop();
+                            sleep(1000);
+
+                            telemetry.addData("status", "backwards Drive done");
 
                             //Drive along field wall
                             beyonce.StrafeRight(1);
@@ -412,8 +407,8 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.Stop();
 
                             //Continues driving until detecting target zone edge
-                            while (opModeIsActive() && redVal > colorSensorR.red()) {
-                                beyonce.DriveForward(0.5);
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
@@ -433,12 +428,12 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
 
                             //Drive to park
                             beyonce.StrafeLeft(1);
-                            sleep(1500);
+                            sleep(1400);
                             beyonce.Stop();
 
                             //Deploy BeatInStick
-                            beyonce.Beat(-0.1);
-                            sleep(100);
+                            beyonce.Beat(-0.5);
+                            sleep(275);
                             beyonce.Stop();
 
                             //Terminate Program
@@ -471,6 +466,12 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             }
                             beyonce.Stop();
                             telemetry.addData("Red Line 1:", "Detected");
+                            sleep(2000);
+
+                            //Driving towards drop zone
+                            beyonce.StrafeLeft(0.5);
+                            sleep(750);
+                            beyonce.Stop();
 
                             //Drive into field wall
                             beyonce.DriveBackward(0.5);
@@ -483,12 +484,12 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.Stop();
 
                             //Continues driving until detecting target zone edge
-                            while (opModeIsActive() && redVal > colorSensorR.red()) {
-                                beyonce.DriveForward(0.5);
+                            while (opModeIsActive() && redVal > colorSensorL.red() && redVal > colorSensorR.red()) {
+                                beyonce.DriveForward(0.2);
                                 //red = opModeIsActive() && 120 < colorSensorL.red();
                                 telemetry.addData("red", colorSensorR.red());
                             }
-                            telemetry.addData("Target Zone C Edge:", "Detected");
+                            telemetry.addData("Target Zone A Edge:", "Detected");
                             beyonce.Stop();
                             sleep(1000);
 
@@ -508,12 +509,13 @@ public class CompFinalAuto_UltimateGoal extends AutoOpMode {
                             beyonce.Stop();
 
                             //Deploy BeatInStick
-                            beyonce.Beat(-0.1);
-                            sleep(100);
+                            beyonce.Beat(-0.5);
+                            sleep(275);
                             beyonce.Stop();
 
                             //Terminate Program
                             targetFound = true;
+
                         }
 
                         //Update Telemetry

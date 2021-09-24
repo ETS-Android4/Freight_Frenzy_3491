@@ -1,32 +1,15 @@
-/*
- * Copyright (c) 2019 OpenFTC Team
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
+package org.firstinspires.ftc.teamcode.Test.z_Reference;
 
-package org.firstinspires.ftc.teamcode.Test.zReference;
+import android.annotation.SuppressLint;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -35,10 +18,16 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 @TeleOp
-public class EasyOpenCVExample_WebcamExample extends LinearOpMode
+public class EasyOpenCV_BlocksAndBalls extends LinearOpMode
 {
     OpenCvCamera webcam;
 
+    public static int randomization = 0;
+
+//    public static int analysis = 0;
+//    public static volatile Pipeline.RingPosition positionOfRing = Pipeline.RingPosition.FOUR;
+
+    @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode()
     {
@@ -55,15 +44,13 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        // OR...  Do Not Activate the Camera Monitor View
-        //webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
         /*
          * Specify the image processing pipeline we wish to invoke upon receipt
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
          */
-        webcam.setPipeline(new SamplePipeline());
+        webcam.setPipeline(new Pipeline());
 
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
@@ -99,25 +86,27 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
             }
         });
 
+        // Telemetry Update
         telemetry.addLine("Waiting for start");
         telemetry.update();
 
-        /*
-         * Wait for the user to press start on the Driver Station
-         */
+        // Waiting for program to start
         waitForStart();
 
         while (opModeIsActive())
         {
-            /*
-             * Send some stats to the telemetry
-             */
+            // Telemetry Blocks and Balls Data
+            telemetry.addData("Randomization", randomization);
+
+            // Webcam Telemetry Data
             telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
             telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
             telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+
+            // Telemetry Update
             telemetry.update();
 
             /*
@@ -147,7 +136,6 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
                  * the above "important note".
                  */
                 webcam.stopStreaming();
-                //webcam.closeCameraDevice();
             }
 
             /*
@@ -174,51 +162,11 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
      * if you're doing something weird where you do need it synchronized with your OpMode thread,
      * then you will need to account for that accordingly.
      */
-    class SamplePipeline extends OpenCvPipeline
+    static class Pipeline extends OpenCvPipeline
     {
+        // Camera View set-up
         boolean viewportPaused;
-
-        /*
-         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
-         * highly recommended to declare them here as instance variables and re-use them for
-         * each invocation of processFrame(), rather than declaring them as new local variables
-         * each time through processFrame(). This removes the danger of causing a memory leak
-         * by forgetting to call mat.release(), and it also reduces memory pressure by not
-         * constantly allocating and freeing large chunks of memory.
-         */
-
-        @Override
-        public Mat processFrame(Mat input)
-        {
-            /*
-             * IMPORTANT NOTE: the input Mat that is passed in as a parameter to this method
-             * will only dereference to the same image for the duration of this particular
-             * invocation of this method. That is, if for some reason you'd like to save a copy
-             * of this particular frame for later use, you will need to either clone it or copy
-             * it to another Mat.
-             */
-
-            /*
-             * Draw a simple box around the middle 1/2 of the entire frame
-             */
-            Imgproc.rectangle(
-                    input,
-                    new Point(
-                            input.cols()/4,
-                            input.rows()/4),
-                    new Point(
-                            input.cols()*(3f/4f),
-                            input.rows()*(3f/4f)),
-                    new Scalar(0, 255, 0), 4);
-
-            /**
-             * NOTE: to see how to get data from your pipeline to your OpMode as well as how
-             * to change which stage of the pipeline is rendered to the viewport when it is
-             * tapped, please see {@link PipelineStageSwitchingExample}
-             */
-
-            return input;
-        }
+        public OpenCvCamera webcam;
 
         @Override
         public void onViewportTapped()
@@ -234,7 +182,6 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
              *
              * Here we demonstrate dynamically pausing/resuming the viewport when the user taps it
              */
-
             viewportPaused = !viewportPaused;
 
             if(viewportPaused)
@@ -246,7 +193,103 @@ public class EasyOpenCVExample_WebcamExample extends LinearOpMode
                 webcam.resumeViewport();
             }
         }
+
+        // Ring Detection set-up
+
+        // An enum to define the colours of the Blocks and Balls
+        public enum Randomization {
+            One,
+            Two,
+            Three
+        }
+
+        // Some color constants
+        final Scalar BLUE = new Scalar(0, 0, 255);
+
+        // The core values which define the location and size of the sample regions
+        final Point REGION1_TOP_LEFT_ANCHOR_POINT = new Point(160, 120);
+
+        static final int REGION_HEIGHT = 25;        static final int REGION_WIDTH = 25;
+
+        final int elementThreshold = 100;
+
+        // Location of rectangle corner
+        Point region1_pointA = new Point(
+                REGION1_TOP_LEFT_ANCHOR_POINT.x,
+                REGION1_TOP_LEFT_ANCHOR_POINT.y);
+        // Location of opposite rectangle corner
+        Point region1_pointB = new Point(
+                REGION1_TOP_LEFT_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION1_TOP_LEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+
+        // Working variables
+        Mat region1_Cb;
+        Mat HSV = new Mat();
+        Mat Cb = new Mat();
+        int avg1;
+        int gameElement = 0;
+
+        // Volatile since accessed by OpMode thread w/o synchronization
+//        RingPosition position = RingPosition.FOUR;
+
+        /*
+         * This function takes the RGB frame, converts to YCrCb,
+         * and extracts the Cb channel to the 'Cb' variable
+         */
+        void inputToCb(Mat input) {
+//            Imgproc.cvtColor(input, HSV, Imgproc.);
+            Core.extractChannel(HSV, Cb, 1);
+        }
+
+        @Override
+        public void init(Mat firstFrame) {
+            inputToCb(firstFrame);
+            region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
+        }
+
+        /*
+         * NOTE: if you wish to use additional Mat objects in your processing pipeline, it is
+         * highly recommended to declare them here as instance variables and re-use them for
+         * each invocation of processFrame(), rather than declaring them as new local variables
+         * each time through processFrame(). This removes the danger of causing a memory leak
+         * by forgetting to call mat.release(), and it also reduces memory pressure by not
+         * constantly allocating and freeing large chunks of memory.
+         */
+        @Override
+        public Mat processFrame(Mat input) {
+
+            inputToCb(input);
+
+            avg1 = (int) Core.mean(region1_Cb).val[0];
+
+            Imgproc.rectangle(input, region1_pointA, region1_pointB, BLUE, 2);
+
+//            // Record out analysis
+//            if (avg1 > elementThreshold) {
+//                 = Randomization.One;
+////            } else if (avg1 > ) {
+////                 = Randomization.Two;
+//            } else {
+//                 = .Randomization.Three;
+//            }
+
+            randomization = avg1;
+
+            return input;
+        }
     }
 }
 
-//Program directly copied from "https://github.com/OpenFTC/EasyOpenCV/blob/master/examples/src/main/java/org/openftc/easyopencv/examples/WebcamExample.java"
+/*
+ * Program is a mix of two different programs, one based on the example program shown in
+ * "https://www.youtube.com/watch?v=-QFoOCoaW7I", By team "Wizards.exe 9794".
+ *
+ * The other is a program copied from the EasyOpenCV example library:
+ * "https://github.com/OpenFTC/EasyOpenCV/blob/master/examples/src/main/java/org/openftc/easyopencv/examples/WebcamExample.java"
+ *
+ * Program was adapted, modified, and changed to fix errors and to test and experiment in
+ * EasyOpenCv.
+ *
+ * This program is able to used the Control Hub and Webcam set-up, to detect the ring stack from
+ * the Ultimate Goal 2020-2021 season.
+ */

@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.Competition.z_SetUp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opMode_Support.AutoOpMode;
 
-//@Disabled
+@Disabled
 
 @Autonomous
 public class TestColourSense extends AutoOpMode {

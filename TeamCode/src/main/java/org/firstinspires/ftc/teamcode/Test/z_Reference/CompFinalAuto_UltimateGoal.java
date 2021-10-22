@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.Test.z_Reference;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -57,6 +58,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
+
+@Disabled
+
 @Autonomous
 public class CompFinalAuto_UltimateGoal extends AutoOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";

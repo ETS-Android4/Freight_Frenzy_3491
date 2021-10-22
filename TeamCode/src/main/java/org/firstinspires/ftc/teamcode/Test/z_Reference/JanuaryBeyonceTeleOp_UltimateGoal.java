@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Test.z_Reference;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
 import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
 
-//@Disabled
+@Disabled
 
 @TeleOp
 public class JanuaryBeyonceTeleOp_UltimateGoal extends TeleOpMode {

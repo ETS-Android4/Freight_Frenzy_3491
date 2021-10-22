@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test.z_Reference;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
 import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
+
+@Disabled
 
 @TeleOp
 public class JulyBeyonceTeleOp_UltimateGoal extends TeleOpMode {

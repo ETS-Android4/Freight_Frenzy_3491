@@ -6,26 +6,48 @@ import static android.os.SystemClock.sleep;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Ducky {
 
     // Declaring Motor Variables
     public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
 
+    HardwareMap hwMap =  null;
+    private ElapsedTime period  = new ElapsedTime();
+    
     // Declaring stuff
-    public Ducky(HardwareMap hardwareMap) throws InterruptedException {
+    public Ducky(){
+
+    }
+
+    public void init(HardwareMap ahwMap)  {
+
+        // Save reference to Hardware map
+        hwMap = ahwMap;
 
         // Drive Motors
-        FrontLeft = hardwareMap.dcMotor.get("frontL");
-        BackLeft = hardwareMap.dcMotor.get("backL");
-        FrontRight = hardwareMap.dcMotor.get("frontR");
-        BackRight = hardwareMap.dcMotor.get("backR");
+        FrontLeft = hwMap.dcMotor.get("frontL");
+        BackLeft = hwMap.dcMotor.get("backL");
+        FrontRight = hwMap.dcMotor.get("frontR");
+        BackRight = hwMap.dcMotor.get("backR");
 
         // Setting Motor Direction
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
+
+        // Motor set Power
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     /**

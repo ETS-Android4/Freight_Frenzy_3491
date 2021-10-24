@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
 public class DuckyTeleOp_Instance extends TeleOpMode {
 
     // Initializing Robot Class
-    Ducky ducky;
+    Ducky ducky = new Ducky();
 
     // Variable Declaration
     boolean slowButton;
@@ -18,6 +18,8 @@ public class DuckyTeleOp_Instance extends TeleOpMode {
      * Initializing the Program
      */
     public void initialize() {
+
+        ducky.init(hardwareMap);
 
         // Indicate that the program is running
         telemetry.addData("Status", "Initialized");
@@ -35,8 +37,8 @@ public class DuckyTeleOp_Instance extends TeleOpMode {
         // Slow Button
         if (gamepad1.left_trigger > 0) {
             ducky.FrontLeft.setPower(leftPower/2);
-            ducky.BackLeft.setPower(rightPower/2);
-            ducky.FrontRight.setPower(leftPower/2);
+            ducky.BackLeft.setPower(leftPower/2);
+            ducky.FrontRight.setPower(rightPower/2);
             ducky.BackRight.setPower(rightPower/2);
 
             slowButton = true;
@@ -44,8 +46,8 @@ public class DuckyTeleOp_Instance extends TeleOpMode {
             //Normal Driving
         } else {
             ducky.FrontLeft.setPower(leftPower);
-            ducky.BackLeft.setPower(rightPower);
-            ducky.FrontRight.setPower(leftPower);
+            ducky.BackLeft.setPower(leftPower);
+            ducky.FrontRight.setPower(rightPower);
             ducky.BackRight.setPower(rightPower);
 
             slowButton = false;

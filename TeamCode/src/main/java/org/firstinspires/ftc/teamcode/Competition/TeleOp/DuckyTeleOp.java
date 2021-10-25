@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.Competition.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robots.Ducky;
-import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
 
 @TeleOp
-public class DuckyTeleOp extends TeleOpMode {
+public class DuckyTeleOp extends OpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -18,7 +17,8 @@ public class DuckyTeleOp extends TeleOpMode {
     /**
      * Initializing the Program
      */
-    public void initialize() {
+    @Override
+    public void init() {
 
         // Initialize all motors/ servos
         ducky.init(hardwareMap);
@@ -35,7 +35,11 @@ public class DuckyTeleOp extends TeleOpMode {
         telemetry.update();
     }
 
-    public void loopOpMode() {
+    /**
+     * TeleOp loop once Driver hits "Play."
+     */
+    @Override
+    public void loop() {
 
         // Initializing Joystick Control
         float leftPower = -gamepad1.left_stick_y;
@@ -101,5 +105,12 @@ public class DuckyTeleOp extends TeleOpMode {
         telemetry.addData("Left Side Power", leftPower);
         telemetry.addData("Right Side Power", rightPower);
         telemetry.update();
+    }
+
+    /**
+     * Code to run after Driver hits "Stop."
+     */
+    @Override
+    public void stop() {
     }
 }

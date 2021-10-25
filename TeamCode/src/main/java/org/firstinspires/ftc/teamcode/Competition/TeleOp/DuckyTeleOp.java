@@ -3,67 +3,103 @@ package org.firstinspires.ftc.teamcode.Competition.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Robots.Ducky;
 import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
 
 @TeleOp
 public class DuckyTeleOp extends TeleOpMode {
 
-    // Declaring Motor Variables
-    public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
-    public boolean slowButton;
+    // Initializing Robot Class
+    Ducky ducky = new Ducky();
 
-    // Declaring stuff
+    // Variable Declaration
+    // N/A
+
+    /**
+     * Initializing the Program
+     */
     public void initialize() {
 
-        // Drive Motors
-        FrontLeft = hardwareMap.dcMotor.get("frontL");
-        BackLeft = hardwareMap.dcMotor.get("backL");
-        FrontRight = hardwareMap.dcMotor.get("frontR");
-        BackRight = hardwareMap.dcMotor.get("backR");
+        // Initialize all motors/ servos
+        ducky.init(hardwareMap);
 
-        // Setting Motor Direction
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
+//        /* Uncomment if program crashes */
+//        // Setting Motors to run with Encoders
+//        ducky.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        ducky.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        ducky.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // Indicate that the program is running
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
     }
 
     public void loopOpMode() {
 
         // Initializing Joystick Control
-
         float leftPower = -gamepad1.left_stick_y;
         float rightPower = -gamepad1.right_stick_y;
 
-        //// Driving Controls
-        // Slow Button
-        if (gamepad1.left_trigger > 0) {
-            FrontLeft.setPower(leftPower/2);
-            BackLeft.setPower(rightPower/2);
-            FrontRight.setPower(leftPower/2);
-            BackRight.setPower(rightPower/2);
+        /* Driving Controls */
+        // Reverse Drive
+        if (gamepad1.right_trigger > 0) {
 
-            slowButton = true;
+            // Telemetry Update
+            telemetry.addData("Drive Mode: ", "Reverse");
 
-            //Normal Driving
+            // Slow Speed
+            if (gamepad1.left_trigger > 0) {
+                ducky.FrontLeft.setPower(leftPower/-2);
+                ducky.BackLeft.setPower((leftPower/-2)/ 0.7559);
+                ducky.FrontRight.setPower(rightPower/-2);
+                ducky.BackRight.setPower((rightPower/-2)/ 0.7559);
+
+                // Telemetry Update
+                telemetry.addData("Speed Mode: ", "Slow");
+
+            // Normal Speed
+            } else {
+                ducky.FrontLeft.setPower(-leftPower);
+                ducky.BackLeft.setPower((-leftPower)/ 0.7559);
+                ducky.FrontRight.setPower(-rightPower);
+                ducky.BackRight.setPower((-rightPower)/ 0.7559);
+
+                // Telemetry Update
+                telemetry.addData("Speed Mode: ", "Normal");
+            }
+
+        // Forward Drive
         } else {
-            FrontLeft.setPower(leftPower);
-            BackLeft.setPower(rightPower);
-            FrontRight.setPower(leftPower);
-            BackRight.setPower(rightPower);
 
-            slowButton = false;
+            // Telemetry Update
+            telemetry.addData("Drive Mode: ", "Forward");
+
+            // Slow Speed
+            if (gamepad1.left_trigger > 0) {
+                ducky.FrontLeft.setPower(leftPower/2);
+                ducky.BackLeft.setPower((leftPower/2)/ 0.7559);
+                ducky.FrontRight.setPower(rightPower/2);
+                ducky.BackRight.setPower((rightPower/2)/ 0.7559);
+
+                // Telemetry Update
+                telemetry.addData("Speed Mode: ", "Slow");
+
+            // Normal Speed
+            } else {
+                ducky.FrontLeft.setPower(leftPower);
+                ducky.BackLeft.setPower((leftPower)/ 0.7559);
+                ducky.FrontRight.setPower(rightPower);
+                ducky.BackRight.setPower((rightPower)/ 0.7559);
+
+                // Telemetry Update
+                telemetry.addData("Speed Mode: ", "Normal");
+            }
         }
 
-        telemetry.addData("Speed Mode:", "fast");
-
-    // Keeps user updated
-    // Telemetry Update
-    // telemetry.addData("Run Time", runtime.toString());
-    telemetry.addData("Slow Button Enabled", slowButton);
-    telemetry.addData("Left Side Power", leftPower);
-    telemetry.addData("Right Side Power", rightPower);
-    telemetry.update();
+        // Telemetry Update
+        telemetry.addData("Left Side Power", leftPower);
+        telemetry.addData("Right Side Power", rightPower);
+        telemetry.update();
     }
 }
-

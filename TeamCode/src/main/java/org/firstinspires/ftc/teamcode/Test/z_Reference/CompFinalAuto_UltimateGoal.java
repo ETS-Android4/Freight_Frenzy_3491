@@ -44,7 +44,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.FIX_IT_Library.RC;
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
-import org.firstinspires.ftc.teamcode.opMode_Support.AutoOpMode;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.AutoOpMode;
 
 import java.util.List;
 

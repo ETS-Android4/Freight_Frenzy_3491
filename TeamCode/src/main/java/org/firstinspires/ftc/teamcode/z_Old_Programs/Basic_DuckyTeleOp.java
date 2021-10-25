@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.z_Old_Programs;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.TeleOpMode;
+
+@Disabled
 
 @TeleOp
 public class Basic_DuckyTeleOp extends TeleOpMode {

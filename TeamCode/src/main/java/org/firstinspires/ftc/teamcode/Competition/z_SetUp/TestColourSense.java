@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
-import org.firstinspires.ftc.teamcode.opMode_Support.AutoOpMode;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.AutoOpMode;
 
 @Disabled
 

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.FIX_IT_Library.Motor;
-import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.TeleOpMode;
 
 @Disabled
 

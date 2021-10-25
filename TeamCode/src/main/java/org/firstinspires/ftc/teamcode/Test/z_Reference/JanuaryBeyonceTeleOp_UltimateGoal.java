@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robots.Beyonce;
-import org.firstinspires.ftc.teamcode.opMode_Support.TeleOpMode;
+import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.TeleOpMode;
 
 @Disabled
 

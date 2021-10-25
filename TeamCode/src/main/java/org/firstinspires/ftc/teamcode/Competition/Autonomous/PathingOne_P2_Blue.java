@@ -1,20 +1,40 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robots.Ducky;
-import org.firstinspires.ftc.teamcode.opMode_Support.AutoOpMode;
 
 
 @Autonomous(name="PathingOne - P2, Blue")
 
-public class PathingOne_P2_Blue extends AutoOpMode {
+public class PathingOne_P2_Blue extends LinearOpMode {
 
     // Initializing Robot Class
-    Ducky ducky;
+    Ducky ducky = new Ducky();
 
     @Override
-    public void runOp() throws InterruptedException {
+    public void runOpMode() {
+
+        // Initialize all motors/ servos
+        ducky.init(hardwareMap);
+
+        // Reset Encoders, and Telemetry Update
+        telemetry.addData("Status", "Resetting Encoders");
+        telemetry.update();
+        ducky.FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Encoder Position Update
+        telemetry.addData("Encoder Position",  "Starting at %7d :%7d",
+                ducky.FrontLeft.getCurrentPosition(),
+                ducky.BackLeft.getCurrentPosition(),
+                ducky.FrontRight.getCurrentPosition(),
+                ducky.BackRight.getCurrentPosition());
+        telemetry.update();
 
         // Wait for the game to begin
         telemetry.addData(">", "Press Play to start op mode");
@@ -24,12 +44,6 @@ public class PathingOne_P2_Blue extends AutoOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward(1);
-        sleep(1000);
-        ducky.TurnLeft(1);
-        sleep(400);
-        ducky.DriveForward(1);
-        sleep(5000);
-        ducky.Stop();
+
     }
 }

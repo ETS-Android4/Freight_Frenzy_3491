@@ -4,9 +4,12 @@ package org.firstinspires.ftc.teamcode.Robots;
 
 import static android.os.SystemClock.sleep;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Ducky {
 
@@ -17,11 +20,10 @@ public class Ducky {
     HardwareMap hwMap;
 
     // Encoder + Wheel Declaration
-    public static final double MOTOR_TICK_COUNTS_PER_REV = 0; // Encoder counts per Motor (5203-2402-0019) Revolution
-
-    public static final double OMNI_WHEEL_DIAMETER =  96; // Diameter of Omni Wheel in mm
-    public static final double CART_WHEEL_DIAMETER = 127; // Diameter of Cart Wheel in mm
-
+    public static final double OMNI_WHEEL_PULSES_PER_INCH = 45.3; // Num of Pulses per inch travelled with Omni Wheel
+    public static final double CART_WHEEL_PULSES_PER_INCH = 34.2; // Num of Pulses per inch travelled with Cart Wheel
+    public int Omni_Wheel_Distance; // To be used in functions for setTargetPosition
+    public int Cart_Wheel_Distance; // To be used in functions for setTargetPosition
 
     // Class Constructor
     public Ducky(){
@@ -67,40 +69,148 @@ public class Ducky {
     /**
      * Autonomous
      */
-    // Robot Driving
-    public void DriveForward(double speed, int milliseconds){
+    // Robot Driving (Encoder)
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void DriveForward_Encoder(int Distance, double speed){
+        Omni_Wheel_Distance = (int)(Distance*OMNI_WHEEL_PULSES_PER_INCH);
+        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+
+        FrontLeft.setTargetPosition(Omni_Wheel_Distance);
+        BackLeft.setTargetPosition(Cart_Wheel_Distance);
+        FrontRight.setTargetPosition(Omni_Wheel_Distance);
+        BackRight.setTargetPosition(Cart_Wheel_Distance);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(speed);
+        BackLeft.setPower(speed/ 0.7559);
+        FrontRight.setPower(speed);
+        BackRight.setPower(speed/ 0.7559);
+
+        while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+        }
+
+        Stop_Encoder();
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void DriveBackward_Encoder(int Distance, double speed){
+        Omni_Wheel_Distance = (int)(Distance*OMNI_WHEEL_PULSES_PER_INCH);
+        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+
+        FrontLeft.setTargetPosition(Omni_Wheel_Distance);
+        BackLeft.setTargetPosition(Cart_Wheel_Distance);
+        FrontRight.setTargetPosition(Omni_Wheel_Distance);
+        BackRight.setTargetPosition(Cart_Wheel_Distance);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(-speed);
+        BackLeft.setPower(-speed/ 0.7559);
+        FrontRight.setPower(-speed);
+        BackRight.setPower(-speed/ 0.7559);
+
+        while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+        }
+
+        Stop_Encoder();
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void TurnLeft_Encoder(int Angle, double speed){
+        Omni_Wheel_Distance = (int)(Angle*OMNI_WHEEL_PULSES_PER_INCH);
+        Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
+
+        FrontLeft.setTargetPosition(-Omni_Wheel_Distance);
+        BackLeft.setTargetPosition(-Cart_Wheel_Distance);
+        FrontRight.setTargetPosition(Omni_Wheel_Distance);
+        BackRight.setTargetPosition(Cart_Wheel_Distance);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(-speed);
+        BackLeft.setPower(-speed/ 0.7559);
+        FrontRight.setPower(speed);
+        BackRight.setPower(speed/ 0.7559);
+
+        while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+        }
+
+        Stop_Encoder();
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    public void TurnRight_Encoder(int Angle, double speed){
+        Omni_Wheel_Distance = (int)(Angle*OMNI_WHEEL_PULSES_PER_INCH);
+        Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
+
+        FrontLeft.setTargetPosition(Omni_Wheel_Distance);
+        BackLeft.setTargetPosition(Cart_Wheel_Distance);
+        FrontRight.setTargetPosition(-Omni_Wheel_Distance);
+        BackRight.setTargetPosition(-Cart_Wheel_Distance);
+
+        FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        FrontLeft.setPower(speed);
+        BackLeft.setPower(speed/ 0.7559);
+        FrontRight.setPower(-speed);
+        BackRight.setPower(-speed/ 0.7559);
+
+        while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+        }
+
+        Stop_Encoder();
+    }
+    public void Stop_Encoder(){
+        FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    // Robot Driving (Power and Time only)
+    public void DriveForward_Power(double speed, int milliseconds){
         FrontLeft.setPower(speed);
         BackLeft.setPower(speed/ 0.7559);
         FrontRight.setPower(speed);
         BackRight.setPower(speed/ 0.7559);
         sleep(milliseconds);
-        Stop();
+        Stop_Power();
     }
-    public void DriveBackward(double speed, int milliseconds){
+    public void DriveBackward_Power(double speed, int milliseconds){
         FrontLeft.setPower(-speed);
         BackLeft.setPower(-speed/ 0.7559);
         FrontRight.setPower(-speed);
         BackRight.setPower(-speed/ 0.7559);
         sleep(milliseconds);
-        Stop();
+        Stop_Power();
     }
-    public void TurnLeft(double speed, int milliseconds){
+    public void TurnLeft_Power(double speed, int milliseconds){
         FrontLeft.setPower(-speed);
         BackLeft.setPower(-speed/ 0.7559);
         FrontRight.setPower(speed);
         BackRight.setPower(speed/ 0.7559);
         sleep(milliseconds);
-        Stop();
+        Stop_Power();
     }
-    public void TurnRight(double speed, int milliseconds){
+    public void TurnRight_Power(double speed, int milliseconds){
         FrontLeft.setPower(speed);
         BackLeft.setPower(speed/ 0.7559);
         FrontRight.setPower(-speed);
         BackRight.setPower(-speed/ 0.7559);
         sleep(milliseconds);
-        Stop();
+        Stop_Power();
     }
-    public void Stop(){
+    public void Stop_Power(){
         FrontLeft.setPower(0);
         BackLeft.setPower(0);
         FrontRight.setPower(0);

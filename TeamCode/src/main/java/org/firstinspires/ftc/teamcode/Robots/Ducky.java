@@ -103,6 +103,7 @@ public class Ducky {
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
                     Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
+            telemetry.update();
         }
 
         Stop_Encoder();
@@ -127,8 +128,9 @@ public class Ducky {
         BackRight.setPower(-speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+            telemetry.addData("Driving Backwards, Encoder Pulses Left (Omni)",
                     Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
+            telemetry.update();
         }
 
         Stop_Encoder();
@@ -153,8 +155,9 @@ public class Ducky {
         BackRight.setPower(speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+            telemetry.addData("Turning Left, Encoder Pulses Left (Omni)",
                     Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
+            telemetry.update();
         }
 
         Stop_Encoder();
@@ -179,8 +182,9 @@ public class Ducky {
         BackRight.setPower(-speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+            telemetry.addData("Turning Right, Encoder Pulses Left (Omni)",
                     Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
+            telemetry.update();
         }
 
         Stop_Encoder();

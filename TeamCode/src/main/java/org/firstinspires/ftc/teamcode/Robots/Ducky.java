@@ -8,13 +8,19 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Ducky {
 
-    // Declaring Motor Variables
+    // Declaring Drivebase Motor Variables
     public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
+
+    // Declaring Mechanisms
+    public DcMotor ArmRotator;
+    public Servo Collector;
+
+    public Servo CarouselSpinner;
 
     // Declaring opMode Variables
     HardwareMap hwMap;
@@ -47,11 +53,16 @@ public class Ducky {
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.FORWARD);
 
-        // Define Servos
-//        leftClaw  = hwMap.get(Servo.class, "left_hand");
-
-        // Initialize Servos
-//        leftClaw.setPosition(MID_SERVO);
+//        // Mechanisms - Motors
+//        ArmRotator = hwMap.dcMotor.get("armRotator");
+//
+//        // Define Servos
+//        Collector  = hwMap.get(Servo.class, "collector");
+//        CarouselSpinner = hwMap.get(Servo.class, "carouselSpinner");
+//
+//        // Initialize Servos
+//        Collector.setPosition(0.5);
+//        CarouselSpinner.setPosition(0.5);
 
         // Motor set Power at init
         FrontLeft.setPower(0);

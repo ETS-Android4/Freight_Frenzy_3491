@@ -70,7 +70,6 @@ public class Ducky {
      * Autonomous
      */
     // Robot Driving (Encoder)
-    @SuppressWarnings("StatementWithEmptyBody")
     public void DriveForward_Encoder(int Distance, double speed){
         Omni_Wheel_Distance = (int)(Distance*OMNI_WHEEL_PULSES_PER_INCH);
         Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
@@ -91,11 +90,12 @@ public class Ducky {
         BackRight.setPower(speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+                    Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
         }
 
         Stop_Encoder();
     }
-    @SuppressWarnings("StatementWithEmptyBody")
     public void DriveBackward_Encoder(int Distance, double speed){
         Omni_Wheel_Distance = (int)(Distance*OMNI_WHEEL_PULSES_PER_INCH);
         Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
@@ -116,11 +116,12 @@ public class Ducky {
         BackRight.setPower(-speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+                    Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
         }
 
         Stop_Encoder();
     }
-    @SuppressWarnings("StatementWithEmptyBody")
     public void TurnLeft_Encoder(int Angle, double speed){
         Omni_Wheel_Distance = (int)(Angle*OMNI_WHEEL_PULSES_PER_INCH);
         Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
@@ -141,11 +142,12 @@ public class Ducky {
         BackRight.setPower(speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+                    Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
         }
 
         Stop_Encoder();
     }
-    @SuppressWarnings("StatementWithEmptyBody")
     public void TurnRight_Encoder(int Angle, double speed){
         Omni_Wheel_Distance = (int)(Angle*OMNI_WHEEL_PULSES_PER_INCH);
         Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
@@ -166,6 +168,8 @@ public class Ducky {
         BackRight.setPower(-speed/ 0.7559);
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+            telemetry.addData("Driving Forward, Encoder Pulses Left (Omni)",
+                    Omni_Wheel_Distance - FrontLeft.getCurrentPosition());
         }
 
         Stop_Encoder();

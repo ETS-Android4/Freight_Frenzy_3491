@@ -194,6 +194,9 @@ public class Ducky {
         BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        telemetry.addData("Robot stopped. Encoder Pulse (Omni)", FrontLeft.getCurrentPosition());
+        telemetry.update();
     }
 
     // Robot Driving (Power and Time only)

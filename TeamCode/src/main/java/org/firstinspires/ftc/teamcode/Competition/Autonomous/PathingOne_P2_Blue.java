@@ -44,7 +44,7 @@ public class PathingOne_P2_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward_Encoder(2,1);
+        ducky.DriveForward_Encoder(1,0.5);
 
     }
 }

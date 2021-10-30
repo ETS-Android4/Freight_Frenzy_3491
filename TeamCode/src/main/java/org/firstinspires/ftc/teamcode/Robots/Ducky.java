@@ -6,8 +6,9 @@ import static android.os.SystemClock.sleep;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -16,11 +17,11 @@ public class Ducky {
     // Declaring Drivebase Motor Variables
     public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
 
-    // Declaring Mechanisms
-    public DcMotor ArmRotator;
-    public Servo Collector;
-
-    public Servo CarouselSpinner;
+//    // Declaring Mechanisms
+//    public DcMotor ArmRotator;
+//    public CRServo Collector;
+//
+//    public CRServo CarouselSpinner;
 
     // Declaring opMode Variables
     HardwareMap hwMap;
@@ -57,12 +58,12 @@ public class Ducky {
 //        ArmRotator = hwMap.dcMotor.get("armRotator");
 //
 //        // Define Servos
-//        Collector  = hwMap.get(Servo.class, "collector");
-//        CarouselSpinner = hwMap.get(Servo.class, "carouselSpinner");
+//        Collector = hwMap.crservo.get("collector");
+//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
 //
 //        // Initialize Servos
-//        Collector.setPosition(0.5);
-//        CarouselSpinner.setPosition(0.5);
+//        Collector.setPower(0);
+//        CarouselSpinner.setPower(0);
 
         // Motor set Power at init
         FrontLeft.setPower(0);
@@ -238,4 +239,29 @@ public class Ducky {
         FrontRight.setPower(0);
         BackRight.setPower(0);
     }
+//
+//    /**
+//     * Mechanism Functions
+//     */
+//    // Collector
+//    public void CollectorOn(){
+//        Collector.setPower(1);
+//    }
+//    public void CollectorOff(){
+//        Collector.setPower(0);
+//    }
+//
+//    // Arm Rotator
+//    public void RotateArm(double power){
+//        ArmRotator.setPower(power);
+//    }
+//
+//    // Carousel Spinner
+//    public void CarouselSpinnerOn(){
+//        CarouselSpinner.setPower(1);
+//    }
+//    public void CarouselSpinnerOff(){
+//        CarouselSpinner.setPower(0);
+//    }
+
 }

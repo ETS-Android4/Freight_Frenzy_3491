@@ -101,11 +101,34 @@ public class DuckyTeleOp extends OpMode {
             }
         }
 
+//        /* Mechanisms */
+//
+//        // Collector
+//        if (gamepad1.x) {
+//            ducky.CollectorOn();
+//        }
+//        if (gamepad1.y) {
+//            ducky.CollectorOff();
+//        }
+//
+//        // Arm Rotator
+//        ducky.RotateArm(gamepad2.right_stick_y);
+//
+//        // Carousel Spinner
+//        if (gamepad1.b) {
+//            ducky.CarouselSpinnerOn();
+//        }
+//        if (gamepad1.a) {
+//            ducky.CarouselSpinnerOff();
+//        }
+
         // Telemetry Update
         telemetry.addData("Left Side Power", leftPower);
         telemetry.addData("Right Side Power", rightPower);
         telemetry.update();
     }
+
+
 
     /**
      * Code to run after Driver hits "Stop."

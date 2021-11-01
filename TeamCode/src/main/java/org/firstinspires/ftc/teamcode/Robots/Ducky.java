@@ -19,9 +19,9 @@ public class Ducky {
 
 //    // Declaring Mechanisms
 //    public DcMotor ArmRotator;
-//    public CRServo Collector;
-//
-//    public CRServo CarouselSpinner;
+    public CRServo Collector;
+
+    public CRServo CarouselSpinner;
 
     // Declaring opMode Variables
     HardwareMap hwMap;
@@ -57,13 +57,13 @@ public class Ducky {
 //        // Mechanisms - Motors
 //        ArmRotator = hwMap.dcMotor.get("armRotator");
 //
-//        // Define Servos
-//        Collector = hwMap.crservo.get("collector");
-//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
-//
-//        // Initialize Servos
-//        Collector.setPower(0);
-//        CarouselSpinner.setPower(0);
+        // Define Servos
+        Collector = hwMap.crservo.get("collector");
+        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+
+        // Initialize Servos
+        Collector.setPower(0);
+        CarouselSpinner.setPower(0);
 
         // Motor set Power at init
         FrontLeft.setPower(0);
@@ -239,29 +239,32 @@ public class Ducky {
         FrontRight.setPower(0);
         BackRight.setPower(0);
     }
-//
-//    /**
-//     * Mechanism Functions
-//     */
-//    // Collector
-//    public void CollectorOn(){
-//        Collector.setPower(1);
-//    }
-//    public void CollectorOff(){
-//        Collector.setPower(0);
-//    }
+
+    /**
+     * Mechanism Functions
+     */
+    // Collector
+    public void CollectorOn(){
+        Collector.setPower(1);
+    }
+    public void CollectorReverse(){
+        Collector.setPower(-1);
+    }
+    public void CollectorOff(){
+        Collector.setPower(0);
+    }
 //
 //    // Arm Rotator
 //    public void RotateArm(double power){
 //        ArmRotator.setPower(power);
 //    }
 //
-//    // Carousel Spinner
-//    public void CarouselSpinnerOn(){
-//        CarouselSpinner.setPower(1);
-//    }
-//    public void CarouselSpinnerOff(){
-//        CarouselSpinner.setPower(0);
-//    }
+    // Carousel Spinner
+    public void CarouselSpinnerOn(){
+        CarouselSpinner.setPower(1);
+    }
+    public void CarouselSpinnerOff(){
+        CarouselSpinner.setPower(0);
+    }
 
 }

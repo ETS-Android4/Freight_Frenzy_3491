@@ -100,17 +100,13 @@ public class Turning_EncoderValueFinder extends OpMode {
         }
 
         if (gamepad1.a) {
-            ducky.FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             ducky.BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            ducky.FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
 
         // Telemetry Update
-        telemetry.addData("FrontLeft Encoder Pulses",  ducky.FrontLeft.getCurrentPosition());
         telemetry.addData("BackLeft Encoder Pulses",   ducky.BackLeft.getCurrentPosition());
-        telemetry.addData("FrontRight Encoder Pulses", ducky.FrontRight.getCurrentPosition());
         telemetry.addData("BackRight Encoder Pulses",  ducky.BackRight.getCurrentPosition());
         telemetry.update();
     }

@@ -113,10 +113,10 @@ public class DuckyTeleOp extends OpMode {
         if (gamepad1.y) {
             ducky.CollectorOff();
         }
-//
-//        // Arm Rotator
-//        ducky.RotateArm(gamepad2.right_stick_y);
-//
+
+        // Arm Rotator
+        ducky.RotateArm(gamepad2.right_stick_y);
+
         // Carousel Spinner
         if (gamepad2.b) {
             ducky.CarouselSpinnerOn();

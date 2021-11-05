@@ -25,9 +25,7 @@ public class DuckyTeleOp extends OpMode {
 
 //        /* Uncomment if program crashes */
 //        // Setting Motors to run with Encoders
-//        ducky.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        ducky.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        ducky.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Indicate that the program is running
@@ -115,7 +113,9 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        ducky.RotateArm(gamepad2.right_stick_y);
+        ducky.RotateArm(gamepad2.right_stick_y/4);
+
+
 
         // Carousel Spinner
         if (gamepad2.b) {

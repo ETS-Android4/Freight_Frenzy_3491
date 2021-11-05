@@ -30,6 +30,11 @@ public class Ducky {
     public static final double CART_WHEEL_PULSES_PER_INCH = 34.2; // Num of Pulses per inch travelled with Cart Wheel
     public int Cart_Wheel_Distance; // To be used in functions for setTargetPosition
 
+    public static final int ARM_COLLECTING_ENCODER_PULSES = 0;
+    public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = 0;
+    public static final int ARM_MID_LEVEL_ENCODER_PULSES = 0;
+    public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 0;
+
     // Class Constructor
     public Ducky(){
 
@@ -50,7 +55,7 @@ public class Ducky {
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
 
         // Mechanisms - Motors
         ArmRotator = hwMap.dcMotor.get("armRotator");
@@ -72,6 +77,8 @@ public class Ducky {
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
         BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        ArmRotator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     /**
@@ -235,6 +242,67 @@ public class Ducky {
     // Arm Rotator
     public void RotateArm(double power){
         ArmRotator.setPower(power);
+    }
+
+    public void ArmCollecting(){
+        ArmRotator.setTargetPosition(ARM_COLLECTING_ENCODER_PULSES);
+        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmRotator.setPower(0.5);
+
+        while (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Position: Collecting" +
+                            " Encoder Pulses Left",
+                    ARM_COLLECTING_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+            telemetry.update();
+        }
+
+        ArmRotator.setPower(0);
+    }
+    public void ArmBottomLevel(){
+        ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);
+        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmRotator.setPower(0.5);
+
+        while (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Position: Bottom Level" +
+                            " Encoder Pulses Left",
+                    ARM_BOTTOM_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+            telemetry.update();
+        }
+
+        ArmRotator.setPower(0);
+    }
+    public void ArmMidLevel(){
+        ArmRotator.setTargetPosition(ARM_MID_LEVEL_ENCODER_PULSES);
+        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmRotator.setPower(0.5);
+
+        while (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Position: Mid Level" +
+                            " Encoder Pulses Left",
+                    ARM_MID_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+            telemetry.update();
+        }
+
+        ArmRotator.setPower(0);
+    }
+    public void ArmTopLevel(){
+        ArmRotator.setTargetPosition(ARM_TOP_LEVEL_ENCODER_PULSES);
+        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmRotator.setPower(0.5);
+
+        while (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Position: Top Level" +
+                            " Encoder Pulses Left",
+                    ARM_TOP_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+            telemetry.update();
+        }
+
+        ArmRotator.setPower(0);
     }
 
     // Carousel Spinner

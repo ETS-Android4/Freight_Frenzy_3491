@@ -45,13 +45,13 @@ public class DuckyTeleOp extends OpMode {
 
         /* Driving Controls */
         // Reverse Drive
-        if (gamepad1.right_trigger > 0) {
+        if (gamepad1.left_trigger > 0) {
 
             // Telemetry Update
             telemetry.addData("Drive Mode: ", "Reverse");
 
             // Slow Speed
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(leftPower/-2);
                 ducky.BackLeft.setPower((leftPower/-2)/ 0.7559);
                 ducky.FrontRight.setPower(rightPower/-2);
@@ -78,7 +78,7 @@ public class DuckyTeleOp extends OpMode {
             telemetry.addData("Drive Mode: ", "Forward");
 
             // Slow Speed
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(leftPower/2);
                 ducky.BackLeft.setPower((leftPower/2)/ 0.7559);
                 ducky.FrontRight.setPower(rightPower/2);
@@ -102,26 +102,29 @@ public class DuckyTeleOp extends OpMode {
         /* Mechanisms */
 
         // Collector
-        if (gamepad1.x) {
+        if (gamepad2.right_trigger > 0) {
             ducky.CollectorOn();
         }
-        if (gamepad1.b) {
+        if (gamepad2.right_bumper) {
             ducky.CollectorReverse();
         }
-        if (gamepad1.y) {
+        if (gamepad2.a) {
             ducky.CollectorOff();
         }
 
         // Arm Rotator
-        ducky.RotateArm(gamepad2.right_stick_y/4);
+        ducky.RotateArm(gamepad2.left_stick_y/4);
 
 
 
         // Carousel Spinner
-        if (gamepad2.b) {
+        if (gamepad2.left_trigger > 0) {
             ducky.CarouselSpinnerOn();
         }
-        if (gamepad2.a) {
+        if(gamepad2.left_bumper) {
+            ducky.CarouselSpinnerReverse();
+        }
+        if (gamepad2.b) {
             ducky.CarouselSpinnerOff();
         }
 

@@ -23,11 +23,6 @@ public class DuckyTeleOp extends OpMode {
         // Initialize all motors/ servos
         ducky.init(hardwareMap);
 
-//        /* Uncomment if program crashes */
-//        // Setting Motors to run with Encoders
-//        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        ducky.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         // Indicate that the program is running
         telemetry.addData("Status", "Initialized");
         telemetry.update();

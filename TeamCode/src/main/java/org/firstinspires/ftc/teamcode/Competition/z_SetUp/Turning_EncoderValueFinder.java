@@ -21,13 +21,6 @@ public class Turning_EncoderValueFinder extends OpMode {
         // Initialize all motors/ servos
         ducky.init(hardwareMap);
 
-//        /* Uncomment if program crashes */
-//        // Setting Motors to run with Encoders
-//        ducky.FrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        ducky.FrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        ducky.BackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         // Indicate that the program is running
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -51,7 +44,7 @@ public class Turning_EncoderValueFinder extends OpMode {
             telemetry.addData("Drive Mode: ", "Turning Left");
 
             // Slow Speed (speed/4)
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(-turnLeft/-4);
                 ducky.BackLeft.setPower((-turnLeft/-4)/ 0.7559);
                 ducky.FrontRight.setPower(turnLeft/-4);
@@ -78,7 +71,7 @@ public class Turning_EncoderValueFinder extends OpMode {
             telemetry.addData("Drive Mode: ", "Turning Right");
 
             // Slow Speed (speed/4)
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(turnRight/-4);
                 ducky.BackLeft.setPower((turnRight/-4)/ 0.7559);
                 ducky.FrontRight.setPower(-turnRight/-4);

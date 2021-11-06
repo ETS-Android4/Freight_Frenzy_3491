@@ -6,6 +6,7 @@ import static android.os.SystemClock.sleep;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -25,6 +26,9 @@ public class Ducky {
 
     // Declaring opMode Variables
     HardwareMap hwMap;
+
+    // Declaring sensors
+    public BNO055IMU imu;
 
     // Encoder + Wheel Declaration
     public static final double CART_WHEEL_PULSES_PER_INCH = 34.2; // Num of Pulses per inch travelled with Cart Wheel
@@ -73,6 +77,10 @@ public class Ducky {
         BackLeft.setPower(0);
         FrontRight.setPower(0);
         BackRight.setPower(0);
+
+        // Sensors
+        imu = hwMap.get(BNO055IMU.class, "imu");
+
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
         BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

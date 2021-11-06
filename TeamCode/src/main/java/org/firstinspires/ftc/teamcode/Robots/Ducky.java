@@ -9,7 +9,6 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class Ducky {
@@ -25,6 +24,7 @@ public class Ducky {
 
     // Declaring opMode Variables
     HardwareMap hwMap;
+    public static final double BACK_WHEEL_POWER_REDUCTION = 0.7559;
 
     // Encoder + Wheel Declaration
     public static final double CART_WHEEL_PULSES_PER_INCH = 34.2; // Num of Pulses per inch travelled with Cart Wheel
@@ -95,9 +95,9 @@ public class Ducky {
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
+        BackLeft.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
+        BackRight.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Forward, Encoder Pulses Left (Cart)",
@@ -117,11 +117,11 @@ public class Ducky {
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed/ 0.7559);
+        BackLeft.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-speed);
-        BackRight.setPower(-speed/ 0.7559);
+        BackRight.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
 
-        while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
+        while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Backwards, Encoder Pulses Left (Cart)",
                     Cart_Wheel_Distance - BackLeft.getCurrentPosition());
             telemetry.update();
@@ -139,9 +139,9 @@ public class Ducky {
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed/ 0.7559);
+        BackLeft.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
+        BackRight.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Turning Left, Encoder Pulses Left (Cart)",
@@ -161,9 +161,9 @@ public class Ducky {
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
+        BackLeft.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-speed);
-        BackRight.setPower(-speed/ 0.7559);
+        BackRight.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Turning Right, Encoder Pulses Left (Cart)",
@@ -188,34 +188,34 @@ public class Ducky {
     // Robot Driving (Power and Time only)
     public void DriveForward_Power(double speed, int milliseconds){
         FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
+        BackLeft.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
+        BackRight.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
         sleep(milliseconds);
         Stop_Power();
     }
-    public void DriveBackward_Power(double speed, int milliseconds){
+    public void DriveBackward_Power(double speed, int milliseconds) throws InterruptedException{
         FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed/ 0.7559);
+        BackLeft.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-speed);
-        BackRight.setPower(-speed/ 0.7559);
-        sleep(milliseconds);
+        BackRight.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
         Stop_Power();
     }
-    public void TurnLeft_Power(double speed, int milliseconds){
+    public void TurnLeft_Power(double speed, int milliseconds) throws InterruptedException{
         FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed/ 0.7559);
+        BackLeft.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
-        sleep(milliseconds);
+        BackRight.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
         Stop_Power();
     }
-    public void TurnRight_Power(double speed, int milliseconds){
+    public void TurnRight_Power(double speed, int milliseconds) throws InterruptedException{
         FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
+        BackLeft.setPower(speed/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-speed);
-        BackRight.setPower(-speed/ 0.7559);
-        sleep(milliseconds);
+        BackRight.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
         Stop_Power();
     }
     public void Stop_Power(){

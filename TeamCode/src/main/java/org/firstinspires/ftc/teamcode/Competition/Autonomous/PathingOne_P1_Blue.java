@@ -18,7 +18,7 @@ public class PathingOne_P1_Blue extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize all motors/ servos
-        ducky.init(hardwareMap);
+        ducky.init(hardwareMap, telemetry);
 
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");

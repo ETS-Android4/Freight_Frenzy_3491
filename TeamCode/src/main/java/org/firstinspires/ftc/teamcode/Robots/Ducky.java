@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 
 public class Ducky {
 
@@ -25,12 +27,15 @@ public class Ducky {
 
     // Declaring opMode Variables
     HardwareMap hwMap;
+    Telemetry telemetry;
 
     // Declaring sensors
     public BNO055IMU imu;
 
     // Encoder + Wheel Declaration
-    public static final double CART_WHEEL_PULSES_PER_INCH = 34.2; // Num of Pulses per inch travelled with Cart Wheel
+    public static final double WHEEL_GEAR_RATIO = 2; // 2:1 ratio
+
+    public static final double CART_WHEEL_PULSES_PER_INCH = 34.2/ WHEEL_GEAR_RATIO; // Num of Pulses per inch travelled with Cart Wheel
     public int Cart_Wheel_Distance; // To be used in functions for setTargetPosition
 
     public static final int ARM_COLLECTING_ENCODER_PULSES = 0;
@@ -43,10 +48,11 @@ public class Ducky {
 
     }
 
-    public void init(HardwareMap ahwMap)  {
+    public void init(HardwareMap ahwMap, Telemetry a_telemetry)  {
 
-        // Save reference to Hardware map
+        // Calling variable
         hwMap = ahwMap;
+        telemetry = a_telemetry;
 
         // Define Drive Motors
         FrontLeft = hwMap.dcMotor.get("frontL");
@@ -135,7 +141,7 @@ public class Ducky {
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Backwards, Encoder Pulses Left (Cart)",
-                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
+                    0);
             telemetry.update();
         }
 

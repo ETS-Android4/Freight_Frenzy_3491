@@ -21,7 +21,7 @@ public class DuckyTeleOp extends OpMode {
     public void init() {
 
         // Initialize all motors/ servos
-        ducky.init(hardwareMap);
+        ducky.init(hardwareMap, telemetry);
 
         // Indicate that the program is running
         telemetry.addData("Status", "Initialized");

@@ -36,7 +36,7 @@ public class IMU_Calibration extends LinearOpMode {
 
         /* Initializing the Program */
         // Initialize all motors/ servos
-        ducky.init(hardwareMap);
+        ducky.init(hardwareMap, telemetry);
 
         // Telemetry logs
         telemetry.log().setCapacity(12);

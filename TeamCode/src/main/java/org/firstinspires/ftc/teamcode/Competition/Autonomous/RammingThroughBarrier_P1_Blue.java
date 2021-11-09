@@ -17,7 +17,7 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize all motors/ servos
-        ducky.init(hardwareMap);
+        ducky.init(hardwareMap, telemetry);
 
         // Wait for the game to begin
         telemetry.addData(">", "Press Play to start op mode");

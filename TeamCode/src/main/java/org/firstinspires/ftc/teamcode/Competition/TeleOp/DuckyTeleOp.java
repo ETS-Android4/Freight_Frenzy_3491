@@ -48,9 +48,9 @@ public class DuckyTeleOp extends OpMode {
             // Slow Speed
             if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(leftPower/-2);
-                ducky.BackLeft.setPower((leftPower/-2)/ 0.7559);
+                ducky.BackLeft.setPower((leftPower/-2)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
                 ducky.FrontRight.setPower(rightPower/-2);
-                ducky.BackRight.setPower((rightPower/-2)/ 0.7559);
+                ducky.BackRight.setPower((rightPower/-2)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Slow");
@@ -58,9 +58,9 @@ public class DuckyTeleOp extends OpMode {
             // Normal Speed
             } else {
                 ducky.FrontLeft.setPower(-leftPower);
-                ducky.BackLeft.setPower((-leftPower)/ 0.7559);
+                ducky.BackLeft.setPower((-leftPower)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
                 ducky.FrontRight.setPower(-rightPower);
-                ducky.BackRight.setPower((-rightPower)/ 0.7559);
+                ducky.BackRight.setPower((-rightPower)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Normal");
@@ -75,9 +75,9 @@ public class DuckyTeleOp extends OpMode {
             // Slow Speed
             if (gamepad1.right_trigger > 0) {
                 ducky.FrontLeft.setPower(leftPower/2);
-                ducky.BackLeft.setPower((leftPower/2)/ 0.7559);
+                ducky.BackLeft.setPower((leftPower/2)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
                 ducky.FrontRight.setPower(rightPower/2);
-                ducky.BackRight.setPower((rightPower/2)/ 0.7559);
+                ducky.BackRight.setPower((rightPower/2)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Slow");
@@ -85,9 +85,9 @@ public class DuckyTeleOp extends OpMode {
             // Normal Speed
             } else {
                 ducky.FrontLeft.setPower(leftPower);
-                ducky.BackLeft.setPower((leftPower)/ 0.7559);
+                ducky.BackLeft.setPower((leftPower)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
                 ducky.FrontRight.setPower(rightPower);
-                ducky.BackRight.setPower((rightPower)/ 0.7559);
+                ducky.BackRight.setPower((rightPower)/ Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Normal");
@@ -132,12 +132,9 @@ public class DuckyTeleOp extends OpMode {
         telemetry.update();
     }
 
-
-
     /**
      * Code to run after Driver hits "Stop."
      */
-    @Override
     public void stop() {
     }
 }

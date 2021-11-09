@@ -14,7 +14,7 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
     Ducky ducky = new Ducky();
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
 
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
@@ -28,9 +28,9 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
 
         // Autonomous Pathing
         ducky.DriveForward_Power(1,1000);
-        sleep(500);
+        Thread.sleep(500);
         ducky.TurnLeft_Power(1,400);
-        sleep(500);
+        Thread.sleep(500);
         ducky.DriveForward_Power(1,2000);
     }
 }

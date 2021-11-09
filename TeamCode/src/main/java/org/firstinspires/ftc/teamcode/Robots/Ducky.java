@@ -10,7 +10,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class Ducky {
@@ -59,7 +58,7 @@ public class Ducky {
         FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
 
         // Mechanisms - Motors
         ArmRotator = hwMap.dcMotor.get("armRotator");
@@ -102,16 +101,21 @@ public class Ducky {
         BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
-        FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
+        FrontLeft.setPower(-speed);
+        BackLeft.setPower(-speed/ 0.7559);
+        FrontRight.setPower(-speed);
+        BackRight.setPower(-speed/ 0.7559);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Cart)",
-                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
-            telemetry.update();
+//            telemetry.addData("Driving Forward, Encoder Pulses Left (Cart)",
+//                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
+//            telemetry.update();
         }
+
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
 
         Stop_Encoder();
     }
@@ -131,50 +135,6 @@ public class Ducky {
 
         while (FrontLeft.isBusy() || BackLeft.isBusy() || FrontLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Backwards, Encoder Pulses Left (Cart)",
-                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
-            telemetry.update();
-        }
-
-        Stop_Encoder();
-    }
-    public void TurnLeft_Encoder(int Angle, double speed){
-        Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
-
-        BackLeft.setTargetPosition(-Cart_Wheel_Distance);
-        BackRight.setTargetPosition(Cart_Wheel_Distance);
-
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        FrontLeft.setPower(-speed);
-        BackLeft.setPower(-speed/ 0.7559);
-        FrontRight.setPower(speed);
-        BackRight.setPower(speed/ 0.7559);
-
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Turning Left, Encoder Pulses Left (Cart)",
-                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
-            telemetry.update();
-        }
-
-        Stop_Encoder();
-    }
-    public void TurnRight_Encoder(int Angle, double speed){
-        Cart_Wheel_Distance = (int)(Angle*CART_WHEEL_PULSES_PER_INCH);
-
-        BackLeft.setTargetPosition(Cart_Wheel_Distance);
-        BackRight.setTargetPosition(-Cart_Wheel_Distance);
-
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        FrontLeft.setPower(speed);
-        BackLeft.setPower(speed/ 0.7559);
-        FrontRight.setPower(-speed);
-        BackRight.setPower(-speed/ 0.7559);
-
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Turning Right, Encoder Pulses Left (Cart)",
                     Cart_Wheel_Distance - BackLeft.getCurrentPosition());
             telemetry.update();
         }

@@ -108,7 +108,7 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        ducky.RotateArm(gamepad2.left_stick_y/4);
+        ducky.RotateArm(gamepad2.left_stick_y/3);
 
 
 
@@ -126,6 +126,9 @@ public class DuckyTeleOp extends OpMode {
         // Telemetry Update
         telemetry.addData("Left Side Power", leftPower);
         telemetry.addData("Right Side Power", rightPower);
+
+        telemetry.addData("left motor", ducky.BackLeft.getCurrentPosition());
+        telemetry.addData("right motor", ducky.BackRight.getCurrentPosition());
         telemetry.update();
     }
 

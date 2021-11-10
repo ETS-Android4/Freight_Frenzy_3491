@@ -1,22 +1,21 @@
 package org.firstinspires.ftc.teamcode.z_Old_Programs;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.teamcode.FIX_IT_Library.opMode_Support.TeleOpMode;
 
 @Disabled
 
 @TeleOp
-public class Basic_DuckyTeleOp extends TeleOpMode {
+public class Basic_DuckyTeleOp extends OpMode {
 
     // Declaring Motor Variables
     public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
     public boolean slowButton;
 
     // Declaring stuff
-    public void initialize() {
+    public void init() {
 
         // Drive Motors
         FrontLeft = hardwareMap.dcMotor.get("frontL");
@@ -31,7 +30,8 @@ public class Basic_DuckyTeleOp extends TeleOpMode {
         BackRight.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void loopOpMode() {
+    @Override
+    public void loop() {
 
         // Initializing Joystick Control
 
@@ -60,13 +60,19 @@ public class Basic_DuckyTeleOp extends TeleOpMode {
 
         telemetry.addData("Speed Mode:", "fast");
 
-    // Keeps user updated
-    // Telemetry Update
-    // telemetry.addData("Run Time", runtime.toString());
-    telemetry.addData("Slow Button Enabled", slowButton);
-    telemetry.addData("Left Side Power", leftPower);
-    telemetry.addData("Right Side Power", rightPower);
-    telemetry.update();
+        // Keeps user updated
+        // Telemetry Update
+        // telemetry.addData("Run Time", runtime.toString());
+        telemetry.addData("Slow Button Enabled", slowButton);
+        telemetry.addData("Left Side Power", leftPower);
+        telemetry.addData("Right Side Power", rightPower);
+        telemetry.update();
+    }
+
+    /**
+     * Code to run after Driver hits "Stop."
+     */
+    public void stop() {
     }
 }
 

@@ -1,10 +1,8 @@
 // Hardware and Autonomous set-up for Robot for 2021-2022 Freight Frenzy
 
-package org.firstinspires.ftc.teamcode.Robots;
+package org.firstinspires.ftc.teamcode.Season_Setup;
 
 import static android.os.SystemClock.sleep;
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,6 +10,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 public class Ducky {
@@ -43,6 +45,11 @@ public class Ducky {
     public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = 0;
     public static final int ARM_MID_LEVEL_ENCODER_PULSES = 0;
     public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 0;
+
+    // EasyOpenCV Setup
+    public OpenCvCamera webcam;
+    public static int analysis = 0;
+
 
     // Class Constructor
     public Ducky(){
@@ -86,6 +93,25 @@ public class Ducky {
 
         // Sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
+
+        // EasyOpenCV Setup
+        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
+        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+            }
+        });
 
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)

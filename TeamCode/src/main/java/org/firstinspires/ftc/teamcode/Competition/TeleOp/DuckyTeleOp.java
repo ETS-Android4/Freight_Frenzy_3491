@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Competition.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Robots.Ducky;
+import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 @TeleOp
 public class DuckyTeleOp extends OpMode {

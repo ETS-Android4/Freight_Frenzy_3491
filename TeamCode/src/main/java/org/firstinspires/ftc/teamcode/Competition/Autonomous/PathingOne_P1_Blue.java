@@ -27,7 +27,7 @@ public class PathingOne_P1_Blue extends LinearOpMode {
         ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Encoder Position Update
-        telemetry.addData("Encoder Position",  "Starting at %7d :%7d",
+        telemetry.addData("Encoder Position",  "Starting Encoder Position",
                 ducky.BackLeft.getCurrentPosition(),
                 ducky.BackRight.getCurrentPosition());
         telemetry.update();

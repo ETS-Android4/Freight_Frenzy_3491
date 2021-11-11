@@ -40,38 +40,6 @@ public class PathingOne_P2_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        int Cart_Wheel_Distance = 68;
-
-        ducky.BackLeft.setTargetPosition(Cart_Wheel_Distance);
-        ducky.BackRight.setTargetPosition(Cart_Wheel_Distance);
-
-        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ducky.BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        ducky.FrontLeft.setPower(-1);
-        ducky.BackLeft.setPower(-1/ 0.7559);
-        ducky.FrontRight.setPower(-1);
-        ducky.BackRight.setPower(-1/ 0.7559);
-
-        while (ducky.BackLeft.isBusy() || ducky.BackRight.isBusy()) {
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Left Wheel)",
-                    Cart_Wheel_Distance-ducky.BackLeft.getCurrentPosition());
-            telemetry.addData("Driving Forward, Encoder Pulses Left (Right Wheel)",
-                    Cart_Wheel_Distance-ducky.BackRight.getCurrentPosition());
-            telemetry.update();
-        }
-
-        ducky.FrontLeft.setPower(0);
-        ducky.BackLeft.setPower(0);
-        ducky.FrontRight.setPower(0);
-        ducky.BackRight.setPower(0);
-
-        telemetry.addData("Encoder Position",  "Starting Encoder Position",
-                ducky.BackLeft.getCurrentPosition(),
-                ducky.BackRight.getCurrentPosition());
-        telemetry.update();
-
-//        ducky.DriveForward_Encoder(4,0.5);
 
     }
 }

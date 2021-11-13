@@ -27,11 +27,7 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        DriveBackward_Power(0.2,10);
-        Thread.sleep(5000);
-        TurnRight_Power(0.5,400);
-        Thread.sleep(5000);
-        DriveForward_Power(1,2000);
+        DriveBackward_Power(0.2,1000);
     }
 
     // Robot Driving (Power and Time only)
@@ -69,5 +65,8 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
     }
     public void Stop_Power() {
         ducky.FrontLeft.setPower(0);
+        ducky.BackLeft.setPower(0);
+        ducky.FrontRight.setPower(0);
+        ducky.BackRight.setPower(0);
     }
 }

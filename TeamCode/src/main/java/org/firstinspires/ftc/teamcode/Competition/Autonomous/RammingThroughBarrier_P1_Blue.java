@@ -27,10 +27,47 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward_Power(1,1000);
-        Thread.sleep(500);
-        ducky.TurnLeft_Power(1,400);
-        Thread.sleep(500);
-        ducky.DriveForward_Power(1,2000);
+        DriveBackward_Power(0.2,10);
+        Thread.sleep(5000);
+        TurnRight_Power(0.5,400);
+        Thread.sleep(5000);
+        DriveForward_Power(1,2000);
+    }
+
+    // Robot Driving (Power and Time only)
+    public void DriveForward_Power(double speed, int milliseconds) throws InterruptedException {
+        ducky.FrontLeft.setPower(speed);
+        ducky.BackLeft.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.FrontRight.setPower(speed);
+        ducky.BackRight.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
+        Stop_Power();
+    }
+    public void DriveBackward_Power(double speed, int milliseconds) throws InterruptedException {
+        ducky.FrontLeft.setPower(-speed);
+        ducky.BackLeft.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.FrontRight.setPower(-speed);
+        ducky.BackRight.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
+        Stop_Power();
+    }
+    public void TurnLeft_Power(double speed, int milliseconds) throws InterruptedException {
+        ducky.FrontLeft.setPower(-speed);
+        ducky.BackLeft.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.FrontRight.setPower(speed);
+        ducky.BackRight.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
+        Stop_Power();
+    }
+    public void TurnRight_Power(double speed, int milliseconds) throws InterruptedException {
+        ducky.FrontLeft.setPower(speed);
+        ducky.BackLeft.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.FrontRight.setPower(-speed);
+        ducky.BackRight.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        Thread.sleep(milliseconds);
+        Stop_Power();
+    }
+    public void Stop_Power() {
+        ducky.FrontLeft.setPower(0);
     }
 }

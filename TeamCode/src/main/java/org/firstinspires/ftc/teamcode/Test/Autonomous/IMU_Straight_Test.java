@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="IMU Test")
+@Autonomous(name="IMU Test - Straight")
 @Disabled
-public class IMU_Test extends LinearOpMode {
+public class IMU_Straight_Test extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();

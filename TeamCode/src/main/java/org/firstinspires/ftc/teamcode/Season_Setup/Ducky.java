@@ -3,8 +3,8 @@
 package org.firstinspires.ftc.teamcode.Season_Setup;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -21,10 +21,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class Ducky {
 
     // Declaring Drivebase Motor Variables
-    public DcMotor FrontLeft, BackLeft, FrontRight, BackRight;
+    public DcMotorEx FrontLeft, BackLeft, FrontRight, BackRight;
 
     // Declaring Mechanisms
-    public DcMotor ArmRotator;
+    public DcMotorEx ArmRotator;
     public CRServo Collector;
 
     public CRServo CarouselSpinner;
@@ -65,19 +65,19 @@ public class Ducky {
         telemetry = a_telemetry;
 
         // Define Drive Motors
-        FrontLeft = hwMap.dcMotor.get("frontL");
-        BackLeft = hwMap.dcMotor.get("backL");
-        FrontRight = hwMap.dcMotor.get("frontR");
-        BackRight = hwMap.dcMotor.get("backR");
+        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
+        BackLeft = hwMap.get(DcMotorEx.class,"backL");
+        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
+        BackRight = hwMap.get(DcMotorEx.class,"backR");
 
         // Setting Motor Direction
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Mechanisms - Motors
-        ArmRotator = hwMap.dcMotor.get("armRotator");
+        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
 
         // Define Servos
         Collector = hwMap.crservo.get("collector");
@@ -117,10 +117,10 @@ public class Ducky {
 
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-        BackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        ArmRotator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 
     /**
@@ -133,8 +133,8 @@ public class Ducky {
         BackLeft.setTargetPosition(Cart_Wheel_Distance);
         BackRight.setTargetPosition(Cart_Wheel_Distance);
 
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         DriveForward_Power(speed);
 
@@ -157,8 +157,8 @@ public class Ducky {
         BackLeft.setTargetPosition(Cart_Wheel_Distance);
         BackRight.setTargetPosition(Cart_Wheel_Distance);
 
-        BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         DriveBackward_Power(speed);
 
@@ -171,8 +171,8 @@ public class Ducky {
         Stop_Encoder();
     }
     public void Stop_Encoder(){
-        BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         telemetry.addData("Robot stopped. Encoder Pulses (Cart)",
                         BackLeft.getCurrentPosition());

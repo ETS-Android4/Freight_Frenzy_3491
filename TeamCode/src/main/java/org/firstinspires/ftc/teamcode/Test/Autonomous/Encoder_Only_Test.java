@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Test.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
@@ -23,8 +23,8 @@ public class Encoder_Only_Test extends LinearOpMode {
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
-        ducky.BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
@@ -45,8 +45,8 @@ public class Encoder_Only_Test extends LinearOpMode {
         ducky.BackLeft.setTargetPosition(Cart_Wheel_Distance);
         ducky.BackRight.setTargetPosition(Cart_Wheel_Distance);
 
-        ducky.BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ducky.BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ducky.BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        ducky.BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         ducky.FrontLeft.setPower(1);
         ducky.BackLeft.setPower(-1/ 0.7559);

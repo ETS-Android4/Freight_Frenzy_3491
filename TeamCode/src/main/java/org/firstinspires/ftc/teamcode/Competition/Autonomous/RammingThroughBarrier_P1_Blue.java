@@ -28,6 +28,10 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
 
         // Autonomous Pathing
         DriveBackward_Power(0.2,1000);
+        Thread.sleep(2000);
+        TurnRight_Power(0.2,1000);
+        Thread.sleep(2000);
+        DriveForward_Power(0.2, 1000);
     }
 
     // Robot Driving (Power and Time only)

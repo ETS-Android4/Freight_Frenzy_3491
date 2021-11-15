@@ -232,10 +232,10 @@ public class Ducky {
     public void RotateArm(double power){
         ArmRotator.setPower(power);
     }
-//
+
 //    public void ArmCollecting(){
 //        ArmRotator.setTargetPosition(ARM_COLLECTING_ENCODER_PULSES);
-//        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //
 //        ArmRotator.setPower(0.5);
 //
@@ -250,7 +250,7 @@ public class Ducky {
 //    }
 //    public void ArmBottomLevel(){
 //        ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);
-//        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //
 //        ArmRotator.setPower(0.5);
 //
@@ -265,7 +265,7 @@ public class Ducky {
 //    }
 //    public void ArmMidLevel(){
 //        ArmRotator.setTargetPosition(ARM_MID_LEVEL_ENCODER_PULSES);
-//        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //
 //        ArmRotator.setPower(0.5);
 //
@@ -280,7 +280,7 @@ public class Ducky {
 //    }
 //    public void ArmTopLevel(){
 //        ArmRotator.setTargetPosition(ARM_TOP_LEVEL_ENCODER_PULSES);
-//        ArmRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //
 //        ArmRotator.setPower(0.5);
 //

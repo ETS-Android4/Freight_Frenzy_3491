@@ -110,6 +110,18 @@ public class DuckyTeleOp extends OpMode {
         // Arm Rotator
         ducky.RotateArm(gamepad2.left_stick_y/3);
 
+//        if (gamepad2.dpad_up) {
+//            ducky.ArmCollecting();
+//        }
+//        if (gamepad2.dpad_left) {
+//            ducky.ArmTopLevel();
+//        }
+//        if (gamepad2.dpad_right) {
+//            ducky.ArmMidLevel();
+//        }
+//        if (gamepad2.dpad_down) {
+//            ducky.ArmBottomLevel();
+//        }
 
 
         // Carousel Spinner

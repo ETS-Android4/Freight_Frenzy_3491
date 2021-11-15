@@ -48,9 +48,9 @@ public class Encoder_Only_Test extends LinearOpMode {
         ducky.BackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ducky.BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        ducky.FrontLeft.setPower(-1);
+        ducky.FrontLeft.setPower(1);
         ducky.BackLeft.setPower(-1/ 0.7559);
-        ducky.FrontRight.setPower(-1);
+        ducky.FrontRight.setPower(1);
         ducky.BackRight.setPower(-1/ 0.7559);
 
         while (ducky.BackLeft.isBusy() || ducky.BackRight.isBusy()) {

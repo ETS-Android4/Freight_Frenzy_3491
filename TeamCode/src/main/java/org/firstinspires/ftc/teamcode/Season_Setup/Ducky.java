@@ -35,9 +35,9 @@ public class Ducky {
 
     // Declaring sensors
     public BNO055IMU imu;
-    public static final double BACK_WHEEL_POWER_REDUCTION = 0.7559;
 
     // Encoder + Wheel Declaration
+    public static final double BACK_WHEEL_POWER_REDUCTION = 0.7559;
     public static final double WHEEL_GEAR_RATIO = 2; // 2:1 ratio
 
     public static final double CART_WHEEL_PULSES_PER_INCH = 34.2/ WHEEL_GEAR_RATIO; // Num of Pulses per inch travelled with Cart Wheel
@@ -96,24 +96,24 @@ public class Ducky {
         // Sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
 
-        // EasyOpenCV Setup
-        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
-        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
-            @Override
-            public void onOpened()
-            {
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-            }
-
-            @Override
-            public void onError(int errorCode) {
-            }
-        });
+//        // EasyOpenCV Setup
+//        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+//        webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+//        webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
+//        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+//
+//        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+//        {
+//            @Override
+//            public void onOpened()
+//            {
+//                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+//            }
+//
+//            @Override
+//            public void onError(int errorCode) {
+//            }
+//        });
 
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
@@ -192,7 +192,7 @@ public class Ducky {
         FrontRight.setPower(-speed);
         BackRight.setPower(-speed/ BACK_WHEEL_POWER_REDUCTION);
     }
-    public void Stop_Power(){
+    public void Stop_Power() {
         FrontLeft.setPower(0);
         BackLeft.setPower(0);
         FrontRight.setPower(0);
@@ -290,7 +290,7 @@ public class Ducky {
         CarouselSpinner.setPower(0);
     }
 
-    //IMU functions
+    // IMU functions
     private Orientation lastAngles = new Orientation();
     private double currentAngle = 0.0;
 

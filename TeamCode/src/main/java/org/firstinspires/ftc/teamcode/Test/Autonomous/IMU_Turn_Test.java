@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -10,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 @Autonomous(name="IMU Test - Straight")
 
-public class IMU_Straight_Test extends LinearOpMode {
+public class IMU_Turn_Test extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -41,7 +40,7 @@ public class IMU_Straight_Test extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward_Encoder_IMU(10,0.5);
+        ducky.TurnRight_IMU(90,0.5);
         Thread.sleep(2000);
     }
 }

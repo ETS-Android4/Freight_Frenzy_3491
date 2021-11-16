@@ -8,10 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -40,8 +37,8 @@ public class Ducky {
     public static final double BACK_WHEEL_POWER_REDUCTION = 0.7559;
     public static final double WHEEL_GEAR_RATIO = 2; // 2:1 ratio
 
-    public static final double CART_WHEEL_PULSES_PER_INCH = 34.2/ WHEEL_GEAR_RATIO; // Num of Pulses per inch travelled with Cart Wheel
-    public int Cart_Wheel_Distance; // To be used in functions for setTargetPosition
+    public static final double WHEEL_PULSES_PER_INCH = 34.2/ WHEEL_GEAR_RATIO; // Num of Pulses per inch travelled with Cart Wheel
+    public int Encoder_Distance; // To be used in functions for setTargetPosition
 
     public static final int ARM_COLLECTING_ENCODER_PULSES = 0;
     public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = 0;
@@ -147,35 +144,46 @@ public class Ducky {
      * Autonomous
      */
     // Robot Driving (Encoder)
-    public void DriveForward_Encoder(int Distance, double speed){
-        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+    public void DriveForward_Encoder(int Distance, double speed) throws InterruptedException {
+        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
 
-        BackLeft.setTargetPosition(Cart_Wheel_Distance);
-        BackRight.setTargetPosition(Cart_Wheel_Distance);
+        BackLeft.setTargetPosition(Encoder_Distance);
+        BackRight.setTargetPosition(Encoder_Distance);
 
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         DriveForward_Power(speed);
 
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-//            telemetry.addData("Driving Forward, Encoder Pulses Left (Cart)",
-//                    Cart_Wheel_Distance - BackLeft.getCurrentPosition());
-//            telemetry.update();
+        while (BackRight.isBusy()) {
+            telemetry.addData("Driving Forward, Target Position",
+                    Encoder_Distance);
+            telemetry.addData("Driving Forward, Encoder Pulses Right",
+                    BackRight.getCurrentPosition());
+            telemetry.update();
         }
+
+        telemetry.addData("Finish",
+                Encoder_Distance + BackRight.getCurrentPosition());
+        telemetry.update();
 
         FrontLeft.setPower(0);
         BackLeft.setPower(0);
         FrontRight.setPower(0);
         BackRight.setPower(0);
 
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+        Thread.sleep(5000);
+
         Stop_Encoder();
     }
     public void DriveBackward_Encoder(int Distance, double speed){
-        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
 
-        BackLeft.setTargetPosition(Cart_Wheel_Distance);
-        BackRight.setTargetPosition(Cart_Wheel_Distance);
+        BackLeft.setTargetPosition(Encoder_Distance);
+        BackRight.setTargetPosition(Encoder_Distance);
 
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -321,10 +329,10 @@ public class Ducky {
     }
 
     public void DriveForward_Encoder_IMU (int Distance, double speed) {
-        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
 
-        BackLeft.setTargetPosition(Cart_Wheel_Distance);
-        BackRight.setTargetPosition(Cart_Wheel_Distance);
+        BackLeft.setTargetPosition(Encoder_Distance);
+        BackRight.setTargetPosition(Encoder_Distance);
 
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);

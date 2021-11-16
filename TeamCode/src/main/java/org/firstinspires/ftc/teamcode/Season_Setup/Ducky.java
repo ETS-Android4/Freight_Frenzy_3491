@@ -52,6 +52,11 @@ public class Ducky {
     public OpenCvCamera webcam;
     public static int analysis = 0;
 
+    // IMU functions
+    public Orientation lastAngles = new Orientation();
+    public double currentAngle = 0.0;
+    float Yaw_Angle;
+
 
     // Class Constructor
     public Ducky(){
@@ -305,17 +310,84 @@ public class Ducky {
         CarouselSpinner.setPower(0);
     }
 
-    // IMU functions
-    private Orientation lastAngles = new Orientation();
-    private double currentAngle = 0.0;
 
+    /* IMU Functions */
     public void  resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         currentAngle = 0;
     }
-
     public void getAngle() {
         Orientation orientation = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    }
 
+    public void DriveForward_Encoder_IMU (int Distance, double speed) {
+        Cart_Wheel_Distance = (int)(Distance*CART_WHEEL_PULSES_PER_INCH);
+
+        BackLeft.setTargetPosition(Cart_Wheel_Distance);
+        BackRight.setTargetPosition(Cart_Wheel_Distance);
+
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        DriveForward_Power(speed);
+
+        while (BackLeft.isBusy() || BackRight.isBusy()) {
+
+            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
+
+            // If robot is drifting right - Need to turn left
+            if (Yaw_Angle < -5) {
+                FrontLeft.setPower(speed-0.05);
+                BackLeft.setPower(speed-0.05);
+                FrontRight.setPower(speed+0.05);
+                BackRight.setPower(speed+0.05);
+
+            // If robot is drifting left - Need to turn right
+            } else if (Yaw_Angle > 5) {
+                // Turn right.
+                FrontLeft.setPower(speed+0.05);
+                BackLeft.setPower(speed+0.05);
+                FrontRight.setPower(speed-0.05);
+                BackRight.setPower(speed-0.05);
+
+            // Countinue Straight
+            } else {
+                FrontLeft.setPower(speed);
+                BackLeft.setPower(speed);
+                FrontRight.setPower(speed);
+                BackRight.setPower(speed);
+            }
+        }
+
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
+
+        Stop_Encoder();
+    }
+
+    public void TurnRight_Encoder_IMU (double speed) {
+        while (Yaw_Angle <= -90) {
+            // Update Yaw-Angle variable with current yaw.
+            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
+            FrontLeft.setPower(speed);
+            BackLeft.setPower(speed);
+            FrontRight.setPower(-speed);
+            BackRight.setPower(-speed);
+
+            // Report yaw orientation to Driver Station.
+            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.update();
+        }
+
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
+
+        Stop_Encoder();
     }
 }

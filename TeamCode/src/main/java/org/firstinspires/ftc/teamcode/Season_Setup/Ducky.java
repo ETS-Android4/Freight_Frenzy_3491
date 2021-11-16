@@ -159,7 +159,7 @@ public class Ducky {
 
         DriveForward_Power(speed);
 
-        while (BackRight.isBusy()) {
+        while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Forward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Forward, Encoder Pulses Left",
@@ -440,7 +440,7 @@ public class Ducky {
         Stop_Encoder();
     }
 
-    public void TurnLeft_Encoder_IMU (double angle, double speed) {
+    public void TurnLeft_IMU (double angle, double speed) {
         while (Yaw_Angle <= angle) {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
@@ -463,7 +463,7 @@ public class Ducky {
         Stop_Encoder();
     }
 
-    public void TurnRight_Encoder_IMU (double angle, double speed) {
+    public void TurnRight_IMU (double angle, double speed) {
         while (Yaw_Angle <= angle) {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;

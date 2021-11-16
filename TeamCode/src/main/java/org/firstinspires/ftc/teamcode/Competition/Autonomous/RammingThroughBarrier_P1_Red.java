@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="Ramming through Barrier - P1, Blue")
+@Autonomous(name="Ramming through Barrier - P1, Red")
 
-public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
+public class RammingThroughBarrier_P1_Red extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -29,7 +29,7 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         // Autonomous Pathing
         DriveBackward_Power(0.2,600);
         Thread.sleep(2000);
-        TurnRight_Power(0.4,800);
+        TurnLeft_Power(0.4,800);
         Thread.sleep(2000);
         DriveForward_Power(0.5, 1100);
         Thread.sleep(2000);
@@ -52,11 +52,11 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         Thread.sleep(milliseconds);
         Stop_Power();
     }
-    public void TurnRight_Power(double speed, int milliseconds) throws InterruptedException {
-        ducky.FrontLeft.setPower(speed);
-        ducky.BackLeft.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
-        ducky.FrontRight.setPower(-speed);
-        ducky.BackRight.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+    public void TurnLeft_Power(double speed, int milliseconds) throws InterruptedException {
+        ducky.FrontLeft.setPower(-speed);
+        ducky.BackLeft.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.FrontRight.setPower(speed);
+        ducky.BackRight.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
         Thread.sleep(milliseconds);
         Stop_Power();
     }

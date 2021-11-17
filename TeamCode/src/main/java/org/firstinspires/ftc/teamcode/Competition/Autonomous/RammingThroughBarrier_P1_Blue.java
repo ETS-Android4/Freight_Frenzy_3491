@@ -31,7 +31,7 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         Thread.sleep(2000);
         TurnRight_Power(0.4,800);
         Thread.sleep(2000);
-        DriveForward_Power(0.5, 1100);
+        DriveForward_Power(0.5, 1500);
         Thread.sleep(2000);
     }
 

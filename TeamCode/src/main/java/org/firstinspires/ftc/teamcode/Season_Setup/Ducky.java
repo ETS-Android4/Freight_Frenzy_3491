@@ -177,59 +177,6 @@ public class Ducky {
 
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-
-            // If robot is drifting right - Need to turn left
-            if (Yaw_Angle < -5) {
-                leftPower -= 0.1;
-                rightPower += 0.1;
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-                // If robot is drifting left - Need to turn right
-            } else if (Yaw_Angle > 5) {
-                leftPower += 0.1;
-                rightPower -= 0.1;
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-                // Continue Straight
-            } else {
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-            }
-        }
-
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
-
-        Stop_Encoder();
-    }
-    public void DriveBackward_Encoder_IMU (int Distance, double speed) {
-        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
-
-        BackLeft.setTargetPosition(Encoder_Distance);
-        BackRight.setTargetPosition(Encoder_Distance);
-
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        DriveBackward_Power(-speed);
-
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-
-
             // If robot is drifting right - Need to turn left
             if (Yaw_Angle < -5) {
                 leftPower -= 0.05;
@@ -257,12 +204,71 @@ public class Ducky {
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
             }
+
+            telemetry.addData("Driving Forward, Target Position",
+                    Encoder_Distance);
+            telemetry.addData("Driving Forward, Encoder Pulses Left",
+                    BackLeft.getCurrentPosition());
+            telemetry.addData("Driving Forward, Encoder Pulses Right",
+                    BackRight.getCurrentPosition());
+            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.update();
         }
 
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
+        Stop_Encoder();
+    }
+    public void DriveBackward_Encoder_IMU (int Distance, double speed) {
+        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
+
+        BackLeft.setTargetPosition(Encoder_Distance);
+        BackRight.setTargetPosition(Encoder_Distance);
+
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        DriveForward_Power(speed);
+
+        while (BackLeft.isBusy() || BackRight.isBusy()) {
+
+            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
+            // If robot is drifting right - Need to turn left
+            if (Yaw_Angle < -5) {
+                leftPower -= 0.05;
+                rightPower += 0.05;
+
+                FrontLeft.setPower(leftPower);
+                BackLeft.setPower(leftPower);
+                FrontRight.setPower(rightPower);
+                BackRight.setPower(rightPower);
+
+                // If robot is drifting left - Need to turn right
+            } else if (Yaw_Angle > 5) {
+                leftPower -= 0.05;
+                rightPower += 0.05;
+
+                FrontLeft.setPower(leftPower);
+                BackLeft.setPower(leftPower);
+                FrontRight.setPower(rightPower);
+                BackRight.setPower(rightPower);
+
+                // Continue Straight
+            } else {
+                FrontLeft.setPower(leftPower);
+                BackLeft.setPower(leftPower);
+                FrontRight.setPower(rightPower);
+                BackRight.setPower(rightPower);
+            }
+
+            telemetry.addData("Driving Backward, Target Position",
+                    Encoder_Distance);
+            telemetry.addData("Driving Backward, Encoder Pulses Left",
+                    BackLeft.getCurrentPosition());
+            telemetry.addData("Driving Backward, Encoder Pulses Right",
+                    BackRight.getCurrentPosition());
+            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.update();
+        }
 
         Stop_Encoder();
     }
@@ -271,20 +277,12 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-            FrontLeft.setPower(-speed);
-            BackLeft.setPower(-speed);
-            FrontRight.setPower(speed);
-            BackRight.setPower(speed);
+            TurnLeft_Power(speed);
 
             // Report yaw orientation to Driver Station.
             telemetry.addData("Yaw value", Yaw_Angle);
             telemetry.update();
         }
-
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
 
         Stop_Encoder();
     }
@@ -293,28 +291,20 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-            FrontLeft.setPower(speed);
-            BackLeft.setPower(speed);
-            FrontRight.setPower(-speed);
-            BackRight.setPower(-speed);
+            TurnRight_Power(speed);
 
             // Report yaw orientation to Driver Station.
             telemetry.addData("Yaw value", Yaw_Angle);
             telemetry.update();
         }
 
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
-
         Stop_Encoder();
     }
 
 
     // Encoders Only
-    public void DriveForward_Encoder(int Distance, double speed) throws InterruptedException {
-        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
+    public void DriveForward_Encoder(int Distance, double speed) {
+        Encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
 
         BackLeft.setTargetPosition(Encoder_Distance);
         BackRight.setTargetPosition(Encoder_Distance);
@@ -338,14 +328,10 @@ public class Ducky {
                 BackLeft.getCurrentPosition(), BackRight.getCurrentPosition());
         telemetry.update();
 
-        Stop_Power();
-
-        Thread.sleep(2000);
-
         Stop_Encoder();
     }
     public void DriveBackward_Encoder(int Distance, double speed){
-        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
+        Encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
 
         BackLeft.setTargetPosition(Encoder_Distance);
         BackRight.setTargetPosition(Encoder_Distance);
@@ -353,13 +339,21 @@ public class Ducky {
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        DriveBackward_Power(speed);
+        DriveBackward_Power(-speed);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
-            telemetry.addData("Driving Backwards, Encoder Pulses Left (Cart)",
-                    0);
+            telemetry.addData("Driving Backward, Target Position",
+                    Encoder_Distance);
+            telemetry.addData("Driving Backward, Encoder Pulses Left",
+                    BackLeft.getCurrentPosition());
+            telemetry.addData("Driving Backward, Encoder Pulses Right",
+                    BackRight.getCurrentPosition());
             telemetry.update();
         }
+
+        telemetry.addData("Reached Target Position","Encoder Pulses Left, Right",
+                BackLeft.getCurrentPosition(), BackRight.getCurrentPosition());
+        telemetry.update();
 
         Stop_Encoder();
     }
@@ -389,6 +383,24 @@ public class Ducky {
 
         FrontLeft.setPower(-leftPower);
         BackLeft.setPower(-leftPower/ BACK_WHEEL_POWER_REDUCTION);
+        FrontRight.setPower(-rightPower);
+        BackRight.setPower(-rightPower/ BACK_WHEEL_POWER_REDUCTION);
+    }
+    public void TurnLeft_Power(double speed) {
+        leftPower = speed;
+        rightPower = speed;
+
+        FrontLeft.setPower(-leftPower);
+        BackLeft.setPower(-leftPower/ BACK_WHEEL_POWER_REDUCTION);
+        FrontRight.setPower(rightPower);
+        BackRight.setPower(rightPower/ BACK_WHEEL_POWER_REDUCTION);
+    }
+    public void TurnRight_Power(double speed) {
+        leftPower = speed;
+        rightPower = speed;
+
+        FrontLeft.setPower(leftPower);
+        BackLeft.setPower(leftPower/ BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-rightPower);
         BackRight.setPower(-rightPower/ BACK_WHEEL_POWER_REDUCTION);
     }

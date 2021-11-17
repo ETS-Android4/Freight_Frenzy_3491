@@ -3,16 +3,18 @@
 package org.firstinspires.ftc.teamcode.Season_Setup;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
 public class Ducky {
@@ -54,10 +56,9 @@ public class Ducky {
     public static int analysis = 0;
 
     // IMU functions
-    public Orientation lastAngles = new Orientation();
-    public double currentAngle = 0.0;
-    float Yaw_Angle;
-
+    public float Yaw_Angle;
+    public Orientation angles;
+    public Acceleration gravity;
 
     // Class Constructor
     public Ducky(){
@@ -115,8 +116,18 @@ public class Ducky {
         BackRight.setPower(0);
 
 
-        // Sensors
+        // IMU
         imu = hwMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu.initialize(parameters);
+
 
 //        // EasyOpenCV Setup
 //        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
@@ -326,14 +337,6 @@ public class Ducky {
 
 
     /* IMU Functions */
-    public void  resetAngle() {
-        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        currentAngle = 0;
-    }
-    public void getAngle() {
-        Orientation orientation = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-    }
-
     public void DriveForward_Encoder_IMU (int Distance, double speed) {
         Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
 

@@ -40,7 +40,8 @@ public class Encoder_Only_Test extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward_Encoder(50,0.1);
-
+        ducky.DriveForward_Encoder(20,0.2);
+        Thread.sleep(2000);
+        ducky.DriveBackward_Encoder(20,0.2);
     }
 }

@@ -42,5 +42,6 @@ public class IMU_Turn_Test extends LinearOpMode {
         // Autonomous Pathing
         ducky.TurnRight_IMU(90,0.5);
         Thread.sleep(2000);
+        ducky.TurnLeft_IMU(90,0.5);
     }
 }

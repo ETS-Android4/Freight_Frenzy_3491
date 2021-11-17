@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="Ramming through Barrier - P1, Red")
+@Autonomous(name="Ramming through Barrier - P1, Red", group="Competition - Red")
 
 public class RammingThroughBarrier_P1_Red extends LinearOpMode {
 

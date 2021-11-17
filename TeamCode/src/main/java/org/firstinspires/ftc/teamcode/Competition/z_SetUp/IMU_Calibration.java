@@ -46,7 +46,7 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 import java.io.File;
 import java.util.Locale;
 
-@TeleOp(name="Setup: IMU Calibration")
+@TeleOp(name="IMU Calibration", group="Setup")
 
 public class IMU_Calibration extends LinearOpMode {
 

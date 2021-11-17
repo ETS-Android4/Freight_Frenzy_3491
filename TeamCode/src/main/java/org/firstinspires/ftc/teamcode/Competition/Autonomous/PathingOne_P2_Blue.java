@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="PathingOne - P2, Blue")
+@Autonomous(name="PathingOne - P2, Blue", group="Competition - Blue")
 
 public class PathingOne_P2_Blue extends LinearOpMode {
 

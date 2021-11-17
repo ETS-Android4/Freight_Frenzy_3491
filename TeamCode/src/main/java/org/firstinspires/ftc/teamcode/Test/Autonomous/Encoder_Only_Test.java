@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="Encoder Only - Straight")
+@Autonomous(name="Encoder Only", group="Test")
 
 public class Encoder_Only_Test extends LinearOpMode {
 

@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Competition.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
-@TeleOp
+@TeleOp(name="Competition TeleOp", group="Competition")
+
 public class DuckyTeleOp extends OpMode {
 
     // Initializing Robot Class

@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@TeleOp
-public class arm_EncoderValueFinder extends OpMode {
+@TeleOp(name="Encoder Value Finder", group="Setup")
+
+public class EncoderValueFinder extends OpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -35,10 +36,14 @@ public class arm_EncoderValueFinder extends OpMode {
 
         // Reset Encoder Value for motor
         if (gamepad1.a) {
+            ducky.BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            ducky.BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         // Telemetry Update
+        telemetry.addData("Back Left Encoder Pulses",   ducky.BackLeft.getCurrentPosition());
+        telemetry.addData("Back Right Encoder Pulses",   ducky.BackRight.getCurrentPosition());
         telemetry.addData("Arm Rotator Encoder Pulses",   ducky.ArmRotator.getCurrentPosition());
         telemetry.update();
     }

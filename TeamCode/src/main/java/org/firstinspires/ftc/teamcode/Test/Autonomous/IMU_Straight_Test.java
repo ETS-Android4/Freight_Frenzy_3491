@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="IMU Test - Straight")
+@Autonomous(name="IMU Test - Straight", group="Test")
 
 public class IMU_Straight_Test extends LinearOpMode {
 

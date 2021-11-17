@@ -8,7 +8,8 @@
 //import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 //import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
 //
-//@TeleOp
+//@TeleOp(name="EasyOpenCV", group="Test")
+//
 //public class EasyOpenCV_Test extends LinearOpMode {
 //
 //    // Initializing Robot Class

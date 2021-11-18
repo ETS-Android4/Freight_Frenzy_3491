@@ -75,54 +75,54 @@ public class Ducky {
         hwMap = ahwMap;
         telemetry = a_telemetry;
 
-        // Define Drive Motors
-        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
-        BackLeft = hwMap.get(DcMotorEx.class,"backL");
-        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
-        BackRight = hwMap.get(DcMotorEx.class,"backR");
-
-        // Setting Motor Direction
-        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
-
-        // Setting Motor zero power Behaviour
-        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-
-        // Mechanisms - Motors
-        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
-
-        // Mechanisms - Setting Motor Direction
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-
-        // Mechanisms - Setting Motor zero power Behaviour
-        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-
-        // Define Servos
-        Collector = hwMap.crservo.get("collector");
-        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
-
-        // Initialize Servos
-        Collector.setPower(0);
-        CarouselSpinner.setPower(0);
-
-
-        // Motor set Power at init
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
-
-        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        // Define Drive Motors
+//        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
+//        BackLeft = hwMap.get(DcMotorEx.class,"backL");
+//        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
+//        BackRight = hwMap.get(DcMotorEx.class,"backR");
+//
+//        // Setting Motor Direction
+//        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+//        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
+//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+//        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
+//
+//        // Setting Motor zero power Behaviour
+//        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//
+//        // Mechanisms - Motors
+//        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
+//
+//        // Mechanisms - Setting Motor Direction
+//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+//
+//        // Mechanisms - Setting Motor zero power Behaviour
+//        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//
+//        // Define Servos
+//        Collector = hwMap.crservo.get("collector");
+//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+//
+//        // Initialize Servos
+//        Collector.setPower(0);
+//        CarouselSpinner.setPower(0);
+//
+//
+//        // Motor set Power at init
+//        FrontLeft.setPower(0);
+//        BackLeft.setPower(0);
+//        FrontRight.setPower(0);
+//        BackRight.setPower(0);
+//
+//        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
+//        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -138,24 +138,23 @@ public class Ducky {
         imu.initialize(parameters);
 
 
-//        // EasyOpenCV Setup
-//        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
-//        webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-//        webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
-//        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-//
-//        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-//        {
-//            @Override
-//            public void onOpened()
-//            {
-//                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-//            }
-//
-//            @Override
-//            public void onError(int errorCode) {
-//            }
-//        });
+        // EasyOpenCV Setup
+        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+            }
+        });
     }
 
 

@@ -59,6 +59,7 @@ public class Ducky {
     public float Yaw_Angle;
     public Orientation angles;
     public Acceleration gravity;
+//    public static final double TURN_ANGLE_TOLERANCE = 0.2;
 
     // Class Constructor
     public Ducky(){
@@ -71,49 +72,54 @@ public class Ducky {
         hwMap = ahwMap;
         telemetry = a_telemetry;
 
-        // Define Drive Motors
-        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
-        BackLeft = hwMap.get(DcMotorEx.class,"backL");
-        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
-        BackRight = hwMap.get(DcMotorEx.class,"backR");
-
-        // Setting Motor Direction
-        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
-
-        // Setting Motor zero power Behaviour
-        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-
-        // Mechanisms - Motors
-        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
-
-        // Mechanisms - Setting Motor Direction
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-
-        // Mechanisms - Setting Motor zero power Behaviour
-        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
-
-        // Define Servos
-        Collector = hwMap.crservo.get("collector");
-        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
-
-        // Initialize Servos
-        Collector.setPower(0);
-        CarouselSpinner.setPower(0);
-
-
-        // Motor set Power at init
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
+//        // Define Drive Motors
+//        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
+//        BackLeft = hwMap.get(DcMotorEx.class,"backL");
+//        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
+//        BackRight = hwMap.get(DcMotorEx.class,"backR");
+//
+//        // Setting Motor Direction
+//        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+//        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
+//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+//        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
+//
+//        // Setting Motor zero power Behaviour
+//        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//
+//        // Mechanisms - Motors
+//        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
+//
+//        // Mechanisms - Setting Motor Direction
+//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+//
+//        // Mechanisms - Setting Motor zero power Behaviour
+//        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//
+//
+//        // Define Servos
+//        Collector = hwMap.crservo.get("collector");
+//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+//
+//        // Initialize Servos
+//        Collector.setPower(0);
+//        CarouselSpinner.setPower(0);
+//
+//
+//        // Motor set Power at init
+//        FrontLeft.setPower(0);
+//        BackLeft.setPower(0);
+//        FrontRight.setPower(0);
+//        BackRight.setPower(0);
+//
+//        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
+//        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -147,12 +153,6 @@ public class Ducky {
 //            public void onError(int errorCode) {
 //            }
 //        });
-
-
-        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
 
 
@@ -179,39 +179,60 @@ public class Ducky {
 
             // If robot is drifting right - Need to turn left
             if (Yaw_Angle < -5) {
-                leftPower -= 0.05;
-                rightPower += 0.05;
+                if (rightPower < speed+0.2){
+                    leftPower -= 0.05;
+                    rightPower += 0.05;
+                }
 
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
 
-                // If robot is drifting left - Need to turn right
+            // If robot is drifting left - Need to turn right
             } else if (Yaw_Angle > 5) {
-                leftPower += 0.05;
-                rightPower -= 0.05;
+                if (leftPower < speed+0.2){
+                    leftPower += 0.05;
+                    rightPower -= 0.05;
+                }
 
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
 
-                // Continue Straight
+            // Continue Straight
             } else {
+                if (leftPower >= speed+0.05) {
+                    leftPower -= 0.05;
+                }
+                if (leftPower <= speed-0.05) {
+                    leftPower += 0.05;
+                }
+                if (rightPower >= speed+0.05) {
+                    rightPower -= 0.05;
+                }
+                if (rightPower <= speed-0.05) {
+                    rightPower += 0.05;
+                }
+
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
             }
 
-            telemetry.addData("Driving Forward, Target Position",
+            // Telemetry Update
+            telemetry.addData("Driving Backward, Target Position",
                     Encoder_Distance);
-            telemetry.addData("Driving Forward, Encoder Pulses Left",
+            telemetry.addData("Driving Backward, Encoder Pulses Left",
                     BackLeft.getCurrentPosition());
-            telemetry.addData("Driving Forward, Encoder Pulses Right",
+            telemetry.addData("Driving Backward, Encoder Pulses Right",
                     BackRight.getCurrentPosition());
+            telemetry.addData("Left Power", leftPower);
+            telemetry.addData("Right Power", rightPower);
             telemetry.addData("Yaw value", Yaw_Angle);
+
             telemetry.update();
         }
 
@@ -226,7 +247,7 @@ public class Ducky {
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        DriveForward_Power(speed);
+        DriveBackward_Power(speed);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
 
@@ -234,71 +255,125 @@ public class Ducky {
 
             // If robot is drifting right - Need to turn left
             if (Yaw_Angle < -5) {
-                leftPower -= 0.05;
-                rightPower += 0.05;
+                if (leftPower < speed+0.2){
+                    leftPower += 0.05;
+                    rightPower -= 0.05;
+                }
 
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
 
-                // If robot is drifting left - Need to turn right
+            // If robot is drifting left - Need to turn right
             } else if (Yaw_Angle > 5) {
-                leftPower -= 0.05;
-                rightPower += 0.05;
+                if (rightPower < speed+0.2){
+                    leftPower -= 0.05;
+                    rightPower += 0.05;
+                }
 
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
 
-                // Continue Straight
+            // Continue Straight
             } else {
+                if (leftPower >= speed+0.05) {
+                    leftPower -= 0.05;
+                }
+                if (leftPower <= speed-0.05) {
+                    leftPower += 0.05;
+                }
+                if (rightPower >= speed+0.05) {
+                    rightPower -= 0.05;
+                }
+                if (rightPower <= speed-0.05) {
+                    rightPower += 0.05;
+                }
+
                 FrontLeft.setPower(leftPower);
                 BackLeft.setPower(leftPower);
                 FrontRight.setPower(rightPower);
                 BackRight.setPower(rightPower);
             }
 
+            // Telemetry Update
             telemetry.addData("Driving Backward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Backward, Encoder Pulses Left",
                     BackLeft.getCurrentPosition());
             telemetry.addData("Driving Backward, Encoder Pulses Right",
                     BackRight.getCurrentPosition());
+            telemetry.addData("Left Power", leftPower);
+            telemetry.addData("Right Power", rightPower);
             telemetry.addData("Yaw value", Yaw_Angle);
+
             telemetry.update();
         }
 
         Stop_Encoder();
     }
-    public void TurnLeft_IMU (double angle, double speed) {
+    public void TurnLeft_IMU (double angle, double speed) throws InterruptedException {
+        angle = Yaw_Angle+angle;
+
         while (Yaw_Angle <= angle) {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-            TurnLeft_Power(speed);
+//            TurnLeft_Power(speed);
+
+            // Telemetry Update
+            telemetry.addData("Target Yaw value", angle);
+            telemetry.addData("Current Yaw value", Yaw_Angle);
+            telemetry.update();
+        }
+        Thread.sleep(200);
+
+        while (Yaw_Angle > angle) {
+            // Update Yaw-Angle variable with current yaw.
+            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
+//            TurnRight_Power(0.1);
 
             // Report yaw orientation to Driver Station.
-            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.addData("Robot overturned, Target Yaw value", angle);
+            telemetry.addData("Current Yaw value", Yaw_Angle);
             telemetry.update();
         }
 
-        Stop_Encoder();
+//        Stop_Encoder();
     }
-    public void TurnRight_IMU (double angle, double speed) {
-        while (Yaw_Angle <= angle) {
+    public void TurnRight_IMU (double angle, double speed) throws InterruptedException {
+        angle = Yaw_Angle+ -angle;
+
+        while (Yaw_Angle >= angle) {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-            TurnRight_Power(speed);
+//            TurnRight_Power(speed);
+
+            // Telemetry Update
+            telemetry.addData("Target Yaw value", angle);
+            telemetry.addData("Current Yaw value", Yaw_Angle);
+            telemetry.update();
+        }
+        Thread.sleep(200);
+
+        while (Yaw_Angle < angle) {
+            // Update Yaw-Angle variable with current yaw.
+            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+
+//            TurnRight_Power(0.1);
 
             // Report yaw orientation to Driver Station.
-            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.addData("Robot overturned, Target Yaw value", angle);
+            telemetry.addData("Current Yaw value", Yaw_Angle);
             telemetry.update();
         }
 
-        Stop_Encoder();
+
+//        Stop_Encoder();
     }
 
 

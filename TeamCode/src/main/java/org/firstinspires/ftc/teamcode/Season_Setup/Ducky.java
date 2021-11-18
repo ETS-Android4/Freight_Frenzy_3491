@@ -432,65 +432,69 @@ public class Ducky {
         ArmRotator.setPower(power);
     }
 
-    public void ArmCollecting(){
+    public void ArmCollecting() {
         ArmRotator.setTargetPosition(ARM_COLLECTING_ENCODER_PULSES);
         ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         ArmRotator.setPower(0.5);
 
-        while (ArmRotator.isBusy()) {
-            telemetry.addData("Arm Rotating, Position: Collecting" +
-                            " Encoder Pulses Left",
-                    ARM_COLLECTING_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+        if (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Target Position",
+                    ARM_COLLECTING_ENCODER_PULSES);
+            telemetry.addData("Arm Encoder Pulses",
+                    ArmRotator.getCurrentPosition());
             telemetry.update();
         }
 
-        ArmRotator.setPower(0);
+        if (ArmRotator.getCurrentPosition() < 50) {
+            telemetry.addData("Reached Collecting Position, Arm Encoder Pulses",
+                    ArmRotator.getCurrentPosition());
+            telemetry.update();
+
+            ArmRotator.setPower(0);
+        }
     }
-    public void ArmBottomLevel(){
+    public void ArmBottomLevel() {
         ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);
         ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         ArmRotator.setPower(0.5);
 
-        while (ArmRotator.isBusy()) {
-            telemetry.addData("Arm Rotating, Position: Bottom Level" +
-                            " Encoder Pulses Left",
-                    ARM_BOTTOM_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+        if (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Target Position",
+                    ARM_BOTTOM_LEVEL_ENCODER_PULSES);
+            telemetry.addData("Arm Encoder Pulses",
+                    ArmRotator.getCurrentPosition());
             telemetry.update();
         }
-
-        ArmRotator.setPower(0);
     }
-    public void ArmMidLevel(){
+    public void ArmMidLevel() {
         ArmRotator.setTargetPosition(ARM_MID_LEVEL_ENCODER_PULSES);
         ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         ArmRotator.setPower(0.5);
 
-        while (ArmRotator.isBusy()) {
-            telemetry.addData("Arm Rotating, Position: Mid Level" +
-                            " Encoder Pulses Left",
-                    ARM_MID_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+        if (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Target Position",
+                    ARM_MID_LEVEL_ENCODER_PULSES);
+            telemetry.addData("Arm Encoder Pulses",
+                    ArmRotator.getCurrentPosition());
             telemetry.update();
         }
-
-        ArmRotator.setPower(0);
     }
-    public void ArmTopLevel(){
+    public void ArmTopLevel() {
         ArmRotator.setTargetPosition(ARM_TOP_LEVEL_ENCODER_PULSES);
         ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         ArmRotator.setPower(0.5);
 
-        while (ArmRotator.isBusy()) {
-            telemetry.addData("Arm Rotating, Position: Top Level" +
-                            " Encoder Pulses Left",
-                    ARM_TOP_LEVEL_ENCODER_PULSES - ArmRotator.getCurrentPosition());
+        if (ArmRotator.isBusy()) {
+            telemetry.addData("Arm Rotating, Target Position",
+                    ARM_TOP_LEVEL_ENCODER_PULSES);
+            telemetry.addData("Arm Encoder Pulses",
+                    ArmRotator.getCurrentPosition());
             telemetry.update();
         }
-
-        ArmRotator.setPower(0);
     }
 
     // Carousel Spinner

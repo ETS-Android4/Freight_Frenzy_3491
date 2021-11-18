@@ -9,12 +9,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 public class Ducky {
@@ -72,54 +75,54 @@ public class Ducky {
         hwMap = ahwMap;
         telemetry = a_telemetry;
 
-//        // Define Drive Motors
-//        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
-//        BackLeft = hwMap.get(DcMotorEx.class,"backL");
-//        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
-//        BackRight = hwMap.get(DcMotorEx.class,"backR");
-//
-//        // Setting Motor Direction
-//        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-//        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
-//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-//        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
-//
-//        // Setting Motor zero power Behaviour
-//        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
-//
-//        // Mechanisms - Motors
-//        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
-//
-//        // Mechanisms - Setting Motor Direction
-//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-//
-//        // Mechanisms - Setting Motor zero power Behaviour
-//        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
-//
-//        // Define Servos
-//        Collector = hwMap.crservo.get("collector");
-//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
-//
-//        // Initialize Servos
-//        Collector.setPower(0);
-//        CarouselSpinner.setPower(0);
-//
-//
-//        // Motor set Power at init
-//        FrontLeft.setPower(0);
-//        BackLeft.setPower(0);
-//        FrontRight.setPower(0);
-//        BackRight.setPower(0);
-//
-//        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-//        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        // Define Drive Motors
+        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
+        BackLeft = hwMap.get(DcMotorEx.class,"backL");
+        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
+        BackRight = hwMap.get(DcMotorEx.class,"backR");
+
+        // Setting Motor Direction
+        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Setting Motor zero power Behaviour
+        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
+        // Mechanisms - Motors
+        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
+
+        // Mechanisms - Setting Motor Direction
+        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Mechanisms - Setting Motor zero power Behaviour
+        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
+        // Define Servos
+        Collector = hwMap.crservo.get("collector");
+        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+
+        // Initialize Servos
+        Collector.setPower(0);
+        CarouselSpinner.setPower(0);
+
+
+        // Motor set Power at init
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
+
+        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -321,7 +324,7 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-//            TurnLeft_Power(speed);
+            TurnLeft_Power(speed);
 
             // Telemetry Update
             telemetry.addData("Target Yaw value", angle);
@@ -334,7 +337,7 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-//            TurnRight_Power(0.1);
+            TurnRight_Power(0.1);
 
             // Report yaw orientation to Driver Station.
             telemetry.addData("Robot overturned, Target Yaw value", angle);
@@ -342,7 +345,7 @@ public class Ducky {
             telemetry.update();
         }
 
-//        Stop_Encoder();
+        Stop_Encoder();
     }
     public void TurnRight_IMU (double angle, double speed) throws InterruptedException {
         angle = Yaw_Angle+ -angle;
@@ -351,7 +354,7 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-//            TurnRight_Power(speed);
+            TurnRight_Power(speed);
 
             // Telemetry Update
             telemetry.addData("Target Yaw value", angle);
@@ -364,7 +367,7 @@ public class Ducky {
             // Update Yaw-Angle variable with current yaw.
             Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
 
-//            TurnRight_Power(0.1);
+            TurnRight_Power(0.1);
 
             // Report yaw orientation to Driver Station.
             telemetry.addData("Robot overturned, Target Yaw value", angle);
@@ -373,7 +376,7 @@ public class Ducky {
         }
 
 
-//        Stop_Encoder();
+        Stop_Encoder();
     }
 
 

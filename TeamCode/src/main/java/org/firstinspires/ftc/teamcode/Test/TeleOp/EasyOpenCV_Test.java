@@ -47,7 +47,9 @@ public class EasyOpenCV_Test extends LinearOpMode {
             telemetry.addData("Theoretical max FPS", ducky.webcam.getCurrentPipelineMaxFps());
 
             // Telemetry Ring Data
-            telemetry.addData("Analysis", Ducky.analysis);
+            telemetry.addData("Analysis - Left",   Freight_Frenzy_Pipeline.analysisLeft);
+            telemetry.addData("Analysis - Center", Freight_Frenzy_Pipeline.analysisCenter);
+            telemetry.addData("Analysis - Right",  Freight_Frenzy_Pipeline.analysisRight);
             telemetry.addData("Position", Freight_Frenzy_Pipeline.positionOfTeamShippingElement);
 
             // Telemetry Update

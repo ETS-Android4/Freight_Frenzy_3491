@@ -49,6 +49,8 @@ public class Freight_Frenzy_Pipeline extends Ducky
             RIGHT
         }
 
+        public ElementPosition elementPosition;
+
         // Color constant
         final Scalar WHITE = new Scalar(255, 255, 255);
 
@@ -93,9 +95,9 @@ public class Freight_Frenzy_Pipeline extends Ducky
         Mat centerBarcode;
         Mat rightBarcode;
         Mat mat = new Mat();
-        double leftValue;
-        double centerValue;
-        double rightValue;
+        public double leftValue;
+        public double centerValue;
+        public double rightValue;
 
         // Volatile since accessed by OpMode thread w/o synchronization
         Pipeline.ElementPosition position = ElementPosition.LEFT;
@@ -106,8 +108,8 @@ public class Freight_Frenzy_Pipeline extends Ducky
          */
         void inputToHSV(Mat input) {
             Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-            Scalar lowHSV = new Scalar(0, 0, 240);
-            Scalar highHSV = new Scalar(255, 15, 255);
+            Scalar lowHSV = new Scalar(200, 200, 200);
+            Scalar highHSV = new Scalar(255, 255, 255);
 
             Core.inRange(mat, lowHSV, highHSV, mat);
         }
@@ -134,70 +136,50 @@ public class Freight_Frenzy_Pipeline extends Ducky
             inputToHSV(input);
 
             // Setting Variable Value
-            leftValue = Core.sumElems(leftBarcode).val[0] / LEFT_BARCODE.area() / 255;
-            centerValue = Core.sumElems(leftBarcode).val[0] / CENTER_BARCODE.area() / 255;
-            rightValue = Core.sumElems(leftBarcode).val[0] / RIGHT_BARCODE.area() / 255;
+            leftValue = Core.sumElems(leftBarcode).val[0];
+            centerValue = Core.sumElems(centerBarcode).val[0];
+            rightValue = Core.sumElems(rightBarcode).val[0];
 
-            leftBarcode.release();
-            centerBarcode.release();
-            rightBarcode.release();
-
+            /* Drawing the Rectangles */
             // Left Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     LEFT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
-                    1); // Thickness of the rectangle lines
-
+                    2); // Thickness of the rectangle lines
             // Center Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     CENTER_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
-                    1); // Thickness of the rectangle lines
-
+                    2); // Thickness of the rectangle lines
             // Right Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
                     RIGHT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
-                    1); // Thickness of the rectangle lines
+                    2); // Thickness of the rectangle lines
 
             // Record out analysis
             if (leftValue > ELEMENT_THRESHOLD) {
-                position = ElementPosition.LEFT;
+                elementPosition = ElementPosition.LEFT;
             } else if (centerValue > ELEMENT_THRESHOLD) {
-                position = ElementPosition.CENTER;
+                elementPosition = ElementPosition.CENTER;
             } else if (rightValue > ELEMENT_THRESHOLD) {
-                position = ElementPosition.RIGHT;
+                elementPosition = ElementPosition.RIGHT;
+            } else {
+                elementPosition = ElementPosition.LEFT;
             }
 
-            // Left Barcode Rectangle
-            // Left Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    LEFT_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    -1); // Thickness of the rectangle lines
+            // Setting Analysis Value for Telemetry
+            analysisLeft = leftValue;
+            analysisCenter = centerValue;
+            analysisRight = rightValue;
 
-            // Center Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    CENTER_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    -1); // Thickness of the rectangle lines
+            // Setting Position of Element for Telemetry
+            positionOfTeamShippingElement = elementPosition;
 
-            // Right Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    RIGHT_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    -1); // Thickness of the rectangle lines
-
-            // Setting Variable value
-            analysis = leftValue;
-            positionOfTeamShippingElement = position;
-
+            // Return Input
             return input;
         }
     }

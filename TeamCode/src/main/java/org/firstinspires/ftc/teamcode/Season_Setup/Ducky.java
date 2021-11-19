@@ -56,7 +56,9 @@ public class Ducky {
 
     // EasyOpenCV Setup
     public OpenCvCamera webcam;
-    public static double analysis = 0;
+    public static double analysisLeft = 0.0;
+    public static double analysisCenter = 0.0;
+    public static double analysisRight = 0.0;
 
     // IMU functions
     public float Yaw_Angle;

@@ -23,8 +23,6 @@ public class IMU_Turn_Test extends LinearOpMode {
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
-        ducky.BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Encoder Pulses Left, Right",

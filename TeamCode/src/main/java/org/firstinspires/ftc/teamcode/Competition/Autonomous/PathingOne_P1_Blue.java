@@ -14,7 +14,7 @@ public class PathingOne_P1_Blue extends LinearOpMode {
     Ducky ducky = new Ducky();
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
@@ -22,8 +22,6 @@ public class PathingOne_P1_Blue extends LinearOpMode {
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
-        ducky.BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
@@ -39,6 +37,10 @@ public class PathingOne_P1_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
+        ducky.TurnRight_Power(0.5);
+        Thread.sleep(1000);
+        ducky.BackLeft.setPower(1);
+        Thread.sleep(2000);
 
     }
 }

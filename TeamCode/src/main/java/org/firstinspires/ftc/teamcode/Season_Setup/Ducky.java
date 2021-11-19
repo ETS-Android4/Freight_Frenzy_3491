@@ -121,6 +121,12 @@ public class Ducky {
         FrontRight.setPower(0);
         BackRight.setPower(0);
 
+
+        // Resetting Motor Encoders
+        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
         BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);

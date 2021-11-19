@@ -23,8 +23,6 @@ public class PathingOne_P2_Blue extends LinearOpMode {
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
-        ducky.BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",

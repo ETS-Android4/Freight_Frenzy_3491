@@ -56,7 +56,7 @@ public class Ducky {
 
     // EasyOpenCV Setup
     public OpenCvCamera webcam;
-    public static int analysis = 0;
+    public static double analysis = 0;
 
     // IMU functions
     public float Yaw_Angle;
@@ -75,54 +75,54 @@ public class Ducky {
         hwMap = ahwMap;
         telemetry = a_telemetry;
 
-//        // Define Drive Motors
-//        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
-//        BackLeft = hwMap.get(DcMotorEx.class,"backL");
-//        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
-//        BackRight = hwMap.get(DcMotorEx.class,"backR");
-//
-//        // Setting Motor Direction
-//        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-//        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
-//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-//        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
-//
-//        // Setting Motor zero power Behaviour
-//        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
-//
-//        // Mechanisms - Motors
-//        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
-//
-//        // Mechanisms - Setting Motor Direction
-//        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-//
-//        // Mechanisms - Setting Motor zero power Behaviour
-//        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//
-//
-//        // Define Servos
-//        Collector = hwMap.crservo.get("collector");
-//        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
-//
-//        // Initialize Servos
-//        Collector.setPower(0);
-//        CarouselSpinner.setPower(0);
-//
-//
-//        // Motor set Power at init
-//        FrontLeft.setPower(0);
-//        BackLeft.setPower(0);
-//        FrontRight.setPower(0);
-//        BackRight.setPower(0);
-//
-//        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-//        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-//        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        // Define Drive Motors
+        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
+        BackLeft = hwMap.get(DcMotorEx.class,"backL");
+        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
+        BackRight = hwMap.get(DcMotorEx.class,"backR");
+
+        // Setting Motor Direction
+        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Setting Motor zero power Behaviour
+        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
+        // Mechanisms - Motors
+        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
+
+        // Mechanisms - Setting Motor Direction
+        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+
+        // Mechanisms - Setting Motor zero power Behaviour
+        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+
+        // Define Servos
+        Collector = hwMap.crservo.get("collector");
+        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+
+        // Initialize Servos
+        Collector.setPower(0);
+        CarouselSpinner.setPower(0);
+
+
+        // Motor set Power at init
+        FrontLeft.setPower(0);
+        BackLeft.setPower(0);
+        FrontRight.setPower(0);
+        BackRight.setPower(0);
+
+        // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
+        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -241,7 +241,7 @@ public class Ducky {
         Stop_Encoder();
     }
     public void DriveBackward_Encoder_IMU (int Distance, double speed) {
-        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
+        Encoder_Distance = (int)(-Distance* WHEEL_PULSES_PER_INCH);
 
         BackLeft.setTargetPosition(Encoder_Distance);
         BackRight.setTargetPosition(Encoder_Distance);
@@ -552,6 +552,7 @@ public class Ducky {
         ArmRotator.setPower(0.5);
 
         if (ArmRotator.isBusy()) {
+            ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             telemetry.addData("Arm Rotating, Target Position",
                     ARM_MID_LEVEL_ENCODER_PULSES);
             telemetry.addData("Arm Encoder Pulses",

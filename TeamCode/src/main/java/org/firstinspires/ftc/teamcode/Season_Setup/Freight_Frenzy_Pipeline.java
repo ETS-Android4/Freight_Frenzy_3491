@@ -61,7 +61,7 @@ public class Freight_Frenzy_Pipeline extends Ducky
 
 
         // Threshold in which the Element will be detected
-        final int ELEMENT_THRESHOLD = 150;
+        final double ELEMENT_THRESHOLD = 0.5;
 
         ////* Creating the sample regions *////
         /* pointA = The Top left point of the region */
@@ -93,9 +93,9 @@ public class Freight_Frenzy_Pipeline extends Ducky
         Mat centerBarcode;
         Mat rightBarcode;
         Mat mat = new Mat();
-        int avg1;
-        int avg2;
-        int avg3;
+        double leftValue;
+        double centerValue;
+        double rightValue;
 
         // Volatile since accessed by OpMode thread w/o synchronization
         Pipeline.ElementPosition position = ElementPosition.LEFT;
@@ -106,8 +106,8 @@ public class Freight_Frenzy_Pipeline extends Ducky
          */
         void inputToHSV(Mat input) {
             Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-            Scalar lowHSV = new Scalar(0, 0, 100);
-            Scalar highHSV = new Scalar(0, 90, 90);
+            Scalar lowHSV = new Scalar(0, 0, 240);
+            Scalar highHSV = new Scalar(255, 15, 255);
 
             Core.inRange(mat, lowHSV, highHSV, mat);
         }
@@ -134,72 +134,68 @@ public class Freight_Frenzy_Pipeline extends Ducky
             inputToHSV(input);
 
             // Setting Variable Value
-            avg1 = (int) (Core.sumElems(leftBarcode).val[0] / LEFT_BARCODE.area() / 255);
-            double rightValue = Core.sumElems(right).val[0] / RIGHT_ROI.area() / 255;
+            leftValue = Core.sumElems(leftBarcode).val[0] / LEFT_BARCODE.area() / 255;
+            centerValue = Core.sumElems(leftBarcode).val[0] / CENTER_BARCODE.area() / 255;
+            rightValue = Core.sumElems(leftBarcode).val[0] / RIGHT_BARCODE.area() / 255;
 
-            avg1 = (int) Core.mean(leftBarcode).val[0];
-            avg2 = (int) Core.mean(centerBarcode).val[0];
-            avg3 = (int) Core.mean(rightBarcode).val[0];
+            leftBarcode.release();
+            centerBarcode.release();
+            rightBarcode.release();
 
             // Left Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Left_Barcode_pointA, // First point which defines the rectangle
-                    Left_Barcode_pointB, // Second point which defines the rectangle
+                    LEFT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     1); // Thickness of the rectangle lines
 
             // Center Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Center_Barcode_pointA, // First point which defines the rectangle
-                    Center_Barcode_pointB, // Second point which defines the rectangle
+                    CENTER_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     1); // Thickness of the rectangle lines
 
             // Right Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Right_Barcode_pointA, // First point which defines the rectangle
-                    Right_Barcode_pointB, // Second point which defines the rectangle
+                    RIGHT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     1); // Thickness of the rectangle lines
 
             // Record out analysis
-            if (avg1 > ELEMENT_THRESHOLD) {
+            if (leftValue > ELEMENT_THRESHOLD) {
                 position = ElementPosition.LEFT;
-            } else if (avg2 > ELEMENT_THRESHOLD) {
+            } else if (centerValue > ELEMENT_THRESHOLD) {
                 position = ElementPosition.CENTER;
-            } else if (avg3 > ELEMENT_THRESHOLD) {
+            } else if (rightValue > ELEMENT_THRESHOLD) {
                 position = ElementPosition.RIGHT;
             }
 
             // Left Barcode Rectangle
+            // Left Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Left_Barcode_pointA, // First point which defines the rectangle
-                    Left_Barcode_pointB, // Second point which defines the rectangle
+                    LEFT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     -1); // Thickness of the rectangle lines
 
             // Center Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Center_Barcode_pointA, // First point which defines the rectangle
-                    Center_Barcode_pointB, // Second point which defines the rectangle
+                    CENTER_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     -1); // Thickness of the rectangle lines
 
             // Right Barcode Rectangle
             Imgproc.rectangle(
                     input, // Buffer to draw on
-                    Right_Barcode_pointA, // First point which defines the rectangle
-                    Right_Barcode_pointB, // Second point which defines the rectangle
+                    RIGHT_BARCODE,
                     WHITE, // The colour of the rectangle is drawn in
                     -1); // Thickness of the rectangle lines
 
             // Setting Variable value
-            analysis = avg1;
+            analysis = leftValue;
             positionOfTeamShippingElement = position;
 
             return input;

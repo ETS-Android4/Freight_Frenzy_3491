@@ -15,7 +15,7 @@ public class PathingOne_P2_Blue extends LinearOpMode {
     Ducky ducky = new Ducky();
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
@@ -40,6 +40,18 @@ public class PathingOne_P2_Blue extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-
+        ducky.DriveBackward_Encoder_IMU(10,-0.3);
+        Thread.sleep(1000);
+        ducky.TurnRight_IMU(45,0.3);
+        Thread.sleep(1000);
+        ducky.DriveBackward_Encoder_IMU(10,-0.3);
+        Thread.sleep(1000);
+        ducky.TurnRight_IMU(90,0.3);
+        Thread.sleep(1000);
+        ducky.DriveForward_Encoder_IMU(13,0.3);
+        Thread.sleep(1000);
+        ducky.CarouselSpinnerOn();
+        Thread.sleep(3000);
+        ducky.CarouselSpinnerOff();
     }
 }

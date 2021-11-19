@@ -62,9 +62,6 @@ public class Freight_Frenzy_Pipeline extends Ducky
         static final int REGION_HEIGHT = 50;        static final int REGION_WIDTH = 40;
 
 
-        // Threshold in which the Element will be detected
-        final double ELEMENT_THRESHOLD = 0.5;
-
         ////* Creating the sample regions *////
         /* pointA = The Top left point of the region */
         /* pointB = The Bottom right point of the region */
@@ -95,6 +92,9 @@ public class Freight_Frenzy_Pipeline extends Ducky
         Mat centerBarcode;
         Mat rightBarcode;
         Mat mat = new Mat();
+        Mat vLeft = new Mat();
+        Mat vCenter = new Mat();
+        Mat vRight = new Mat();
         public double leftValue;
         public double centerValue;
         public double rightValue;
@@ -108,37 +108,39 @@ public class Freight_Frenzy_Pipeline extends Ducky
          */
         void inputToHSV(Mat input) {
             Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-            Scalar lowHSV = new Scalar(200, 200, 200);
-            Scalar highHSV = new Scalar(255, 255, 255);
+            Scalar lowHSV = new Scalar(0, 0, 90);
+            Scalar highHSV = new Scalar(359, 10, 100);
 
             Core.inRange(mat, lowHSV, highHSV, mat);
         }
 
         /**
-         * @param frame Initializing the frame
+         * @param input Initializing the frame
          */
         @Override
-        public void init(Mat frame) {
-            inputToHSV(frame);
-            leftBarcode = mat.submat(LEFT_BARCODE);
-            centerBarcode = mat.submat(CENTER_BARCODE);
-            rightBarcode = mat.submat(RIGHT_BARCODE);
+        public void init(Mat input) {
+            inputToHSV(input);
+            leftBarcode = input.submat(LEFT_BARCODE);
+            centerBarcode = input.submat(CENTER_BARCODE);
+            rightBarcode = input.submat(RIGHT_BARCODE);
         }
 
-        /**
-         * @param input Processing the frames
-         * @return Returns the Team Shipping Element Position
-         */
         @Override
         public Mat processFrame(Mat input) {
 
             // Initializing the frame
             inputToHSV(input);
 
-            // Setting Variable Value
-            leftValue = Core.sumElems(leftBarcode).val[0];
-            centerValue = Core.sumElems(centerBarcode).val[0];
-            rightValue = Core.sumElems(rightBarcode).val[0];
+            // extract the v channel from hsv
+            Core.extractChannel(leftBarcode, vLeft, 2);
+            Core.extractChannel(centerBarcode, vCenter, 2);
+            Core.extractChannel(rightBarcode, vRight, 2);
+
+            // get the average colors
+            leftValue = Core.mean(vLeft).val[0];
+            centerValue = Core.mean(vCenter).val[0];
+            rightValue = Core.mean(vRight).val[0];
+
 
             /* Drawing the Rectangles */
             // Left Barcode Rectangle
@@ -161,11 +163,11 @@ public class Freight_Frenzy_Pipeline extends Ducky
                     2); // Thickness of the rectangle lines
 
             // Record out analysis
-            if (leftValue > ELEMENT_THRESHOLD) {
+            if (leftValue > centerValue && leftValue > rightValue) {
                 elementPosition = ElementPosition.LEFT;
-            } else if (centerValue > ELEMENT_THRESHOLD) {
+            } else if (centerValue > leftValue && centerValue > rightValue) {
                 elementPosition = ElementPosition.CENTER;
-            } else if (rightValue > ELEMENT_THRESHOLD) {
+            } else if (rightValue > leftValue && rightValue > centerValue) {
                 elementPosition = ElementPosition.RIGHT;
             } else {
                 elementPosition = ElementPosition.LEFT;

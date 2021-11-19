@@ -109,7 +109,7 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        ducky.RotateArm(gamepad2.left_stick_y/3);
+        ducky.RotateArm(gamepad2.left_stick_y);
 
         if (gamepad2.dpad_up) {
             ducky.ArmCollecting();

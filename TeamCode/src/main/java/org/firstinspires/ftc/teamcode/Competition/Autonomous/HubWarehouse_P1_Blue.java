@@ -23,6 +23,9 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
+        // Setting Alliance Colour for TeleOp
+        Ducky.alliance = "Blue";
+
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
                 ducky.BackLeft.getCurrentPosition(),
@@ -49,10 +52,8 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
             ducky.ArmTopLevel();
         }
 
-        // Drive backwards and line up at 45 degree angle to the Alliance specific shipping hub
+        // Drive backwards
         ducky.DriveBackward_Encoder(1,-0.3);
-        Thread.sleep(1000);
-        ducky.turn_P(90,3000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -62,6 +63,9 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         } else if (ducky.rightState) {
             ducky.ArmTopLevel();
         }
+
+        // Turn Towards Alliance Specific Shipping Hub
+        ducky.turn_P(-90,3000, 1000);
 
         // Move closer to Shipping Hub and score
         ducky.DriveBackward_Encoder(2,0.5);

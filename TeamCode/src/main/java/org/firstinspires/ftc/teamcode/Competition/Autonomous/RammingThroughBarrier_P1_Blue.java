@@ -23,6 +23,9 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
+        // Setting Alliance Colour for TeleOp
+        Ducky.alliance = "Blue";
+
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
                 ducky.BackLeft.getCurrentPosition(),
@@ -38,14 +41,14 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
 
         // Autonomous Pathing
         ducky.DriveBackward_Encoder(5,0.5);
-        ducky.turn_P(90,4000);
+        ducky.turn_P(90,3000, 1000);
         ducky.DriveForward_Power(1);
         Thread.sleep(2500);
         ducky.Stop_Power();
         Thread.sleep(1000);
         ducky.DriveBackward_Encoder(1,0.5);
-        ducky.turn_P(-90,4000);
+        ducky.turn_P(-90,3000, 1000);
         ducky.DriveForward_Encoder(1,0.5);
-        ducky.turn_P(-180,4000);
+        ducky.turn_P(-180,3000, 1000);
     }
 }

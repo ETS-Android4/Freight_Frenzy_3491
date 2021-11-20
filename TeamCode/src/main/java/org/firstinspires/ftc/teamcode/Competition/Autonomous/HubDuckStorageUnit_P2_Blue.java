@@ -52,10 +52,8 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
             ducky.rightState = true;
         }
 
-        // Drive backwards and line up at 45 degree angle to the Alliance specific shipping hub
+        // Drive backwards
         ducky.DriveBackward_Encoder(1,-0.3);
-        Thread.sleep(1000);
-        ducky.turn_P(-45,3000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -65,6 +63,9 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         } else if (ducky.rightState) {
             ducky.ArmTopLevel();
         }
+
+        // Turn Towards Alliance Specific Shipping Hub
+        ducky.turn_P(-90,3000, 1000);
 
         // Move closer to Shipping Hub and score
         ducky.DriveBackward_Encoder(2,0.5);
@@ -76,16 +77,14 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
-        ducky.turn_P(-45,3000);
+        ducky.DriveForward_Encoder(10,0.5);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.DriveForward_Encoder(20,0.5);
-        ducky.turn_P(-90,3000);
+        ducky.turn_P(-90,3000, 1000);
         ducky.DriveBackward_Encoder(10,0.5);
 
         // Spin Carousel
-        ducky.CarouselSpinnerOn();
+        ducky.CarouselSpinnerBlue();
         Thread.sleep(4000);
-
         // Drive into storage unit
         ducky.DriveForward_Encoder(10,1);
     }

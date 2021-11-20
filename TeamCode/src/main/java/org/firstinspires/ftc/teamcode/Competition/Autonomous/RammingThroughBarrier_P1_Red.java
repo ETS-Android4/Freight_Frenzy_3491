@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
 
-@Autonomous(name="Ramming through Barrier - P1, Blue", group="Competition - Blue")
+@Autonomous(name="Ramming through Barrier - P1, Red", group="Competition - Blue")
 
-public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
+public class RammingThroughBarrier_P1_Red extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -38,14 +38,14 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
 
         // Autonomous Pathing
         ducky.DriveBackward_Encoder(5,0.5);
-        ducky.turn_P(90,4000);
+        ducky.turn_P(-90,4000);
         ducky.DriveForward_Power(1);
         Thread.sleep(2500);
         ducky.Stop_Power();
         Thread.sleep(1000);
         ducky.DriveBackward_Encoder(1,0.5);
-        ducky.turn_P(-90,4000);
+        ducky.turn_P(90,4000);
         ducky.DriveForward_Encoder(1,0.5);
-        ducky.turn_P(-180,4000);
+        ducky.turn_P(180,4000);
     }
 }

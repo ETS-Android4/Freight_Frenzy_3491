@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
+import org.firstinspires.ftc.teamcode.Season_Setup.ReadFile;
 
 @TeleOp(name="Competition TeleOp", group="Competition")
 
@@ -12,6 +13,7 @@ public class DuckyTeleOp extends OpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
+    ReadFile readFile = new ReadFile();
 
     // Variable Declaration
     // N/A
@@ -138,11 +140,21 @@ public class DuckyTeleOp extends OpMode {
 
 
         // Carousel Spinner
+//        if (readFile.blueAlliance()){
+//            if (gamepad2.left_trigger > 0) {
+//                ducky.CarouselSpinnerBlue();
+//            }
+//        } else {
+//            if (gamepad2.left_trigger > 0) {
+//                ducky.CarouselSpinnerRed();
+//            }
+//        }
+
         if (gamepad2.left_trigger > 0) {
-            ducky.CarouselSpinnerOn();
+            ducky.CarouselSpinnerBlue();
         }
         if(gamepad2.left_bumper) {
-            ducky.CarouselSpinnerReverse();
+            ducky.CarouselSpinnerRed();
         }
         if (gamepad2.b) {
             ducky.CarouselSpinnerOff();

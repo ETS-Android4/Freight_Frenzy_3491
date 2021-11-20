@@ -73,6 +73,11 @@ public class Ducky {
     public Acceleration gravity;
     public static final double TURN_ANGLE_TOLERANCE = 2;
 
+    // Autonomous state
+    public boolean leftState;
+    public boolean centerState;
+    public boolean rightState;
+
     // PID
     public double Kp = 0.02;
     public double Kd = 0.003;

@@ -8,6 +8,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 
 public class Freight_Frenzy_Pipeline extends Ducky
@@ -19,11 +20,14 @@ public class Freight_Frenzy_Pipeline extends Ducky
     /**
      * Pipeline Class
      */
-    static class Pipeline extends OpenCvPipeline
+    public static class Pipeline extends OpenCvPipeline
     {
         // Camera View set-up
         boolean viewportPaused;
         public OpenCvCamera webcam;
+
+        public double exposure_value;
+//        exposure_value = OpenCvWebcam.getExposureControl();
 
         // Viewport setup
         @Override
@@ -55,11 +59,13 @@ public class Freight_Frenzy_Pipeline extends Ducky
         final Scalar WHITE = new Scalar(255, 255, 255);
 
         // The core values which define the location and size of the sample regions
-        static final Point LEFT_BARCODE_TOP_LEFT_ANCHOR_POINT =   new Point(56, 100);
-        static final Point CENTER_BARCODE_TOP_LEFT_ANCHOR_POINT = new Point(162, 100);
-        static final Point RIGHT_BARCODE_TOP_LEFT_ANCHOR_POINT =  new Point(268, 100);
+        static final int REGION_HEIGHT = 100;        static final int REGION_WIDTH = 70;
 
-        static final int REGION_HEIGHT = 50;        static final int REGION_WIDTH = 40;
+        static final int CENTER_BARCODE_TOP_LEFT_X_ANCHOR_POINT = 320/2 - REGION_WIDTH/2;
+
+        static final Point LEFT_BARCODE_TOP_LEFT_ANCHOR_POINT =   new Point(0, 100);
+        static final Point CENTER_BARCODE_TOP_LEFT_ANCHOR_POINT = new Point(CENTER_BARCODE_TOP_LEFT_X_ANCHOR_POINT, 100);
+        static final Point RIGHT_BARCODE_TOP_LEFT_ANCHOR_POINT =  new Point(320-REGION_WIDTH, 100);
 
 
         ////* Creating the sample regions *////
@@ -99,17 +105,14 @@ public class Freight_Frenzy_Pipeline extends Ducky
         public double centerValue;
         public double rightValue;
 
-        // Volatile since accessed by OpMode thread w/o synchronization
-        Pipeline.ElementPosition position = ElementPosition.LEFT;
-
         /**
          * This function takes the RGB frame, converts to YCrCb,
          * and extracts the Cb channel to the 'Cb' variable
          */
         void inputToHSV(Mat input) {
             Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-            Scalar lowHSV = new Scalar(0, 0, 90);
-            Scalar highHSV = new Scalar(359, 10, 100);
+            Scalar lowHSV = new Scalar(79, 28, 30);
+            Scalar highHSV = new Scalar(151, 100, 100);
 
             Core.inRange(mat, lowHSV, highHSV, mat);
         }
@@ -132,9 +135,9 @@ public class Freight_Frenzy_Pipeline extends Ducky
             inputToHSV(input);
 
             // extract the v channel from hsv
-            Core.extractChannel(leftBarcode, vLeft, 2);
-            Core.extractChannel(centerBarcode, vCenter, 2);
-            Core.extractChannel(rightBarcode, vRight, 2);
+            Core.extractChannel(leftBarcode, vLeft, 1);
+            Core.extractChannel(centerBarcode, vCenter, 1);
+            Core.extractChannel(rightBarcode, vRight, 1);
 
             // get the average colors
             leftValue = Core.mean(vLeft).val[0];

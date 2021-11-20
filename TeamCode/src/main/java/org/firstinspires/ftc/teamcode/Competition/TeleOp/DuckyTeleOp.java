@@ -109,19 +109,18 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        ducky.RotateArm(gamepad2.left_stick_y);
-
         if (gamepad2.dpad_up) {
             ducky.ArmCollecting();
-        }
-        if (gamepad2.dpad_left) {
+        } else if (gamepad2.dpad_left) {
             ducky.ArmTopLevel();
-        }
-        if (gamepad2.dpad_right) {
+        } else if (gamepad2.dpad_right) {
             ducky.ArmMidLevel();
-        }
-        if (gamepad2.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             ducky.ArmBottomLevel();
+        }
+
+        if (gamepad2.x) {
+            ducky.RotateArm(gamepad2.left_stick_y);
         }
 
 
@@ -139,6 +138,12 @@ public class DuckyTeleOp extends OpMode {
         // Telemetry Update
         telemetry.addData("Left Side Power", leftPower);
         telemetry.addData("Right Side Power", rightPower);
+
+        telemetry.addData("Arm Target Position",
+                Ducky.ARM_COLLECTING_ENCODER_PULSES);
+        telemetry.addData("Arm Encoder Pulses",
+                ducky.ArmRotator.getCurrentPosition());
+
         telemetry.update();
     }
 

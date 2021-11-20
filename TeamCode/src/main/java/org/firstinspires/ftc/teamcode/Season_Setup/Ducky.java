@@ -78,9 +78,13 @@ public class Ducky {
     public boolean centerState;
     public boolean rightState;
 
+    public static String alliance = "Blue";
+
+    public static boolean blueAlliance = true;
+
     // PID
-    public double Kp = 0.02;
-    public double Kd = 0.003;
+    public double Kp = 0.03;
+    public double Kd = 0.00005;
 
     // Class Constructor
     public Ducky(){
@@ -335,8 +339,10 @@ public class Ducky {
     }*/
 
     // Turning with IMU and P control (PID without ID)
-    public void turn_P(double turnDegree, double timeout) throws InterruptedException {
+    public void turn_P(double turnDegree, double timeout, double initialSleep) throws InterruptedException {
         runtime.reset();
+
+        Thread.sleep((long) initialSleep);
 
         turnDegree = turnDegree - (TURN_ANGLE_TOLERANCE/2);
 
@@ -347,7 +353,7 @@ public class Ducky {
         double error = adjustHeading(targetHeading - currentHeading);
         double prevError = error;
 
-        while (runtime.seconds() < timeout && Math.abs(error) > TURN_ANGLE_TOLERANCE)
+        while (runtime.milliseconds() < timeout && Math.abs(error) > TURN_ANGLE_TOLERANCE)
         {
             double deltaTime = currTime - prevTime;
             double pTerm = Kp*error;
@@ -363,7 +369,7 @@ public class Ducky {
             error = adjustHeading(targetHeading - currentHeading);
 
             // Telemetry Update
-            telemetry.addData("Target Yaw value", turnDegree);
+            telemetry.addData("Target Yaw value", targetHeading);
             telemetry.addData("Current Yaw value", currentHeading);
             telemetry.addData("Error", error);
             telemetry.addData("Loop time", deltaTime);
@@ -440,6 +446,8 @@ public class Ducky {
         Stop_Encoder();
     }
     public void Stop_Encoder(){
+        Stop_Power();
+
         BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -583,10 +591,10 @@ public class Ducky {
     }
 
     // Carousel Spinner
-    public void CarouselSpinnerOn(){
+    public void CarouselSpinnerBlue(){
         CarouselSpinner.setPower(1);
     }
-    public void CarouselSpinnerReverse(){
+    public void CarouselSpinnerRed(){
         CarouselSpinner.setPower(-1);
     }
     public void CarouselSpinnerOff(){

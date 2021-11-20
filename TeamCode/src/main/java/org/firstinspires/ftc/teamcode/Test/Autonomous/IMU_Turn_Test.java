@@ -40,16 +40,14 @@ public class IMU_Turn_Test extends LinearOpMode {
         // Autonomous Pathing
 
         // Turning Left
-        ducky.turn_P(-90.0,3000);
-        Thread.sleep(1000);
-        ducky.turn_P(-45.0,3000);
+        ducky.turn_P(-90.0,3000, 0);
+        ducky.turn_P(-45.0,3000, 1000);
 
         // Program taking a 2 second break
         Thread.sleep(2000);
 
         // Turning Right
-        ducky.turn_P(45.0,3000);
-        Thread.sleep(1000);
-        ducky.turn_P(90.0,3000);
+        ducky.turn_P(45.0,3000, 0);
+        ducky.turn_P(90.0,3000, 1000);
     }
 }

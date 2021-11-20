@@ -386,7 +386,9 @@ public class Ducky {
 
 
     // Encoders Only
-    public void DriveForward_Encoder(int Distance, double speed) {
+    public void DriveForward_Encoder(int Distance, double speed, double timeout) {
+        runtime.reset();
+
         Encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
 
         BackLeft.setTargetPosition(Encoder_Distance);
@@ -398,7 +400,7 @@ public class Ducky {
         speed = Math.abs(speed);
         DriveForward_Power(speed);
 
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
+        while ((BackLeft.isBusy() || BackRight.isBusy()) && runtime.milliseconds() < timeout) {
             telemetry.addData("Driving Forward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Forward, Encoder Pulses Left",
@@ -414,7 +416,9 @@ public class Ducky {
 
         Stop_Encoder();
     }
-    public void DriveBackward_Encoder(int Distance, double speed){
+    public void DriveBackward_Encoder(int Distance, double speed, double timeout){
+        runtime.reset();
+
         Encoder_Distance = (int)(-Distance*WHEEL_PULSES_PER_INCH);
 
         BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -429,7 +433,7 @@ public class Ducky {
         speed = Math.abs(speed);
         DriveBackward_Power(speed);
 
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
+        while ((BackLeft.isBusy() || BackRight.isBusy()) && runtime.milliseconds() < timeout) {
             telemetry.addData("Driving Backward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Backward, Encoder Pulses Left",

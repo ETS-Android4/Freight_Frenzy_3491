@@ -46,14 +46,23 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         // Detecting which autonomous state to run
         if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.LEFT) {
             ducky.leftState = true;
+            telemetry.addData("Team Shipping Element Position", "Left");
+            telemetry.update();
+
         } else if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.CENTER) {
             ducky.centerState = true;
+            telemetry.addData("Team Shipping Element Position", "Center");
+            telemetry.update();
+
         } else if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.RIGHT) {
             ducky.rightState = true;
+            telemetry.addData("Team Shipping Element Position", "Right");
+            telemetry.update();
+
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(1,-0.3);
+        ducky.DriveBackward_Encoder(10,-0.3,5000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -68,7 +77,7 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.turn_P(-90,3000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(2,0.5);
+        ducky.DriveBackward_Encoder(2,0.5,5000);
         ducky.CollectorReverse();
         Thread.sleep(1000);
         ducky.CollectorOff();
@@ -77,15 +86,17 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
-        ducky.DriveForward_Encoder(10,0.5);
+        ducky.DriveForward_Encoder(20,0.3,3000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.turn_P(-90,3000, 1000);
-        ducky.DriveBackward_Encoder(10,0.5);
+        ducky.turn_P(-90,4000, 1000);
+        ducky.DriveBackward_Encoder(20,0.2,5000);
 
         // Spin Carousel
         ducky.CarouselSpinnerBlue();
         Thread.sleep(4000);
+        ducky.CarouselSpinnerOff();
+
         // Drive into storage unit
-        ducky.DriveForward_Encoder(10,1);
+        ducky.DriveForward_Encoder(7,0.5,5000);
     }
 }

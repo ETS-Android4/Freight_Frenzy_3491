@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
-
+@Disabled
 @Autonomous(name="Ramming through Barrier (Power Only) - P1, Red", group="Competition - Red")
 
 public class RammingThroughBarrier_powerOnly_P1_Red extends LinearOpMode {

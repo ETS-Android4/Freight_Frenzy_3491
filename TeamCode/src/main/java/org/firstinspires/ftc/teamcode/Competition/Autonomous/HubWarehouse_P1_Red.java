@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,9 +8,9 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
 
 
-@Autonomous(name="HubWarehouse - P1, Blue", group="Competition - Blue")
+@Autonomous(name="HubWarehouse - P1, Red", group="Competition - Red")
 
-public class HubWarehouse_P1_Blue extends LinearOpMode {
+public class HubWarehouse_P1_Red extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -80,7 +79,7 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
 
 
         // Turn Towards Alliance Specific Shipping Hub
-        ducky.turn_P(90,5000, 1000);
+        ducky.turn_P(-90,5000, 1000);
 
         // Move closer to Shipping Hub and score
         ducky.DriveBackward_Encoder(1,0.3,5000);
@@ -92,10 +91,10 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
-        ducky.turn_P(-35,3000, 1000);
+        ducky.turn_P(35,3000, 1000);
         ducky.DriveForward_Power(0.3);
         Thread.sleep(250);
-        ducky.turn_P(35,3000, 1000);
+        ducky.turn_P(-35,3000, 1000);
         ducky.DriveForward_Power(1);
         Thread.sleep(5000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

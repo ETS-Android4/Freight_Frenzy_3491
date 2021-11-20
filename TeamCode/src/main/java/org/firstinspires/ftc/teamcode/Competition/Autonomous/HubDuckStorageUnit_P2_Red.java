@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,9 +8,9 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
 
 
-@Autonomous(name="HubWarehouse - P1, Blue", group="Competition - Blue")
+@Autonomous(name="HubDuckStorageUnit - P2, Red", group="Competition - Red")
 
-public class HubWarehouse_P1_Blue extends LinearOpMode {
+public class HubDuckStorageUnit_P2_Red extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -21,13 +20,11 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
 
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
+        Freight_Frenzy_Pipeline freight_frenzy_pipeline = new Freight_Frenzy_Pipeline();
 
         // Reset Encoders, and Telemetry Update
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
-
-        // Setting Alliance Colour for TeleOp
-        Ducky.alliance = "Blue";
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
@@ -80,10 +77,10 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
 
 
         // Turn Towards Alliance Specific Shipping Hub
-        ducky.turn_P(90,5000, 1000);
+        ducky.turn_P(90,3000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(1,0.3,5000);
+        ducky.DriveBackward_Encoder(2,0.5,5000);
         ducky.CollectorReverse();
         Thread.sleep(1000);
         ducky.CollectorOff();
@@ -92,12 +89,20 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
-        ducky.turn_P(-35,3000, 1000);
-        ducky.DriveForward_Power(0.3);
-        Thread.sleep(250);
-        ducky.turn_P(35,3000, 1000);
-        ducky.DriveForward_Power(1);
-        Thread.sleep(5000);
+        ducky.DriveForward_Encoder(20,0.3,3000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.turn_P(90,4000, 1000);
+        ducky.DriveBackward_Encoder(15,0.2,5000);
+        ducky.turn_P(45,4000, 1000);
+        ducky.DriveBackward_Encoder(9,0.2,5000);
+
+        // Spin Carousel
+        ducky.CarouselSpinnerBlue();
+        Thread.sleep(4000);
+        ducky.CarouselSpinnerOff();
+
+        // Drive into storage unit
+        ducky.turn_P(-45,4000, 1000);
+        ducky.DriveForward_Encoder(12,0.5,5000);
     }
 }

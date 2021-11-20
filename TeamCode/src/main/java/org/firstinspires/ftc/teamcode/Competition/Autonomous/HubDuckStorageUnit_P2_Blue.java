@@ -62,7 +62,7 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(10,-0.3,5000);
+        ducky.DriveBackward_Encoder(2,-0.3,2000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -72,6 +72,8 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         } else if (ducky.rightState) {
             ducky.ArmTopLevel();
         }
+        Thread.sleep(2000);
+        ducky.DriveBackward_Encoder(13,-0.3,4000);
 
         // Turn Towards Alliance Specific Shipping Hub
         ducky.turn_P(-90,3000, 1000);
@@ -89,7 +91,9 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.DriveForward_Encoder(20,0.3,3000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ducky.turn_P(-90,4000, 1000);
-        ducky.DriveBackward_Encoder(20,0.2,5000);
+        ducky.DriveBackward_Encoder(16,0.2,5000);
+        ducky.turn_P(-45,4000, 1000);
+        ducky.DriveBackward_Encoder(9,0.2,5000);
 
         // Spin Carousel
         ducky.CarouselSpinnerBlue();
@@ -97,6 +101,7 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.CarouselSpinnerOff();
 
         // Drive into storage unit
-        ducky.DriveForward_Encoder(7,0.5,5000);
+        ducky.turn_P(45,4000, 1000);
+        ducky.DriveForward_Encoder(12,0.5,5000);
     }
 }

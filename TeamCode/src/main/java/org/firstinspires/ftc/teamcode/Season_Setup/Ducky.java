@@ -4,9 +4,11 @@ package org.firstinspires.ftc.teamcode.Season_Setup;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -22,6 +24,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class Ducky {
 
+    // Declaring opMode Variables
+    HardwareMap hwMap;
+    Telemetry telemetry;
+
+    // Checking runtime of functions
+    public ElapsedTime runtime = new ElapsedTime();
+
     // Declaring Drivebase Motor Variables
     public DcMotorEx FrontLeft, BackLeft, FrontRight, BackRight;
 
@@ -31,9 +40,6 @@ public class Ducky {
 
     public CRServo CarouselSpinner;
 
-    // Declaring opMode Variables
-    HardwareMap hwMap;
-    Telemetry telemetry;
 
     // Declaring sensors
     public BNO055IMU imu;
@@ -54,6 +60,8 @@ public class Ducky {
     public static final int ARM_MID_LEVEL_ENCODER_PULSES = 339;
     public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 297;
 
+    public boolean resetArm;
+
     // EasyOpenCV Setup
     public OpenCvCamera webcam;
     public static double analysisLeft = 0.0;
@@ -61,10 +69,13 @@ public class Ducky {
     public static double analysisRight = 0.0;
 
     // IMU functions
-    public float Yaw_Angle;
     public Orientation angles;
     public Acceleration gravity;
-//    public static final double TURN_ANGLE_TOLERANCE = 0.2;
+    public static final double TURN_ANGLE_TOLERANCE = 2;
+
+    // PID
+    public double Kp = 0.02;
+    public double Kd = 0.003;
 
     // Class Constructor
     public Ducky(){
@@ -115,13 +126,6 @@ public class Ducky {
         CarouselSpinner.setPower(0);
 
 
-        // Motor set Power at init
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
-
-
         // Resetting Motor Encoders
         BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -136,7 +140,7 @@ public class Ducky {
         // IMU
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.calibrationDataFile = "AdafruitIMUCalibration.json";
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled      = true;
@@ -172,7 +176,7 @@ public class Ducky {
     //----------------------------------------------------------------------------------------------
 
     // IMU and Encoders (where applicable)
-    public void DriveForward_Encoder_IMU (int Distance, double speed) {
+/*    public void DriveForward_Encoder_IMU (int Distance, double speed) {
         Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
 
         BackLeft.setTargetPosition(Encoder_Distance);
@@ -185,10 +189,10 @@ public class Ducky {
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
 
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+            double currentHeading = getHeading();
 
             // If robot is drifting right - Need to turn left
-            if (Yaw_Angle < -5) {
+            if (currentHeading < -5) {
                 if (rightPower < speed+0.2){
                     leftPower -= 0.05;
                     rightPower += 0.05;
@@ -200,7 +204,7 @@ public class Ducky {
                 BackRight.setPower(rightPower);
 
             // If robot is drifting left - Need to turn right
-            } else if (Yaw_Angle > 5) {
+            } else if (currentHeading > 5) {
                 if (leftPower < speed+0.2){
                     leftPower += 0.05;
                     rightPower -= 0.05;
@@ -241,7 +245,7 @@ public class Ducky {
                     BackRight.getCurrentPosition());
             telemetry.addData("Left Power", leftPower);
             telemetry.addData("Right Power", rightPower);
-            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.addData("Yaw value", currentHeading);
 
             telemetry.update();
         }
@@ -261,10 +265,10 @@ public class Ducky {
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
 
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+            double currentHeading = getHeading();
 
             // If robot is drifting right - Need to turn left
-            if (Yaw_Angle < -5) {
+            if (currentHeading < -5) {
                 if (leftPower < speed+0.2){
                     leftPower += 0.05;
                     rightPower -= 0.05;
@@ -276,7 +280,7 @@ public class Ducky {
                 BackRight.setPower(rightPower);
 
             // If robot is drifting left - Need to turn right
-            } else if (Yaw_Angle > 5) {
+            } else if (currentHeading > 5) {
                 if (rightPower < speed+0.2){
                     leftPower -= 0.05;
                     rightPower += 0.05;
@@ -317,73 +321,56 @@ public class Ducky {
                     BackRight.getCurrentPosition());
             telemetry.addData("Left Power", leftPower);
             telemetry.addData("Right Power", rightPower);
-            telemetry.addData("Yaw value", Yaw_Angle);
+            telemetry.addData("Yaw value", currentHeading);
 
             telemetry.update();
         }
 
         Stop_Encoder();
-    }
-    public void TurnLeft_IMU (double angle, double speed) throws InterruptedException {
-        angle = Yaw_Angle+angle;
+    }*/
 
-        while (Yaw_Angle <= angle) {
-            // Update Yaw-Angle variable with current yaw.
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+    // Turning with IMU and P control (PID without ID)
+    public void turn_P(double turnDegree, double timeout) throws InterruptedException {
+        runtime.reset();
 
-            TurnLeft_Power(speed);
+        turnDegree = turnDegree - (TURN_ANGLE_TOLERANCE/2);
+
+        double currTime = runtime.seconds();
+        double prevTime = currTime;
+        double currentHeading = getHeading();
+        double targetHeading = adjustHeading(currentHeading + turnDegree);
+        double error = adjustHeading(targetHeading - currentHeading);
+        double prevError = error;
+
+        while (runtime.seconds() < timeout && Math.abs(error) > TURN_ANGLE_TOLERANCE)
+        {
+            double deltaTime = currTime - prevTime;
+            double pTerm = Kp*error;
+            double dTerm = deltaTime > 0.0? Kd*(error - prevError)/deltaTime: 0.0;
+
+            prevTime = currTime;
+            prevError = error;
+
+            drivePower(0.0, clipRange(pTerm + dTerm, -1.0, 1.0));
+
+            currTime = runtime.seconds();
+            currentHeading = getHeading();
+            error = adjustHeading(targetHeading - currentHeading);
 
             // Telemetry Update
-            telemetry.addData("Target Yaw value", angle);
-            telemetry.addData("Current Yaw value", Yaw_Angle);
+            telemetry.addData("Target Yaw value", turnDegree);
+            telemetry.addData("Current Yaw value", currentHeading);
+            telemetry.addData("Error", error);
+            telemetry.addData("Loop time", deltaTime);
             telemetry.update();
         }
-        Thread.sleep(200);
-
-        while (Yaw_Angle > angle) {
-            // Update Yaw-Angle variable with current yaw.
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-
-            TurnRight_Power(0.1);
-
-            // Report yaw orientation to Driver Station.
-            telemetry.addData("Robot overturned, Target Yaw value", angle);
-            telemetry.addData("Current Yaw value", Yaw_Angle);
-            telemetry.update();
-        }
-
-        Stop_Encoder();
+        Stop_Power();
     }
-    public void TurnRight_IMU (double angle, double speed) throws InterruptedException {
-        angle = Yaw_Angle+ -angle;
-
-        while (Yaw_Angle >= angle) {
-            // Update Yaw-Angle variable with current yaw.
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-
-            TurnRight_Power(speed);
-
-            // Telemetry Update
-            telemetry.addData("Target Yaw value", angle);
-            telemetry.addData("Current Yaw value", Yaw_Angle);
-            telemetry.update();
-        }
-        Thread.sleep(200);
-
-        while (Yaw_Angle < angle) {
-            // Update Yaw-Angle variable with current yaw.
-            Yaw_Angle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
-
-            TurnRight_Power(0.1);
-
-            // Report yaw orientation to Driver Station.
-            telemetry.addData("Robot overturned, Target Yaw value", angle);
-            telemetry.addData("Current Yaw value", Yaw_Angle);
-            telemetry.update();
-        }
-
-
-        Stop_Encoder();
+    double adjustHeading(double heading) {
+        return (heading <= -180.0)? heading + 360.0: (heading > 180.0)? heading - 360.0: heading;
+    }
+    double getHeading() {
+        return -imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).secondAngle;
     }
 
 
@@ -397,6 +384,7 @@ public class Ducky {
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
+        speed = Math.abs(speed);
         DriveForward_Power(speed);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
@@ -416,7 +404,10 @@ public class Ducky {
         Stop_Encoder();
     }
     public void DriveBackward_Encoder(int Distance, double speed){
-        Encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
+        Encoder_Distance = (int)(-Distance*WHEEL_PULSES_PER_INCH);
+
+        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         BackLeft.setTargetPosition(Encoder_Distance);
         BackRight.setTargetPosition(Encoder_Distance);
@@ -424,7 +415,8 @@ public class Ducky {
         BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        DriveBackward_Power(-speed);
+        speed = Math.abs(speed);
+        DriveBackward_Power(speed);
 
         while (BackLeft.isBusy() || BackRight.isBusy()) {
             telemetry.addData("Driving Backward, Target Position",
@@ -471,29 +463,28 @@ public class Ducky {
         FrontRight.setPower(-rightPower);
         BackRight.setPower(-rightPower/ BACK_WHEEL_POWER_REDUCTION);
     }
-    public void TurnLeft_Power(double speed) {
-        leftPower = speed;
-        rightPower = speed;
-
-        FrontLeft.setPower(-leftPower);
-        BackLeft.setPower(-leftPower/ BACK_WHEEL_POWER_REDUCTION);
-        FrontRight.setPower(rightPower);
-        BackRight.setPower(rightPower/ BACK_WHEEL_POWER_REDUCTION);
-    }
-    public void TurnRight_Power(double speed) {
-        leftPower = speed;
-        rightPower = speed;
-
-        FrontLeft.setPower(leftPower);
-        BackLeft.setPower(leftPower/ BACK_WHEEL_POWER_REDUCTION);
-        FrontRight.setPower(-rightPower);
-        BackRight.setPower(-rightPower/ BACK_WHEEL_POWER_REDUCTION);
-    }
     public void Stop_Power() {
         FrontLeft.setPower(0);
         BackLeft.setPower(0);
         FrontRight.setPower(0);
         BackRight.setPower(0);
+    }
+
+
+    // Function that works for driving and turning
+    public void drivePower(double drivePower, double turnPower) {
+        leftPower = clipRange(drivePower + turnPower, -1.0, 1.0);
+        rightPower = clipRange(drivePower - turnPower, -1.0, 1.0);
+
+        FrontLeft.setPower(leftPower);
+        BackLeft.setPower(leftPower);
+        FrontRight.setPower(rightPower);
+        BackRight.setPower(rightPower);
+    }
+    @SuppressWarnings("SameParameterValue")
+    double clipRange(double value, double minValue, double maxValue)
+    {
+        return value < minValue? minValue: Math.min(value, maxValue);
     }
 
 
@@ -524,20 +515,23 @@ public class Ducky {
         ArmRotator.setPower(0.5);
 
         if (ArmRotator.isBusy()) {
-            telemetry.addData("Arm Rotating, Target Position",
-                    ARM_COLLECTING_ENCODER_PULSES);
-            telemetry.addData("Arm Encoder Pulses",
-                    ArmRotator.getCurrentPosition());
-            telemetry.update();
+            if (ArmRotator.getCurrentPosition() < 50) {
+                telemetry.addData("Reached Collecting Position, Arm Encoder Pulses",
+                        ArmRotator.getCurrentPosition());
+                telemetry.update();
+
+                ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            } else {
+                telemetry.addData("Arm Rotating, Target Position",
+                        ARM_COLLECTING_ENCODER_PULSES);
+                telemetry.addData("Arm Encoder Pulses",
+                        ArmRotator.getCurrentPosition());
+                telemetry.update();
+            }
+
         }
 
-        if (ArmRotator.getCurrentPosition() < 50) {
-            telemetry.addData("Reached Collecting Position, Arm Encoder Pulses",
-                    ArmRotator.getCurrentPosition());
-            telemetry.update();
 
-            ArmRotator.setPower(0);
-        }
     }
     public void ArmBottomLevel() {
         ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);

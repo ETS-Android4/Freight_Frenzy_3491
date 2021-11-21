@@ -463,18 +463,18 @@ public class Ducky {
         rightPower = speed;
 
         FrontLeft.setPower(leftPower);
-        BackLeft.setPower(leftPower/ BACK_WHEEL_POWER_REDUCTION);
+        BackLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(rightPower);
-        BackRight.setPower(rightPower/ BACK_WHEEL_POWER_REDUCTION);
+        BackRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
     public void DriveBackward_Power(double speed) {
         leftPower = speed;
         rightPower = speed;
 
         FrontLeft.setPower(-leftPower);
-        BackLeft.setPower(-leftPower/ BACK_WHEEL_POWER_REDUCTION);
+        BackLeft.setPower(-leftPower* BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(-rightPower);
-        BackRight.setPower(-rightPower/ BACK_WHEEL_POWER_REDUCTION);
+        BackRight.setPower(-rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
     public void Stop_Power() {
         FrontLeft.setPower(0);
@@ -490,9 +490,9 @@ public class Ducky {
         rightPower = clipRange(drivePower - turnPower, -1.0, 1.0);
 
         FrontLeft.setPower(leftPower);
-        BackLeft.setPower(leftPower);
+        BackLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
         FrontRight.setPower(rightPower);
-        BackRight.setPower(rightPower);
+        BackRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
     @SuppressWarnings("SameParameterValue")
     double clipRange(double value, double minValue, double maxValue)

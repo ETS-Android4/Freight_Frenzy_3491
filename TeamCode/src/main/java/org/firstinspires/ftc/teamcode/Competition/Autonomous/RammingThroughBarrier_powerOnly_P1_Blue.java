@@ -38,25 +38,25 @@ public class RammingThroughBarrier_powerOnly_P1_Blue extends LinearOpMode {
     // Robot Driving (Power and Time only)
     public void DriveForward_Power(double speed, int milliseconds) throws InterruptedException {
         ducky.FrontLeft.setPower(speed);
-        ducky.BackLeft.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackLeft.setPower(speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         ducky.FrontRight.setPower(speed);
-        ducky.BackRight.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackRight.setPower(speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         Thread.sleep(milliseconds);
         Stop_Power();
     }
     public void DriveBackward_Power(double speed, int milliseconds) throws InterruptedException {
         ducky.FrontLeft.setPower(-speed);
-        ducky.BackLeft.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackLeft.setPower(-speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         ducky.FrontRight.setPower(-speed);
-        ducky.BackRight.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackRight.setPower(-speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         Thread.sleep(milliseconds);
         Stop_Power();
     }
     public void TurnRight_Power(double speed, int milliseconds) throws InterruptedException {
         ducky.FrontLeft.setPower(speed);
-        ducky.BackLeft.setPower(speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackLeft.setPower(speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         ducky.FrontRight.setPower(-speed);
-        ducky.BackRight.setPower(-speed / Ducky.BACK_WHEEL_POWER_REDUCTION);
+        ducky.BackRight.setPower(-speed*Ducky.BACK_WHEEL_POWER_REDUCTION);
         Thread.sleep(milliseconds);
         Stop_Power();
     }

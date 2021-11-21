@@ -65,7 +65,7 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(2,-0.3,2000);
+        ducky.DriveBackward_Encoder(4,-0.3,2000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -76,14 +76,17 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
             ducky.ArmTopLevel();
         }
         Thread.sleep(2000);
-        ducky.DriveBackward_Encoder(13,-0.3,4000);
+        ducky.turn_P(45,3000,1000);
+        ducky.DriveBackward_Encoder(2,-0.3,4000);
+        ducky.turn_P(-45,3000,1000);
+        ducky.DriveBackward_Encoder(11,-0.3,4000);
 
 
         // Turn Towards Alliance Specific Shipping Hub
-        ducky.turn_P(90,5000, 1000);
+        ducky.turn_P(90,4000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(1,0.3,5000);
+        ducky.DriveBackward_Encoder(1,0.3,2000);
         ducky.CollectorReverse();
         Thread.sleep(1000);
         ducky.CollectorOff();

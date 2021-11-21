@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
+import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
+
 
 @Autonomous(name="HubWarehouse - P1, Blue", group="Competition - Blue")
 
@@ -44,16 +47,25 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         //----------------------------------------------------------------------------------------------
 
         // Detecting which autonomous state to run
-        if (ducky.leftState) {
-            ducky.ArmBottomLevel();
-        } else if (ducky.centerState) {
-            ducky.ArmMidLevel();
-        } else if (ducky.rightState) {
-            ducky.ArmTopLevel();
+        if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.LEFT) {
+            ducky.leftState = true;
+            telemetry.addData("Team Shipping Element Position", "Left");
+            telemetry.update();
+
+        } else if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.CENTER) {
+            ducky.centerState = true;
+            telemetry.addData("Team Shipping Element Position", "Center");
+            telemetry.update();
+
+        } else if (Freight_Frenzy_Pipeline.positionOfTeamShippingElement == Freight_Frenzy_Pipeline.Pipeline.ElementPosition.RIGHT) {
+            ducky.rightState = true;
+            telemetry.addData("Team Shipping Element Position", "Right");
+            telemetry.update();
+
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(1,-0.3);
+        ducky.DriveBackward_Encoder(4,-0.3,2000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -63,12 +75,18 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         } else if (ducky.rightState) {
             ducky.ArmTopLevel();
         }
+        Thread.sleep(2000);
+        ducky.turn_P(45,3000,1000);
+        ducky.DriveBackward_Encoder(2,-0.3,4000);
+        ducky.turn_P(-45,3000,1000);
+        ducky.DriveBackward_Encoder(11,-0.3,4000);
+
 
         // Turn Towards Alliance Specific Shipping Hub
-        ducky.turn_P(-90,3000, 1000);
+        ducky.turn_P(90,4000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(2,0.5);
+        ducky.DriveBackward_Encoder(1,0.3,2000);
         ducky.CollectorReverse();
         Thread.sleep(1000);
         ducky.CollectorOff();
@@ -77,8 +95,12 @@ public class HubWarehouse_P1_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
+        ducky.turn_P(-35,3000, 1000);
+        ducky.DriveForward_Power(0.3);
+        Thread.sleep(250);
+        ducky.turn_P(35,3000, 1000);
         ducky.DriveForward_Power(1);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }

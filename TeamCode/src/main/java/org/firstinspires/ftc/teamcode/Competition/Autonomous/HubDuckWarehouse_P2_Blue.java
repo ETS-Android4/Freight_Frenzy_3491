@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Competition.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
 
 
+@Disabled
 @Autonomous(name="HubDuckWarehouse - P2, Blue", group="Competition - Blue")
 
 public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
@@ -53,7 +55,7 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(1,-0.3);
+        ducky.DriveBackward_Encoder(1,-0.3, 5000);
 
         // Move arm to position
         if (ducky.leftState) {
@@ -68,7 +70,7 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
         ducky.turn_P(-90,3000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(2,0.5);
+        ducky.DriveBackward_Encoder(2,0.5, 5000);
         ducky.CollectorReverse();
         Thread.sleep(1000);
         ducky.CollectorOff();
@@ -77,19 +79,19 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
         ducky.ArmCollecting();
 
         // Turn and drive to carousel
-        ducky.DriveForward_Encoder(10,0.5);
+        ducky.DriveForward_Encoder(10,0.5,5000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ducky.turn_P(-90,3000, 1000);
-        ducky.DriveBackward_Encoder(10,0.5);
+        ducky.DriveBackward_Encoder(10,0.5,5000);
 
         // Spin Carousel
         ducky.CarouselSpinnerBlue();
         Thread.sleep(4000);
 
         // Turn and drive into Warehouse unit
-        ducky.DriveForward_Encoder(10,1);
+        ducky.DriveForward_Encoder(10,1,5000);
         ducky.turn_P(-90,3000, 1000);
-        ducky.DriveForward_Encoder(50,1);
+        ducky.DriveForward_Encoder(50,1,6000);
         ducky.turn_P(-45,3000, 1000);
         ducky.DriveForward_Power(1);
         Thread.sleep(3000);

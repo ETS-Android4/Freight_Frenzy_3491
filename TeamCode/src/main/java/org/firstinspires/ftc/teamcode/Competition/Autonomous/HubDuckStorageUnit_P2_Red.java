@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 import org.firstinspires.ftc.teamcode.Season_Setup.Freight_Frenzy_Pipeline;
 
 
-@Autonomous(name="HubDuckStorageUnit - P2, Blue", group="Competition - Blue")
+@Autonomous(name="HubDuckStorageUnit - P2, Red", group="Competition - Red")
 
-public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
+public class HubDuckStorageUnit_P2_Red extends LinearOpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
@@ -77,7 +77,7 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
 
 
         // Turn Towards Alliance Specific Shipping Hub
-        ducky.turn_P(-90,3000, 1000);
+        ducky.turn_P(90,3000, 1000);
 
         // Move closer to Shipping Hub and score
         ducky.DriveBackward_Encoder(2,0.5,2000);
@@ -91,9 +91,9 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         // Turn and drive to carousel
         ducky.DriveForward_Encoder(22,0.3,3000);
         ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ducky.turn_P(-90,4000, 1000);
+        ducky.turn_P(90,4000, 1000);
         ducky.DriveBackward_Encoder(14,0.2,4000);
-        ducky.turn_P(-45,3000, 1000);
+        ducky.turn_P(45,3000, 1000);
         ducky.DriveBackward_Encoder(14,0.2,4000);
 
         // Spin Carousel
@@ -104,7 +104,7 @@ public class HubDuckStorageUnit_P2_Blue extends LinearOpMode {
         ducky.Stop_Power();
 
         // Drive into storage unit
-        ducky.turn_P(45,3000, 1000);
+        ducky.turn_P(-45,3000, 1000);
         ducky.DriveForward_Encoder(7,0.5,5000);
     }
 }

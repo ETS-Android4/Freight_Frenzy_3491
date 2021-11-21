@@ -135,9 +135,9 @@ public class Freight_Frenzy_Pipeline extends Ducky
             inputToHSV(input);
 
             // extract the v channel from hsv
-            Core.extractChannel(leftBarcode, vLeft, 1);
-            Core.extractChannel(centerBarcode, vCenter, 1);
-            Core.extractChannel(rightBarcode, vRight, 1);
+            Core.extractChannel(leftBarcode, vLeft, 0);
+            Core.extractChannel(centerBarcode, vCenter, 0);
+            Core.extractChannel(rightBarcode, vRight, 0);
 
             // get the average colors
             leftValue = Core.mean(vLeft).val[0];

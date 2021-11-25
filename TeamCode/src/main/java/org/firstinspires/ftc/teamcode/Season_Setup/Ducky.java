@@ -32,13 +32,13 @@ public class Ducky {
     public ElapsedTime runtime = new ElapsedTime();
 
     // Declaring Drivebase Motor Variables
-    public DcMotorEx FrontLeft, BackLeft, FrontRight, BackRight;
+    public DcMotorEx frontLeft, backLeft, frontRight, backRight;
 
     // Declaring Mechanisms
-    public DcMotorEx ArmRotator;
-    public CRServo Collector;
+    public DcMotorEx armRotator;
+    public CRServo collector;
 
-    public CRServo CarouselSpinner;
+    public CRServo carouselSpinner;
 
 
     // Declaring sensors
@@ -99,52 +99,52 @@ public class Ducky {
         telemetry = a_telemetry;
 
         // Define Drive Motors
-        FrontLeft = hwMap.get(DcMotorEx.class,"frontL");
-        BackLeft = hwMap.get(DcMotorEx.class,"backL");
-        FrontRight = hwMap.get(DcMotorEx.class,"frontR");
-        BackRight = hwMap.get(DcMotorEx.class,"backR");
+        frontLeft = hwMap.get(DcMotorEx.class,"frontL");
+        backLeft = hwMap.get(DcMotorEx.class,"backL");
+        frontRight = hwMap.get(DcMotorEx.class,"frontR");
+        backRight = hwMap.get(DcMotorEx.class,"backR");
 
         // Setting Motor Direction
-        FrontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        BackLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
-        BackRight.setDirection(DcMotorEx.Direction.FORWARD);
+        frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        backLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        frontRight.setDirection(DcMotorEx.Direction.FORWARD);
+        backRight.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Setting Motor zero power Behaviour
-        FrontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        FrontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        BackRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         // Mechanisms - Motors
-        ArmRotator = hwMap.get(DcMotorEx.class,"armRotator");
+        armRotator = hwMap.get(DcMotorEx.class,"armRotator");
 
         // Mechanisms - Setting Motor Direction
-        FrontRight.setDirection(DcMotorEx.Direction.FORWARD);
+        frontRight.setDirection(DcMotorEx.Direction.FORWARD);
 
         // Mechanisms - Setting Motor zero power Behaviour
-        ArmRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        armRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         // Define Servos
-        Collector = hwMap.crservo.get("collector");
-        CarouselSpinner = hwMap.crservo.get("carouselSpinner");
+        collector = hwMap.crservo.get("collector");
+        carouselSpinner = hwMap.crservo.get("carouselSpinner");
 
         // Initialize Servos
-        Collector.setPower(0);
-        CarouselSpinner.setPower(0);
+        collector.setPower(0);
+        carouselSpinner.setPower(0);
 
 
         // Resetting Motor Encoders
-        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -376,7 +376,7 @@ public class Ducky {
             telemetry.addData("Loop time", deltaTime);
             telemetry.update();
         }
-        Stop_Power();
+        stop_Power();
     }
     double adjustHeading(double heading) {
         return (heading <= -180.0)? heading + 360.0: (heading > 180.0)? heading - 360.0: heading;
@@ -387,105 +387,105 @@ public class Ducky {
 
 
     // Encoders Only
-    public void DriveForward_Encoder(int Distance, double speed, double timeout) {
+    public void driveForward_Encoder(int Distance, double speed, double timeout) {
         runtime.reset();
 
         Encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
 
-        BackLeft.setTargetPosition(Encoder_Distance);
-        BackRight.setTargetPosition(Encoder_Distance);
+        backLeft.setTargetPosition(Encoder_Distance);
+        backRight.setTargetPosition(Encoder_Distance);
 
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         speed = Math.abs(speed);
-        DriveForward_Power(speed);
+        driveForward_Power(speed);
 
-        while ((BackLeft.isBusy() || BackRight.isBusy()) && runtime.milliseconds() < timeout) {
+        while ((backLeft.isBusy() || backRight.isBusy()) && runtime.milliseconds() < timeout) {
             telemetry.addData("Driving Forward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Forward, Encoder Pulses Left",
-                    BackLeft.getCurrentPosition());
+                    backLeft.getCurrentPosition());
             telemetry.addData("Driving Forward, Encoder Pulses Right",
-                    BackRight.getCurrentPosition());
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
 
         telemetry.addData("Reached Target Position","Encoder Pulses Left, Right",
-                BackLeft.getCurrentPosition(), BackRight.getCurrentPosition());
+                backLeft.getCurrentPosition(), backRight.getCurrentPosition());
         telemetry.update();
 
-        Stop_Encoder();
+        stop_Encoder();
     }
-    public void DriveBackward_Encoder(int Distance, double speed, double timeout){
+    public void driveBackward_Encoder(int Distance, double speed, double timeout){
         runtime.reset();
 
         Encoder_Distance = (int)(-Distance*WHEEL_PULSES_PER_INCH);
 
-        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-        BackLeft.setTargetPosition(Encoder_Distance);
-        BackRight.setTargetPosition(Encoder_Distance);
+        backLeft.setTargetPosition(Encoder_Distance);
+        backRight.setTargetPosition(Encoder_Distance);
 
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         speed = Math.abs(speed);
-        DriveBackward_Power(speed);
+        driveBackward_Power(speed);
 
-        while ((BackLeft.isBusy() || BackRight.isBusy()) && runtime.milliseconds() < timeout) {
+        while ((backLeft.isBusy() || backRight.isBusy()) && runtime.milliseconds() < timeout) {
             telemetry.addData("Driving Backward, Target Position",
                     Encoder_Distance);
             telemetry.addData("Driving Backward, Encoder Pulses Left",
-                    BackLeft.getCurrentPosition());
+                    backLeft.getCurrentPosition());
             telemetry.addData("Driving Backward, Encoder Pulses Right",
-                    BackRight.getCurrentPosition());
+                    backRight.getCurrentPosition());
             telemetry.update();
         }
 
         telemetry.addData("Reached Target Position","Encoder Pulses Left, Right",
-                BackLeft.getCurrentPosition(), BackRight.getCurrentPosition());
+                backLeft.getCurrentPosition(), backRight.getCurrentPosition());
         telemetry.update();
 
-        Stop_Encoder();
+        stop_Encoder();
     }
-    public void Stop_Encoder(){
-        Stop_Power();
+    public void stop_Encoder(){
+        stop_Power();
 
-        BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         telemetry.addData("Robot stopped. Encoder Pulses (Cart)",
-                        BackLeft.getCurrentPosition());
+                        backLeft.getCurrentPosition());
         telemetry.update();
     }
 
 
     // Power only
-    public void DriveForward_Power(double speed) {
+    public void driveForward_Power(double speed) {
         leftPower = speed;
         rightPower = speed;
 
-        FrontLeft.setPower(leftPower);
-        BackLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
-        FrontRight.setPower(rightPower);
-        BackRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
+        frontLeft.setPower(leftPower);
+        backLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
+        frontRight.setPower(rightPower);
+        backRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
-    public void DriveBackward_Power(double speed) {
+    public void driveBackward_Power(double speed) {
         leftPower = speed;
         rightPower = speed;
 
-        FrontLeft.setPower(-leftPower);
-        BackLeft.setPower(-leftPower* BACK_WHEEL_POWER_REDUCTION);
-        FrontRight.setPower(-rightPower);
-        BackRight.setPower(-rightPower* BACK_WHEEL_POWER_REDUCTION);
+        frontLeft.setPower(-leftPower);
+        backLeft.setPower(-leftPower* BACK_WHEEL_POWER_REDUCTION);
+        frontRight.setPower(-rightPower);
+        backRight.setPower(-rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
-    public void Stop_Power() {
-        FrontLeft.setPower(0);
-        BackLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackRight.setPower(0);
+    public void stop_Power() {
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
     }
 
 
@@ -494,10 +494,10 @@ public class Ducky {
         leftPower = clipRange(drivePower + turnPower, -1.0, 1.0);
         rightPower = clipRange(drivePower - turnPower, -1.0, 1.0);
 
-        FrontLeft.setPower(leftPower);
-        BackLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
-        FrontRight.setPower(rightPower);
-        BackRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
+        frontLeft.setPower(leftPower);
+        backLeft.setPower(leftPower* BACK_WHEEL_POWER_REDUCTION);
+        frontRight.setPower(rightPower);
+        backRight.setPower(rightPower* BACK_WHEEL_POWER_REDUCTION);
     }
     @SuppressWarnings("SameParameterValue")
     double clipRange(double value, double minValue, double maxValue)
@@ -511,96 +511,96 @@ public class Ducky {
     //----------------------------------------------------------------------------------------------
 
     // Collector
-    public void CollectorOn(){
-        Collector.setPower(1);
+    public void collectorOn(){
+        collector.setPower(1);
     }
-    public void CollectorReverse(){
-        Collector.setPower(-1);
+    public void collectorReverse(){
+        collector.setPower(-1);
     }
-    public void CollectorOff(){
-        Collector.setPower(0);
+    public void collectorOff(){
+        collector.setPower(0);
     }
 
     // Arm Rotator
-    public void RotateArm(double power) {
-        ArmRotator.setPower(power);
+    public void rotateArm(double power) {
+        armRotator.setPower(power);
     }
 
-    public void ArmCollecting() {
-        ArmRotator.setTargetPosition(ARM_COLLECTING_ENCODER_PULSES);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    public void armCollecting() {
+        armRotator.setTargetPosition(ARM_COLLECTING_ENCODER_PULSES);
+        armRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        ArmRotator.setPower(0.5);
+        armRotator.setPower(0.5);
 
-        if (ArmRotator.isBusy()) {
-            if (ArmRotator.getCurrentPosition() < 50) {
+        if (armRotator.isBusy()) {
+            if (armRotator.getCurrentPosition() < 50) {
                 telemetry.addData("Reached Collecting Position, Arm Encoder Pulses",
-                        ArmRotator.getCurrentPosition());
+                        armRotator.getCurrentPosition());
                 telemetry.update();
 
-                ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             } else {
                 telemetry.addData("Arm Rotating, Target Position",
                         ARM_COLLECTING_ENCODER_PULSES);
                 telemetry.addData("Arm Encoder Pulses",
-                        ArmRotator.getCurrentPosition());
+                        armRotator.getCurrentPosition());
                 telemetry.update();
             }
         }
     }
-    public void ArmBottomLevel() {
-        ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    public void armBottomLevel() {
+        armRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);
+        armRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        ArmRotator.setPower(0.5);
+        armRotator.setPower(0.5);
 
-        if (ArmRotator.isBusy()) {
+        if (armRotator.isBusy()) {
             telemetry.addData("Arm Rotating, Target Position",
                     ARM_BOTTOM_LEVEL_ENCODER_PULSES);
             telemetry.addData("Arm Encoder Pulses",
-                    ArmRotator.getCurrentPosition());
+                    armRotator.getCurrentPosition());
             telemetry.update();
         }
     }
-    public void ArmMidLevel() {
-        ArmRotator.setTargetPosition(ARM_MID_LEVEL_ENCODER_PULSES);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    public void armMidLevel() {
+        armRotator.setTargetPosition(ARM_MID_LEVEL_ENCODER_PULSES);
+        armRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        ArmRotator.setPower(0.5);
+        armRotator.setPower(0.5);
 
-        if (ArmRotator.isBusy()) {
-            ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        if (armRotator.isBusy()) {
+            armRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             telemetry.addData("Arm Rotating, Target Position",
                     ARM_MID_LEVEL_ENCODER_PULSES);
             telemetry.addData("Arm Encoder Pulses",
-                    ArmRotator.getCurrentPosition());
+                    armRotator.getCurrentPosition());
             telemetry.update();
         }
     }
-    public void ArmTopLevel() {
-        ArmRotator.setTargetPosition(ARM_TOP_LEVEL_ENCODER_PULSES);
-        ArmRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    public void armTopLevel() {
+        armRotator.setTargetPosition(ARM_TOP_LEVEL_ENCODER_PULSES);
+        armRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        ArmRotator.setPower(0.5);
+        armRotator.setPower(0.5);
 
-        if (ArmRotator.isBusy()) {
+        if (armRotator.isBusy()) {
             telemetry.addData("Arm Rotating, Target Position",
                     ARM_TOP_LEVEL_ENCODER_PULSES);
             telemetry.addData("Arm Encoder Pulses",
-                    ArmRotator.getCurrentPosition());
+                    armRotator.getCurrentPosition());
             telemetry.update();
         }
     }
 
     // Carousel Spinner
-    public void CarouselSpinnerBlue(){
-        CarouselSpinner.setPower(1);
+    public void carouselSpinnerBlue(){
+        carouselSpinner.setPower(1);
     }
-    public void CarouselSpinnerRed(){
-        CarouselSpinner.setPower(-1);
+    public void carouselSpinnerRed(){
+        carouselSpinner.setPower(-1);
     }
-    public void CarouselSpinnerOff(){
-        CarouselSpinner.setPower(0);
+    public void carouselSpinnerOff(){
+        carouselSpinner.setPower(0);
     }
 
 

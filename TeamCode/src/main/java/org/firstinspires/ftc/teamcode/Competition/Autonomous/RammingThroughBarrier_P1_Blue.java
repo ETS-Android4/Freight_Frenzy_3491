@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
-import org.firstinspires.ftc.teamcode.Season_Setup.File_WriteAndRead;
 
 
 @Autonomous(name="Ramming through Barrier - P1, Blue", group="Competition - Blue")
@@ -28,10 +27,10 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         ducky.writeAndRead("Blue");
 
         // Encoder Position Update
-//        telemetry.addData("Encoder Position",  "Starting Encoder Position",
-//                ducky.BackLeft.getCurrentPosition(),
-//                ducky.BackRight.getCurrentPosition());
-//        telemetry.update();
+        telemetry.addData("Encoder Position",  "Starting Encoder Position",
+                ducky.backLeft.getCurrentPosition(),
+                ducky.backRight.getCurrentPosition());
+        telemetry.update();
 
         // Setting Alliance Colour for TeleOp
         ducky.writeAndRead("Blue");
@@ -44,14 +43,14 @@ public class RammingThroughBarrier_P1_Blue extends LinearOpMode {
         // Waiting for the program to start
         waitForStart();
         // Autonomous Pathing
-        ducky.DriveBackward_Encoder(4,0.5,5000);
+        ducky.driveBackward_Encoder(4,0.5,5000);
         ducky.turn_P(90,3000, 1000);
-        ducky.DriveForward_Power(1);
+        ducky.driveForward_Power(1);
         Thread.sleep(2500);
-        ducky.Stop_Power();
+        ducky.stop_Power();
         Thread.sleep(1000);
-        ducky.DriveForward_Power(0.2);
+        ducky.driveForward_Power(0.2);
         Thread.sleep(500);
-        ducky.Stop_Power();
+        ducky.stop_Power();
     }
 }

@@ -30,8 +30,8 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
-                ducky.BackLeft.getCurrentPosition(),
-                ducky.BackRight.getCurrentPosition());
+                ducky.backLeft.getCurrentPosition(),
+                ducky.backRight.getCurrentPosition());
         telemetry.update();
 
         // Setting Alliance Colour for TeleOp
@@ -59,45 +59,45 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(1,-0.3, 5000);
+        ducky.driveBackward_Encoder(1,-0.3, 5000);
 
         // Move arm to position
         if (ducky.leftState) {
-            ducky.ArmBottomLevel();
+            ducky.armBottomLevel();
         } else if (ducky.centerState) {
-            ducky.ArmMidLevel();
+            ducky.armMidLevel();
         } else if (ducky.rightState) {
-            ducky.ArmTopLevel();
+            ducky.armTopLevel();
         }
 
         // Turn Towards Alliance Specific Shipping Hub
         ducky.turn_P(-90,3000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(2,0.5, 5000);
-        ducky.CollectorReverse();
+        ducky.driveBackward_Encoder(2,0.5, 5000);
+        ducky.collectorReverse();
         Thread.sleep(1000);
-        ducky.CollectorOff();
+        ducky.collectorOff();
 
         // Move arm back to collecting position
-        ducky.ArmCollecting();
+        ducky.armCollecting();
 
         // Turn and drive to carousel
-        ducky.DriveForward_Encoder(10,0.5,5000);
-        ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.driveForward_Encoder(10,0.5,5000);
+        ducky.armRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ducky.turn_P(-90,3000, 1000);
-        ducky.DriveBackward_Encoder(10,0.5,5000);
+        ducky.driveBackward_Encoder(10,0.5,5000);
 
         // Spin Carousel
-        ducky.CarouselSpinnerBlue();
+        ducky.carouselSpinnerBlue();
         Thread.sleep(4000);
 
         // Turn and drive into Warehouse unit
-        ducky.DriveForward_Encoder(10,1,5000);
+        ducky.driveForward_Encoder(10,1,5000);
         ducky.turn_P(-90,3000, 1000);
-        ducky.DriveForward_Encoder(50,1,6000);
+        ducky.driveForward_Encoder(50,1,6000);
         ducky.turn_P(-45,3000, 1000);
-        ducky.DriveForward_Power(1);
+        ducky.driveForward_Power(1);
         Thread.sleep(3000);
     }
 }

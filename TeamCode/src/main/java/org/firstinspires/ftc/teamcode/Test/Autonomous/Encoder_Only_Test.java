@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Test.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
@@ -26,8 +25,8 @@ public class Encoder_Only_Test extends LinearOpMode {
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Starting Encoder Position",
-                ducky.BackLeft.getCurrentPosition(),
-                ducky.BackRight.getCurrentPosition());
+                ducky.backLeft.getCurrentPosition(),
+                ducky.backRight.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to begin
@@ -38,8 +37,8 @@ public class Encoder_Only_Test extends LinearOpMode {
         waitForStart();
 
         // Autonomous Pathing
-        ducky.DriveForward_Encoder(20,0.2,5000);
+        ducky.driveForward_Encoder(20,0.2,5000);
         Thread.sleep(2000);
-        ducky.DriveBackward_Encoder(20,0.2,5000);
+        ducky.driveBackward_Encoder(20,0.2,5000);
     }
 }

@@ -36,15 +36,15 @@ public class EncoderValueFinder extends OpMode {
 
         // Reset Encoder Value for motor
         if (gamepad1.a) {
-            ducky.BackLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            ducky.BackRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            ducky.backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            ducky.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            ducky.armRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         // Telemetry Update
-        telemetry.addData("Back Left Encoder Pulses",   ducky.BackLeft.getCurrentPosition());
-        telemetry.addData("Back Right Encoder Pulses",   ducky.BackRight.getCurrentPosition());
-        telemetry.addData("Arm Rotator Encoder Pulses",   ducky.ArmRotator.getCurrentPosition());
+        telemetry.addData("Back Left Encoder Pulses",   ducky.backLeft.getCurrentPosition());
+        telemetry.addData("Back Right Encoder Pulses",   ducky.backRight.getCurrentPosition());
+        telemetry.addData("Arm Rotator Encoder Pulses",   ducky.armRotator.getCurrentPosition());
         telemetry.update();
     }
 

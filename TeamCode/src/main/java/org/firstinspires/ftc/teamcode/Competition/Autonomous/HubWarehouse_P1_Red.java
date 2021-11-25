@@ -68,42 +68,42 @@ public class HubWarehouse_P1_Red extends LinearOpMode {
         }
 
         // Drive backwards
-        ducky.DriveBackward_Encoder(4,-0.3,2000);
+        ducky.driveBackward_Encoder(4,-0.3,2000);
 
         // Move arm to position
         if (ducky.leftState) {
-            ducky.ArmBottomLevel();
+            ducky.armBottomLevel();
         } else if (ducky.centerState) {
-            ducky.ArmMidLevel();
+            ducky.armMidLevel();
         } else if (ducky.rightState) {
-            ducky.ArmTopLevel();
+            ducky.armTopLevel();
         }
         Thread.sleep(2000);
         ducky.turn_P(-45,3000,1000);
-        ducky.DriveBackward_Encoder(2,-0.3,4000);
+        ducky.driveBackward_Encoder(2,-0.3,4000);
         ducky.turn_P(45,3000,1000);
-        ducky.DriveBackward_Encoder(11,-0.3,4000);
+        ducky.driveBackward_Encoder(11,-0.3,4000);
 
 
         // Turn Towards Alliance Specific Shipping Hub
         ducky.turn_P(-90,4000, 1000);
 
         // Move closer to Shipping Hub and score
-        ducky.DriveBackward_Encoder(1,0.3,2000);
-        ducky.CollectorReverse();
+        ducky.driveBackward_Encoder(1,0.3,2000);
+        ducky.collectorReverse();
         Thread.sleep(1000);
-        ducky.CollectorOff();
+        ducky.collectorOff();
 
         // Move arm back to collecting position
-        ducky.ArmCollecting();
+        ducky.armCollecting();
 
         // Turn and drive to carousel
         ducky.turn_P(35,3000, 1000);
-        ducky.DriveForward_Power(0.3);
+        ducky.driveForward_Power(0.3);
         Thread.sleep(250);
         ducky.turn_P(-35,3000, 1000);
-        ducky.DriveForward_Power(1);
+        ducky.driveForward_Power(1);
         Thread.sleep(5000);
-        ducky.ArmRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ducky.armRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }

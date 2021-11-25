@@ -52,20 +52,20 @@ public class DuckyTeleOp extends OpMode {
 
             // Slow Speed
             if (gamepad1.right_trigger > 0) {
-                ducky.FrontLeft.setPower(rightPower/-2);
-                ducky.BackLeft.setPower((rightPower/-2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
-                ducky.FrontRight.setPower(leftPower/-2);
-                ducky.BackRight.setPower((leftPower/-2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontLeft.setPower(rightPower/-2);
+                ducky.backLeft.setPower((rightPower/-2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontRight.setPower(leftPower/-2);
+                ducky.backRight.setPower((leftPower/-2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Slow");
 
             // Normal Speed
             } else {
-                ducky.FrontLeft.setPower(-rightPower);
-                ducky.BackLeft.setPower((-rightPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
-                ducky.FrontRight.setPower(-leftPower);
-                ducky.BackRight.setPower((-leftPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontLeft.setPower(-rightPower);
+                ducky.backLeft.setPower((-rightPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontRight.setPower(-leftPower);
+                ducky.backRight.setPower((-leftPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Normal");
@@ -79,20 +79,20 @@ public class DuckyTeleOp extends OpMode {
 
             // Slow Speed
             if (gamepad1.right_trigger > 0) {
-                ducky.FrontLeft.setPower(leftPower/2);
-                ducky.BackLeft.setPower((leftPower/2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
-                ducky.FrontRight.setPower(rightPower/2);
-                ducky.BackRight.setPower((rightPower/2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontLeft.setPower(leftPower/2);
+                ducky.backLeft.setPower((leftPower/2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontRight.setPower(rightPower/2);
+                ducky.backRight.setPower((rightPower/2)* Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Slow");
 
             // Normal Speed
             } else {
-                ducky.FrontLeft.setPower(leftPower);
-                ducky.BackLeft.setPower((leftPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
-                ducky.FrontRight.setPower(rightPower);
-                ducky.BackRight.setPower((rightPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontLeft.setPower(leftPower);
+                ducky.backLeft.setPower((leftPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
+                ducky.frontRight.setPower(rightPower);
+                ducky.backRight.setPower((rightPower)* Ducky.BACK_WHEEL_POWER_REDUCTION);
 
                 // Telemetry Update
                 telemetry.addData("Speed Mode: ", "Normal");
@@ -106,43 +106,43 @@ public class DuckyTeleOp extends OpMode {
 
         // Collector
         if (gamepad2.right_trigger > 0) {
-            ducky.CollectorOn();
+            ducky.collectorOn();
         }
         if (gamepad2.right_bumper) {
-            ducky.CollectorReverse();
+            ducky.collectorReverse();
         }
         if (gamepad2.a) {
-            ducky.CollectorOff();
+            ducky.collectorOff();
         }
 
         // Arm Rotator
         if (gamepad2.left_stick_y == 0) {
             if (gamepad2.dpad_up) {
-                ducky.ArmCollecting();
+                ducky.armCollecting();
             } else if (gamepad2.dpad_left) {
-                ducky.ArmTopLevel();
+                ducky.armTopLevel();
             } else if (gamepad2.dpad_right) {
-                ducky.ArmMidLevel();
+                ducky.armMidLevel();
             } else if (gamepad2.dpad_down) {
-                ducky.ArmBottomLevel();
+                ducky.armBottomLevel();
             }
         } else {
-            ducky.RotateArm(gamepad2.left_stick_y);
+            ducky.rotateArm(gamepad2.left_stick_y);
         }
 
 
         // Carousel Spinner
         if (Ducky.alliance.equals("Blue")) {
             if (gamepad2.left_trigger > 0) {
-                ducky.CarouselSpinnerBlue();
+                ducky.carouselSpinnerBlue();
             } else if (gamepad2.left_bumper) {
-                ducky.CarouselSpinnerOff();
+                ducky.carouselSpinnerOff();
             }
         } else if (Ducky.alliance.equals("Red"))  {
             if (gamepad2.left_trigger > 0) {
-                ducky.CarouselSpinnerRed();
+                ducky.carouselSpinnerRed();
             } else if (gamepad2.left_bumper) {
-                ducky.CarouselSpinnerOff();
+                ducky.carouselSpinnerOff();
             }
         }
 
@@ -154,7 +154,7 @@ public class DuckyTeleOp extends OpMode {
         telemetry.addData("Arm Target Position",
                 Ducky.ARM_COLLECTING_ENCODER_PULSES);
         telemetry.addData("Arm Encoder Pulses",
-                ducky.ArmRotator.getCurrentPosition());
+                ducky.armRotator.getCurrentPosition());
 
         telemetry.update();
     }

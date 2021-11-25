@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Test.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
@@ -26,8 +25,8 @@ public class IMU_Straight_Test extends LinearOpMode {
 
         // Encoder Position Update
         telemetry.addData("Encoder Position",  "Encoder Pulses Left, Right",
-                ducky.BackLeft.getCurrentPosition(),
-                ducky.BackRight.getCurrentPosition());
+                ducky.backLeft.getCurrentPosition(),
+                ducky.backRight.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to begin

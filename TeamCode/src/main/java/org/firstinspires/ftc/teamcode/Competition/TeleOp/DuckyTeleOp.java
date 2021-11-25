@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Competition.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
@@ -139,8 +140,8 @@ public class DuckyTeleOp extends OpMode {
         }
 
         if (gamepad2.x) {
+            ducky.ArmRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             ducky.RotateArm(gamepad2.left_stick_y);
-            ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
 

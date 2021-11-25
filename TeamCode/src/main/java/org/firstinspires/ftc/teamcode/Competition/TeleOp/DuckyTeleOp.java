@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
-import org.firstinspires.ftc.teamcode.Season_Setup.ReadFile;
 
 @TeleOp(name="Competition TeleOp", group="Competition")
 
@@ -13,10 +12,7 @@ public class DuckyTeleOp extends OpMode {
 
     // Initializing Robot Class
     Ducky ducky = new Ducky();
-    ReadFile readFile = new ReadFile();
 
-    // Variable Declaration
-    // N/A
 
     /**
      * Initializing the Program
@@ -29,6 +25,7 @@ public class DuckyTeleOp extends OpMode {
 
         // Indicate that the program is running
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Alliance", Ducky.alliance);
         telemetry.update();
     }
 
@@ -42,7 +39,11 @@ public class DuckyTeleOp extends OpMode {
         float leftPower = -gamepad1.left_stick_y;
         float rightPower = -gamepad1.right_stick_y;
 
-        /* Driving Controls */
+
+        //------------------------------------------------------------------------------------------
+        // Driving Controls
+        //------------------------------------------------------------------------------------------
+
         // Reverse Drive
         if (gamepad1.left_trigger > 0) {
 
@@ -98,7 +99,10 @@ public class DuckyTeleOp extends OpMode {
             }
         }
 
-        /* Mechanisms */
+
+        //------------------------------------------------------------------------------------------
+        // Mechanisms
+        //------------------------------------------------------------------------------------------
 
         // Collector
         if (gamepad2.right_trigger > 0) {
@@ -121,6 +125,7 @@ public class DuckyTeleOp extends OpMode {
             ducky.ArmMidLevel();
         } else if (gamepad2.dpad_down) {
             ducky.ArmBottomLevel();
+
         } else if (ducky.resetArm) {
             ducky.runtime.reset();
 
@@ -140,25 +145,20 @@ public class DuckyTeleOp extends OpMode {
 
 
         // Carousel Spinner
-//        if (readFile.blueAlliance()){
-//            if (gamepad2.left_trigger > 0) {
-//                ducky.CarouselSpinnerBlue();
-//            }
-//        } else {
-//            if (gamepad2.left_trigger > 0) {
-//                ducky.CarouselSpinnerRed();
-//            }
-//        }
+        if (Ducky.alliance.equals("Blue")) {
+            if (gamepad2.left_trigger > 0) {
+                ducky.CarouselSpinnerBlue();
+            } else if (gamepad2.left_bumper) {
+                ducky.CarouselSpinnerOff();
+            }
+        } else if (Ducky.alliance.equals("Red"))  {
+            if (gamepad2.left_trigger > 0) {
+                ducky.CarouselSpinnerRed();
+            } else if (gamepad2.left_bumper) {
+                ducky.CarouselSpinnerOff();
+            }
+        }
 
-        if (gamepad2.left_trigger > 0) {
-            ducky.CarouselSpinnerBlue();
-        }
-        if(gamepad2.left_bumper) {
-            ducky.CarouselSpinnerRed();
-        }
-        if (gamepad2.b) {
-            ducky.CarouselSpinnerOff();
-        }
 
         // Telemetry Update
         telemetry.addData("Left Side Power", leftPower);

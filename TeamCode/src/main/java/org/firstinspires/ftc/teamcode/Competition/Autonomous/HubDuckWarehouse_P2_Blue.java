@@ -34,8 +34,12 @@ public class HubDuckWarehouse_P2_Blue extends LinearOpMode {
                 ducky.BackRight.getCurrentPosition());
         telemetry.update();
 
-        // Wait for the game to begin
+        // Setting Alliance Colour for TeleOp
+        ducky.writeAndRead("Blue");
+
+        // Telemetry Update
         telemetry.addData(">", "Press Play to start op mode");
+        telemetry.addData("Alliance", Ducky.alliance);
         telemetry.update();
 
         // Waiting for the program to start

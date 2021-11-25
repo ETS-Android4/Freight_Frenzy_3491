@@ -20,8 +20,12 @@ public class RammingThroughBarrier_powerOnly_P1_Red extends LinearOpMode {
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
 
-        // Wait for the game to begin
+        // Setting Alliance Colour for TeleOp
+        ducky.writeAndRead("Red");
+
+        // Telemetry Update
         telemetry.addData(">", "Press Play to start op mode");
+        telemetry.addData("Alliance", Ducky.alliance);
         telemetry.update();
 
         // Waiting for the program to start

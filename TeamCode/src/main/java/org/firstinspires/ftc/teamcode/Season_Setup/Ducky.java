@@ -60,7 +60,6 @@ public class Ducky {
     public static final int ARM_MID_LEVEL_ENCODER_PULSES = 339;
     public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 297;
 
-    public boolean resetArm;
 
     // EasyOpenCV Setup
     public OpenCvCamera webcam;

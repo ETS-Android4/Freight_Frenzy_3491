@@ -60,6 +60,7 @@ public class Ducky {
     public static final int ARM_MID_LEVEL_ENCODER_PULSES = 339;
     public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 297;
 
+    public boolean resetArm;
 
     // EasyOpenCV Setup
     public OpenCvCamera webcam;
@@ -545,10 +546,7 @@ public class Ducky {
                         ArmRotator.getCurrentPosition());
                 telemetry.update();
             }
-
         }
-
-
     }
     public void ArmBottomLevel() {
         ArmRotator.setTargetPosition(ARM_BOTTOM_LEVEL_ENCODER_PULSES);

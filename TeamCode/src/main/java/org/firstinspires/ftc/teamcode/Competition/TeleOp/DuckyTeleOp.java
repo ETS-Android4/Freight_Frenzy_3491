@@ -116,18 +116,31 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        if (gamepad2.left_stick_y == 0) {
-            if (gamepad2.dpad_up) {
-                ducky.ArmCollecting();
-            } else if (gamepad2.dpad_left) {
-                ducky.ArmTopLevel();
-            } else if (gamepad2.dpad_right) {
-                ducky.ArmMidLevel();
-            } else if (gamepad2.dpad_down) {
-                ducky.ArmBottomLevel();
+        if (gamepad2.dpad_up) {
+            ducky.ArmCollecting();
+            ducky.resetArm = true;
+        } else if (gamepad2.dpad_left) {
+            ducky.ArmTopLevel();
+        } else if (gamepad2.dpad_right) {
+            ducky.ArmMidLevel();
+        } else if (gamepad2.dpad_down) {
+            ducky.ArmBottomLevel();
+
+        } else if (ducky.resetArm) {
+            ducky.runtime.reset();
+
+            if (ducky.runtime.seconds() > 2){
+                ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+                if (ducky.runtime.seconds() > 3) {
+                    ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+                    ducky.resetArm = false;
+                }
             }
-        } else {
+        }
+
+        if (gamepad2.x) {
             ducky.RotateArm(gamepad2.left_stick_y);
+            ducky.ArmRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
 

@@ -8,7 +8,6 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 
 public class Freight_Frenzy_Pipeline extends Ducky
@@ -25,9 +24,6 @@ public class Freight_Frenzy_Pipeline extends Ducky
         // Camera View set-up
         boolean viewportPaused;
         public OpenCvCamera webcam;
-
-        public double exposure_value;
-//        exposure_value = OpenCvWebcam.getExposureControl();
 
         // Viewport setup
         @Override
@@ -57,6 +53,7 @@ public class Freight_Frenzy_Pipeline extends Ducky
 
         // Color constant
         final Scalar WHITE = new Scalar(255, 255, 255);
+        final Scalar GREEN = new Scalar(0, 255, 0);
 
         // The core values which define the location and size of the sample regions
         static final int REGION_HEIGHT = 100;        static final int REGION_WIDTH = 70;
@@ -97,84 +94,101 @@ public class Freight_Frenzy_Pipeline extends Ducky
         Mat leftBarcode;
         Mat centerBarcode;
         Mat rightBarcode;
-        Mat mat = new Mat();
-        Mat vLeft = new Mat();
-        Mat vCenter = new Mat();
-        Mat vRight = new Mat();
+        Mat mat = new Mat(); // Storing the Colour Channel selected (BGR in this case)
+        Mat bLeft = new Mat(); // Storing the extract "b" (blue) channel for Left
+        Mat bCenter = new Mat(); // Storing the extract "b" (blue) channel for Center
+        Mat bRight = new Mat(); // Storing the extract "b" (blue) channel for Right
+        Mat holdLeft = new Mat(); // Storing left Mat
+        Mat holdCenter = new Mat(); // Storing center Mat
+        Mat holdRight = new Mat(); // Storing right Mat
         public double leftValue;
         public double centerValue;
         public double rightValue;
 
-        /**
-         * This function takes the RGB frame, converts to YCrCb,
-         * and extracts the Cb channel to the 'Cb' variable
-         */
-        void inputToHSV(Mat input) {
-            Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-            Scalar lowHSV = new Scalar(79, 28, 30);
-            Scalar highHSV = new Scalar(151, 100, 100);
 
-            Core.inRange(mat, lowHSV, highHSV, mat);
+        /**
+         * This function takes the RGB frame, converts to BGR,
+         * and extracts the B channel to the "B" variable
+         * @param input Camera input
+         */
+        void inputToBGR(Mat input) {
+            Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2BGR);
+
+            // Extract the B channel from BRG
+            Core.extractChannel(mat, bLeft, 1);
+            Core.extractChannel(mat, bCenter, 1);
+            Core.extractChannel(mat, bRight, 1);
+
+            // Limiting to certain Threshold
+            Imgproc.threshold(bLeft, holdLeft, 250, 255, Imgproc.THRESH_BINARY_INV);
+            Imgproc.threshold(bLeft, holdCenter, 250, 255, Imgproc.THRESH_BINARY_INV);
+            Imgproc.threshold(bLeft, holdRight, 250, 255, Imgproc.THRESH_BINARY_INV);
         }
+
+
+        /**
+         * This function draw a Rectangle that is than displayed on the screen
+         * @param input Camera input
+         */
+        void drawRectangle (Mat input, Rect rect, Scalar colour, int thickness) {
+            // Left Barcode Rectangle
+            Imgproc.rectangle(
+                    input, // Buffer to draw on
+                    rect, // Where the Rectangle is drawn
+                    colour, // The colour of the rectangle is drawn in
+                    thickness); // Thickness of the rectangle lines
+        }
+
 
         /**
          * @param input Initializing the frame
          */
         @Override
         public void init(Mat input) {
-            inputToHSV(input);
-            leftBarcode = input.submat(LEFT_BARCODE);
-            centerBarcode = input.submat(CENTER_BARCODE);
-            rightBarcode = input.submat(RIGHT_BARCODE);
+            inputToBGR(input);
+            leftBarcode = bLeft.submat(LEFT_BARCODE);
+            centerBarcode = bCenter.submat(CENTER_BARCODE);
+            rightBarcode = bRight.submat(RIGHT_BARCODE);
         }
+
 
         @Override
         public Mat processFrame(Mat input) {
 
             // Initializing the frame
-            inputToHSV(input);
+            inputToBGR(input);
 
-            // extract the v channel from hsv
-            Core.extractChannel(leftBarcode, vLeft, 0);
-            Core.extractChannel(centerBarcode, vCenter, 0);
-            Core.extractChannel(rightBarcode, vRight, 0);
-
-            // get the average colors
-            leftValue = Core.mean(vLeft).val[0];
-            centerValue = Core.mean(vCenter).val[0];
-            rightValue = Core.mean(vRight).val[0];
+            // Drawing the Rectangles
+            drawRectangle(input, LEFT_BARCODE, WHITE,2); // Left Barcode Rectangle
+            drawRectangle(input, CENTER_BARCODE, WHITE,2); // Center Barcode Rectangle
+            drawRectangle(input, RIGHT_BARCODE, WHITE,2); // Right Barcode Rectangle
 
 
-            /* Drawing the Rectangles */
-            // Left Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    LEFT_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    2); // Thickness of the rectangle lines
-            // Center Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    CENTER_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    2); // Thickness of the rectangle lines
-            // Right Barcode Rectangle
-            Imgproc.rectangle(
-                    input, // Buffer to draw on
-                    RIGHT_BARCODE,
-                    WHITE, // The colour of the rectangle is drawn in
-                    2); // Thickness of the rectangle lines
+            // Setting variable values
+            leftValue = (int) Core.mean(leftBarcode).val[0];
+            centerValue = (int) Core.mean(centerBarcode).val[0];
+            rightValue = (int) Core.mean(rightBarcode).val[0];
+
 
             // Record out analysis
             if (leftValue > centerValue && leftValue > rightValue) {
                 elementPosition = ElementPosition.LEFT;
+                drawRectangle(input, LEFT_BARCODE, GREEN,3); // Left Barcode Rectangle
+
             } else if (centerValue > leftValue && centerValue > rightValue) {
                 elementPosition = ElementPosition.CENTER;
+                drawRectangle(input, CENTER_BARCODE, GREEN,3); // Left Barcode Rectangle
+
             } else if (rightValue > leftValue && rightValue > centerValue) {
                 elementPosition = ElementPosition.RIGHT;
+                drawRectangle(input, RIGHT_BARCODE, GREEN,3); // Left Barcode Rectangle
+
             } else {
-                elementPosition = ElementPosition.LEFT;
+                elementPosition = ElementPosition.RIGHT;
+                drawRectangle(input, LEFT_BARCODE, GREEN,3); // Left Barcode Rectangle
+
             }
+
 
             // Setting Analysis Value for Telemetry
             analysisLeft = leftValue;

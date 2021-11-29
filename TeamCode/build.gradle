@@ -28,7 +28,7 @@ dependencies {
 
 dependencies {
     // EasyOpenCV Setup
-    implementation 'org.openftc:easyopencv:1.5.0'
+    implementation 'org.openftc:easyopencv:1.5.1'
 
     // Road Runner Set-up
     implementation 'com.acmerobotics.roadrunner:core:0.5.3'

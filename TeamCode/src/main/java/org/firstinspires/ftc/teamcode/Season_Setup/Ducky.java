@@ -139,6 +139,8 @@ public class Ducky {
 
         // Mechanisms - Setting Motor zero power Behaviour
         armRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        armPlatformRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        duckySpinnerRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         // Define Servos
@@ -155,11 +157,15 @@ public class Ducky {
         backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         armRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        armPlatformRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        duckySpinnerRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
         backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         armRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU

@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -35,11 +36,16 @@ public class Ducky {
     public DcMotorEx frontLeft, backLeft, frontRight, backRight;
 
     // Declaring Mechanisms
+    public DcMotorEx armPlatformRotator;
     public DcMotorEx armRotator;
-    public CRServo collector;
 
+    public CRServo collector;
+    public CRServo armExtender;
+
+    public DcMotorEx duckySpinnerRotator;
     public CRServo carouselSpinner;
 
+    public Servo tapeMeasure;
 
     // Declaring sensors
     public BNO055IMU imu;
@@ -49,7 +55,7 @@ public class Ducky {
     public double rightPower;
 
     // Encoder + Wheel Declaration
-    public static final double BACK_WHEEL_POWER_REDUCTION = 0.7559;
+    public static final double BACK_WHEEL_POWER_REDUCTION = 0.9449;
     public static final double WHEEL_GEAR_RATIO = 2; // 2:1 ratio
 
     public static final double WHEEL_PULSES_PER_INCH = 34.2/ WHEEL_GEAR_RATIO; // Num of Pulses per inch travelled with Cart Wheel
@@ -59,6 +65,15 @@ public class Ducky {
     public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = 362;
     public static final int ARM_MID_LEVEL_ENCODER_PULSES = 339;
     public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 297;
+
+    public static final int ARM_PLATFORM_ROTATOR_MIDDLE = 0;
+    public static final int ARM_PLATFORM_ROTATOR_HUB_RIGHT = 0;
+    public static final int ARM_PLATFORM_ROTATOR_HUB_LEFT = 0;
+    public static final int ARM_PLATFORM_ROTATOR_INITIAL = 0;
+
+    public static final int DUCKY_SPINNER_ROTATOR_RED = 0;
+    public static final int DUCKY_SPINNER_ROTATOR_BLUE = 0;
+    public static final int DUCKY_SPINNER_ROTATOR_MIDDLE = 0;
 
 
     // EasyOpenCV Setup
@@ -129,6 +144,7 @@ public class Ducky {
         // Define Servos
         collector = hwMap.crservo.get("collector");
         carouselSpinner = hwMap.crservo.get("carouselSpinner");
+        tapeMeasure = hwMap.servo.get("tapeMeasure");
 
         // Initialize Servos
         collector.setPower(0);
@@ -183,160 +199,6 @@ public class Ducky {
     //----------------------------------------------------------------------------------------------
     // Driving Functions
     //----------------------------------------------------------------------------------------------
-
-    // IMU and Encoders (where applicable)
-/*    public void DriveForward_Encoder_IMU (int Distance, double speed) {
-        Encoder_Distance = (int)(Distance* WHEEL_PULSES_PER_INCH);
-
-        BackLeft.setTargetPosition(Encoder_Distance);
-        BackRight.setTargetPosition(Encoder_Distance);
-
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        DriveForward_Power(speed);
-
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-
-            double currentHeading = getHeading();
-
-            // If robot is drifting right - Need to turn left
-            if (currentHeading < -5) {
-                if (rightPower < speed+0.2){
-                    leftPower -= 0.05;
-                    rightPower += 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-            // If robot is drifting left - Need to turn right
-            } else if (currentHeading > 5) {
-                if (leftPower < speed+0.2){
-                    leftPower += 0.05;
-                    rightPower -= 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-            // Continue Straight
-            } else {
-                if (leftPower >= speed+0.05) {
-                    leftPower -= 0.05;
-                }
-                if (leftPower <= speed-0.05) {
-                    leftPower += 0.05;
-                }
-                if (rightPower >= speed+0.05) {
-                    rightPower -= 0.05;
-                }
-                if (rightPower <= speed-0.05) {
-                    rightPower += 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-            }
-
-            // Telemetry Update
-            telemetry.addData("Driving Backward, Target Position",
-                    Encoder_Distance);
-            telemetry.addData("Driving Backward, Encoder Pulses Left",
-                    BackLeft.getCurrentPosition());
-            telemetry.addData("Driving Backward, Encoder Pulses Right",
-                    BackRight.getCurrentPosition());
-            telemetry.addData("Left Power", leftPower);
-            telemetry.addData("Right Power", rightPower);
-            telemetry.addData("Yaw value", currentHeading);
-
-            telemetry.update();
-        }
-
-        Stop_Encoder();
-    }
-    public void DriveBackward_Encoder_IMU (int Distance, double speed) {
-        Encoder_Distance = (int)(-Distance* WHEEL_PULSES_PER_INCH);
-
-        BackLeft.setTargetPosition(Encoder_Distance);
-        BackRight.setTargetPosition(Encoder_Distance);
-
-        BackLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        BackRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        DriveBackward_Power(speed);
-
-        while (BackLeft.isBusy() || BackRight.isBusy()) {
-
-            double currentHeading = getHeading();
-
-            // If robot is drifting right - Need to turn left
-            if (currentHeading < -5) {
-                if (leftPower < speed+0.2){
-                    leftPower += 0.05;
-                    rightPower -= 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-            // If robot is drifting left - Need to turn right
-            } else if (currentHeading > 5) {
-                if (rightPower < speed+0.2){
-                    leftPower -= 0.05;
-                    rightPower += 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-
-            // Continue Straight
-            } else {
-                if (leftPower >= speed+0.05) {
-                    leftPower -= 0.05;
-                }
-                if (leftPower <= speed-0.05) {
-                    leftPower += 0.05;
-                }
-                if (rightPower >= speed+0.05) {
-                    rightPower -= 0.05;
-                }
-                if (rightPower <= speed-0.05) {
-                    rightPower += 0.05;
-                }
-
-                FrontLeft.setPower(leftPower);
-                BackLeft.setPower(leftPower);
-                FrontRight.setPower(rightPower);
-                BackRight.setPower(rightPower);
-            }
-
-            // Telemetry Update
-            telemetry.addData("Driving Backward, Target Position",
-                    Encoder_Distance);
-            telemetry.addData("Driving Backward, Encoder Pulses Left",
-                    BackLeft.getCurrentPosition());
-            telemetry.addData("Driving Backward, Encoder Pulses Right",
-                    BackRight.getCurrentPosition());
-            telemetry.addData("Left Power", leftPower);
-            telemetry.addData("Right Power", rightPower);
-            telemetry.addData("Yaw value", currentHeading);
-
-            telemetry.update();
-        }
-
-        Stop_Encoder();
-    }*/
 
     // Turning with IMU and P control (PID without ID)
     public void turn_P(double turnDegree, double timeout, double initialSleep) throws InterruptedException {
@@ -591,6 +453,51 @@ public class Ducky {
         }
     }
 
+    // Arm Platform Rotator
+    public void rotateArmPlatform(double power) {
+        armPlatformRotator.setPower(power);
+    }
+
+    public void armPlatform_Hub_Right() {
+        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_RIGHT);
+        armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        armPlatformRotator.setPower(0.5);
+
+        if (armPlatformRotator.isBusy()) {
+            telemetry.addData("Arm Platform Rotating, Target Position",
+                    ARM_PLATFORM_ROTATOR_HUB_RIGHT);
+            telemetry.addData("Arm Platform Encoder Pulses",
+                    armPlatformRotator.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+    public void armPlatform_Hub_Left() {
+        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_LEFT);
+        armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        armPlatformRotator.setPower(0.5);
+
+        if (armPlatformRotator.isBusy()) {
+            telemetry.addData("Arm Platform Rotating, Target Position",
+                    ARM_PLATFORM_ROTATOR_HUB_LEFT);
+            telemetry.addData("Arm Platform Encoder Pulses",
+                    armPlatformRotator.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+
+    // Arm Extender
+    public void extendArm(){
+        armExtender.setPower(1);
+    }
+    public void retractArm(){
+        armExtender.setPower(-1);
+    }
+    public void armExtenderOff(){
+        armExtender.setPower(0);
+    }
+
     // Carousel Spinner
     public void carouselSpinnerBlue(){
         carouselSpinner.setPower(1);
@@ -600,6 +507,58 @@ public class Ducky {
     }
     public void carouselSpinnerOff(){
         carouselSpinner.setPower(0);
+    }
+
+    // Ducky Spinner Rotator
+    public void rotateToBlue(){
+        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_BLUE);
+        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        duckySpinnerRotator.setPower(0.5);
+
+        if (duckySpinnerRotator.isBusy()) {
+            telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
+                    DUCKY_SPINNER_ROTATOR_BLUE);
+            telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
+                    duckySpinnerRotator.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+    public void rotateToRed(){
+        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_RED);
+        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        duckySpinnerRotator.setPower(0.5);
+
+        if (duckySpinnerRotator.isBusy()) {
+            telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
+                    DUCKY_SPINNER_ROTATOR_RED);
+            telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
+                    duckySpinnerRotator.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+    public void rotateToMiddle(){
+        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_MIDDLE);
+        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        duckySpinnerRotator.setPower(0.5);
+
+        if (duckySpinnerRotator.isBusy()) {
+            telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
+                    DUCKY_SPINNER_ROTATOR_MIDDLE);
+            telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
+                    duckySpinnerRotator.getCurrentPosition());
+            telemetry.update();
+        }
+    }
+
+    // Tape Measure
+    public void extendTapeMeasure(){
+        tapeMeasure.setPosition(0.8);
+    }
+    public void retractTapeMeasure(){
+        tapeMeasure.setPosition(0.2);
     }
 
 

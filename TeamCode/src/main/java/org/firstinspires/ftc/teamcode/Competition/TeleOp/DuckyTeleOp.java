@@ -130,6 +130,20 @@ public class DuckyTeleOp extends OpMode {
             ducky.rotateArm(gamepad2.left_stick_y);
         }
 
+        // Arm Platform Rotator
+        ducky.rotateArmPlatform(gamepad2.right_stick_y);
+
+        // Arm Extender
+        if (gamepad2.x) {
+            ducky.extendArm();
+        }
+        if (gamepad2.b) {
+            ducky.retractArm();
+        }
+        if (gamepad2.y) {
+            ducky.armExtenderOff();
+        }
+
 
         // Carousel Spinner
         if (Ducky.alliance.equals("Blue")) {
@@ -144,6 +158,21 @@ public class DuckyTeleOp extends OpMode {
             } else if (gamepad2.left_bumper) {
                 ducky.carouselSpinnerOff();
             }
+        }
+
+        // Ducky Spinner Rotator
+        if (gamepad1.dpad_up) {
+            ducky.rotateToMiddle();
+        } else if (gamepad1.dpad_left) {
+            ducky.rotateToBlue();
+        } else if (gamepad1.dpad_right) {
+            ducky.rotateToRed();
+        }
+
+
+        // Tape Measure
+        if (gamepad1.a && gamepad1.dpad_down) {
+            ducky.extendTapeMeasure();
         }
 
 

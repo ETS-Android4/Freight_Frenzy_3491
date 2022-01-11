@@ -133,6 +133,9 @@ public class Ducky {
 
         // Mechanisms - Motors
         armRotator = hwMap.get(DcMotorEx.class,"armRotator");
+        armPlatformRotator = hwMap.get(DcMotorEx.class,"armPlatformRotator");
+        duckySpinnerRotator = hwMap.get(DcMotorEx.class,"duckySpinnerRotator");
+
 
         // Mechanisms - Setting Motor Direction
         frontRight.setDirection(DcMotorEx.Direction.FORWARD);
@@ -147,6 +150,8 @@ public class Ducky {
         collector = hwMap.crservo.get("collector");
         carouselSpinner = hwMap.crservo.get("carouselSpinner");
         tapeMeasure = hwMap.servo.get("tapeMeasure");
+        armExtender = hwMap.crservo.get("armExtender");
+
 
         // Initialize Servos
         collector.setPower(0);

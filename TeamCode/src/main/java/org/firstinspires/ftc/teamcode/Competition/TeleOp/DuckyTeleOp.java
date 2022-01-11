@@ -143,22 +143,28 @@ public class DuckyTeleOp extends OpMode {
         if (gamepad2.y) {
             ducky.armExtenderOff();
         }
-
-
-        // Carousel Spinner
-        if (Ducky.alliance.equals("Blue")) {
-            if (gamepad2.left_trigger > 0) {
-                ducky.carouselSpinnerBlue();
-            } else if (gamepad2.left_bumper) {
-                ducky.carouselSpinnerOff();
-            }
-        } else if (Ducky.alliance.equals("Red"))  {
-            if (gamepad2.left_trigger > 0) {
-                ducky.carouselSpinnerRed();
-            } else if (gamepad2.left_bumper) {
-                ducky.carouselSpinnerOff();
-            }
-        }
+//
+//
+//        // Carousel Spinner
+//        if (Ducky.alliance.equals("Blue")) {
+//            if (gamepad2.left_trigger > 0) {
+//                ducky.carouselSpinnerBlue();
+//            } else if (gamepad2.left_bumper) {
+//                ducky.carouselSpinnerOff();
+//            }
+//        } else if (Ducky.alliance.equals("Red"))  {
+//            if (gamepad2.left_trigger > 0) {
+//                ducky.carouselSpinnerRed();
+//            } else if (gamepad2.left_bumper) {
+//                ducky.carouselSpinnerOff();
+//            }
+//        } else {
+//            if (gamepad2.left_trigger > 0) {
+//                ducky.carouselSpinnerRed();
+//            } else if (gamepad2.left_bumper) {
+//                ducky.carouselSpinnerOff();
+//            }
+//        }
 
         // Ducky Spinner Rotator
         if (gamepad1.dpad_up) {

@@ -107,11 +107,9 @@ public class DuckyTeleOp extends OpMode {
         // Collector
         if (gamepad2.right_trigger > 0) {
             ducky.collectorOn();
-        }
-        if (gamepad2.right_bumper) {
+        } else if (gamepad2.right_bumper) {
             ducky.collectorReverse();
-        }
-        if (gamepad2.a) {
+        } else if (gamepad2.a) {
             ducky.collectorOff();
         }
 
@@ -126,6 +124,7 @@ public class DuckyTeleOp extends OpMode {
             } else if (gamepad2.dpad_down) {
                 ducky.armBottomLevel();
             }
+            ducky.armRotator.setPower(0.0);
         } else {
             ducky.rotateArm(gamepad2.left_stick_y);
         }
@@ -136,15 +135,13 @@ public class DuckyTeleOp extends OpMode {
         // Arm Extender
         if (gamepad2.x) {
             ducky.extendArm();
-        }
-        if (gamepad2.b) {
+        } else if (gamepad2.b) {
             ducky.retractArm();
-        }
-        if (gamepad2.y) {
+        } else if (gamepad2.y) {
             ducky.armExtenderOff();
         }
-//
-//
+
+
 //        // Carousel Spinner
 //        if (Ducky.alliance.equals("Blue")) {
 //            if (gamepad2.left_trigger > 0) {
@@ -165,9 +162,11 @@ public class DuckyTeleOp extends OpMode {
 //                ducky.carouselSpinnerOff();
 //            }
 //        }
-//
+
         if (gamepad2.left_trigger > 0) {
             ducky.carouselSpinnerRed();
+        } else if (gamepad2.left_bumper) {
+            ducky.carouselSpinnerOff();
         }
 
         // Ducky Spinner Rotator

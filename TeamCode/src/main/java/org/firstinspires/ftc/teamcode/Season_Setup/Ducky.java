@@ -62,18 +62,18 @@ public class Ducky {
     public int encoder_Distance; // To be used in functions for setTargetPosition
 
     public static final int ARM_COLLECTING_ENCODER_PULSES = 0;
-    public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = 362;
-    public static final int ARM_MID_LEVEL_ENCODER_PULSES = 339;
-    public static final int ARM_TOP_LEVEL_ENCODER_PULSES = 297;
+    public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = -150; //-94 //-182
+    public static final int ARM_MID_LEVEL_ENCODER_PULSES = -420; //-230 //-351
+    public static final int ARM_TOP_LEVEL_ENCODER_PULSES = -586; //-410 //-560
 
-    public static final int ARM_PLATFORM_ROTATOR_MIDDLE = 0;
-    public static final int ARM_PLATFORM_ROTATOR_HUB_RIGHT = 0;
-    public static final int ARM_PLATFORM_ROTATOR_HUB_LEFT = 0;
+    public static final int ARM_PLATFORM_ROTATOR_MIDDLE = -60;
+    public static final int ARM_PLATFORM_ROTATOR_HUB_FRONT = -573;
+    public static final int ARM_PLATFORM_ROTATOR_HUB_BACK = 430;
     public static final int ARM_PLATFORM_ROTATOR_INITIAL = 0;
 
     public static final int DUCKY_SPINNER_ROTATOR_RED = 0;
-    public static final int DUCKY_SPINNER_ROTATOR_BLUE = 0;
-    public static final int DUCKY_SPINNER_ROTATOR_MIDDLE = 0;
+    public static final int DUCKY_SPINNER_ROTATOR_BLUE = -757;
+    public static final int DUCKY_SPINNER_ROTATOR_MIDDLE = -390;
 
 
     // EasyOpenCV Setup
@@ -190,19 +190,6 @@ public class Ducky {
         int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         webcam.setPipeline(new Freight_Frenzy_Pipeline.Pipeline());
-
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
-            @Override
-            public void onOpened()
-            {
-                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-            }
-
-            @Override
-            public void onError(int errorCode) {
-            }
-        });
     }
 
 
@@ -470,28 +457,28 @@ public class Ducky {
     }
 
     public void armPlatform_Hub_Right() {
-        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_RIGHT);
+        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_FRONT);
         armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         armPlatformRotator.setPower(0.5);
 
         if (armPlatformRotator.isBusy()) {
             telemetry.addData("Arm Platform Rotating, Target Position",
-                    ARM_PLATFORM_ROTATOR_HUB_RIGHT);
+                    ARM_PLATFORM_ROTATOR_HUB_FRONT);
             telemetry.addData("Arm Platform Encoder Pulses",
                     armPlatformRotator.getCurrentPosition());
             telemetry.update();
         }
     }
     public void armPlatform_Hub_Left() {
-        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_LEFT);
+        armPlatformRotator.setTargetPosition(ARM_PLATFORM_ROTATOR_HUB_BACK);
         armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         armPlatformRotator.setPower(0.5);
 
         if (armPlatformRotator.isBusy()) {
             telemetry.addData("Arm Platform Rotating, Target Position",
-                    ARM_PLATFORM_ROTATOR_HUB_LEFT);
+                    ARM_PLATFORM_ROTATOR_HUB_BACK);
             telemetry.addData("Arm Platform Encoder Pulses",
                     armPlatformRotator.getCurrentPosition());
             telemetry.update();
@@ -580,5 +567,25 @@ public class Ducky {
     public void writeAndRead (String allianceColour) {
         File_WriteAndRead.writeToFile(allianceColour);
         File_WriteAndRead.readFromFile();
+    }
+
+    public void enableWebcam () {
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+            }
+        });
+    }
+
+    public void disableWebcam () {
+        webcam.stopStreaming();
+        webcam.closeCameraDevice();
     }
 }

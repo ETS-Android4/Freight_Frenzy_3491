@@ -40,7 +40,7 @@ public class EncoderValueFinder extends OpMode {
             ducky.backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             ducky.armRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             ducky.armPlatformRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            ducky.duckySpinnerRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            ducky.carouselSpinnerRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
 
         // Telemetry Update
@@ -48,7 +48,7 @@ public class EncoderValueFinder extends OpMode {
         telemetry.addData("Back Right Encoder Pulses",   ducky.backRight.getCurrentPosition());
         telemetry.addData("Arm Rotator Encoder Pulses",   ducky.armRotator.getCurrentPosition());
         telemetry.addData("Arm Platform Rotator Encoder Pulses",   ducky.armPlatformRotator.getCurrentPosition());
-        telemetry.addData("Ducky Spinner Rotator Encoder Pulses",   ducky.duckySpinnerRotator.getCurrentPosition());
+        telemetry.addData("Ducky Spinner Rotator Encoder Pulses",   ducky.carouselSpinnerRotator.getCurrentPosition());
         telemetry.update();
     }
 

@@ -42,7 +42,7 @@ public class Ducky {
     public CRServo collector;
     public CRServo armExtender;
 
-    public DcMotorEx duckySpinnerRotator;
+    public DcMotorEx carouselSpinnerRotator;
     public CRServo carouselSpinner;
 
     public Servo tapeMeasure;
@@ -134,7 +134,7 @@ public class Ducky {
         // Mechanisms - Motors
         armRotator = hwMap.get(DcMotorEx.class,"armRotator");
         armPlatformRotator = hwMap.get(DcMotorEx.class,"armPlatformRotator");
-        duckySpinnerRotator = hwMap.get(DcMotorEx.class,"duckySpinnerRotator");
+        carouselSpinnerRotator = hwMap.get(DcMotorEx.class,"carouselSpinnerRotator");
 
 
         // Mechanisms - Setting Motor Direction
@@ -143,7 +143,7 @@ public class Ducky {
         // Mechanisms - Setting Motor zero power Behaviour
         armRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         armPlatformRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        duckySpinnerRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        carouselSpinnerRotator.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         // Define Servos
@@ -163,14 +163,14 @@ public class Ducky {
         backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         armRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         armPlatformRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        duckySpinnerRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        carouselSpinnerRotator.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         // Setting Motors to run with/ without Encoders - (RUN_WITHOUT_ENCODER/ RUN_USING_ENCODER)
         backLeft.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         armRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         armPlatformRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        carouselSpinnerRotator.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
 
         // IMU
@@ -522,44 +522,44 @@ public class Ducky {
 
     // Ducky Spinner Rotator
     public void rotateToBlue(){
-        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_BLUE);
-        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        carouselSpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_BLUE);
+        carouselSpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        duckySpinnerRotator.setPower(0.5);
+        carouselSpinnerRotator.setPower(0.5);
 
-        if (duckySpinnerRotator.isBusy()) {
+        if (carouselSpinnerRotator.isBusy()) {
             telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
                     DUCKY_SPINNER_ROTATOR_BLUE);
             telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
-                    duckySpinnerRotator.getCurrentPosition());
+                    carouselSpinnerRotator.getCurrentPosition());
             telemetry.update();
         }
     }
     public void rotateToRed(){
-        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_RED);
-        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        carouselSpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_RED);
+        carouselSpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        duckySpinnerRotator.setPower(0.5);
+        carouselSpinnerRotator.setPower(0.5);
 
-        if (duckySpinnerRotator.isBusy()) {
+        if (carouselSpinnerRotator.isBusy()) {
             telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
                     DUCKY_SPINNER_ROTATOR_RED);
             telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
-                    duckySpinnerRotator.getCurrentPosition());
+                    carouselSpinnerRotator.getCurrentPosition());
             telemetry.update();
         }
     }
     public void rotateToMiddle(){
-        duckySpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_MIDDLE);
-        duckySpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        carouselSpinnerRotator.setTargetPosition(DUCKY_SPINNER_ROTATOR_MIDDLE);
+        carouselSpinnerRotator.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        duckySpinnerRotator.setPower(0.5);
+        carouselSpinnerRotator.setPower(0.5);
 
-        if (duckySpinnerRotator.isBusy()) {
+        if (carouselSpinnerRotator.isBusy()) {
             telemetry.addData("Ducky Spinner Platform Rotating, Target Position",
                     DUCKY_SPINNER_ROTATOR_MIDDLE);
             telemetry.addData("Ducky Spinner Rotator Encoder Pulses",
-                    duckySpinnerRotator.getCurrentPosition());
+                    carouselSpinnerRotator.getCurrentPosition());
             telemetry.update();
         }
     }

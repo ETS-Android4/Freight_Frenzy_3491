@@ -165,6 +165,10 @@ public class DuckyTeleOp extends OpMode {
 //                ducky.carouselSpinnerOff();
 //            }
 //        }
+//
+        if (gamepad2.left_trigger > 0) {
+            ducky.carouselSpinnerRed();
+        }
 
         // Ducky Spinner Rotator
         if (gamepad1.dpad_up) {

@@ -133,9 +133,9 @@ public class DuckyTeleOp extends OpMode {
         ducky.rotateArmPlatform(gamepad2.left_stick_x/2);
 
         // Arm Extender
-        if (gamepad2.x) {
+        if (gamepad2.b) {
             ducky.extendArm();
-        } else if (gamepad2.b) {
+        } else if (gamepad2.x) {
             ducky.retractArm();
         } else if (gamepad2.y) {
             ducky.armExtenderOff();

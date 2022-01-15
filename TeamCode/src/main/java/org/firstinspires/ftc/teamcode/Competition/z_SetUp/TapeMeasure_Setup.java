@@ -49,8 +49,10 @@ public class TapeMeasure_Setup extends OpMode {
         // Reset Encoder Value for motor
         if (gamepad1.a || gamepad2.a) {
             ducky.extendTapeMeasure();
+            // extend (doesnt shoot)
         } else if (gamepad1.y || gamepad2.y) {
             ducky.retractTapeMeasure();
+            // shoot
         }
     }
 

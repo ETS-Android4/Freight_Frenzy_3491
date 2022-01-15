@@ -138,10 +138,10 @@ public class Ducky {
         armExtender = hwMap.get(DcMotorEx.class,"armExtender");
 
 
-
         // Mechanisms - Setting Motor Direction
         frontRight.setDirection(DcMotorEx.Direction.FORWARD);
         armExtender.setDirection(DcMotorEx.Direction.REVERSE);
+        armPlatformRotator.setDirection(DcMotorEx.Direction.REVERSE);
 
 
         // Mechanisms - Setting Motor zero power Behaviour

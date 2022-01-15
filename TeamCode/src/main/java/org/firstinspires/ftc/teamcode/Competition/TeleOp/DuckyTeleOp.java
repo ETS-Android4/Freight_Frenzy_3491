@@ -136,7 +136,7 @@ public class DuckyTeleOp extends OpMode {
         // Arm Extender
         double armExtenderPower = gamepad2.left_trigger - gamepad2.right_trigger;
 
-        ducky.armRotator.setPower(armExtenderPower);
+        ducky.armExtender.setPower(armExtenderPower);
 //        if (gamepad2.b) {
 //            ducky.extendArm();
 //        } else if (gamepad2.x) {

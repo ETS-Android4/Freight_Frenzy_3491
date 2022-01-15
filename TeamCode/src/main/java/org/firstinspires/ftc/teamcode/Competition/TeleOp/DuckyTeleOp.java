@@ -13,6 +13,7 @@ public class DuckyTeleOp extends OpMode {
     // Initializing Robot Class
     Ducky ducky = new Ducky();
 
+    public double armSlowButton = 0.5;
 
     /**
      * Initializing the Program
@@ -105,11 +106,11 @@ public class DuckyTeleOp extends OpMode {
         //------------------------------------------------------------------------------------------
 
         // Collector
-        if (gamepad2.right_trigger > 0) {
+        if (gamepad2.x) {
             ducky.collectorOn();
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad2.y) {
             ducky.collectorReverse();
-        } else if (gamepad2.a) {
+        } else if (gamepad2.b) {
             ducky.collectorOff();
         }
 
@@ -126,20 +127,23 @@ public class DuckyTeleOp extends OpMode {
             }
             ducky.armRotator.setPower(0.0);
         } else {
-            ducky.rotateArm(gamepad2.left_stick_y);
+            ducky.rotateArm(gamepad2.left_stick_y*armSlowButton);
         }
 
         // Arm Platform Rotator
-        ducky.rotateArmPlatform(gamepad2.left_stick_x/2);
+        ducky.rotateArmPlatform(gamepad2.left_stick_x/2*armSlowButton);
 
         // Arm Extender
-        if (gamepad2.b) {
-            ducky.extendArm();
-        } else if (gamepad2.x) {
-            ducky.retractArm();
-        } else if (gamepad2.y) {
-            ducky.armExtenderOff();
-        }
+        double armExtenderPower = gamepad2.left_trigger - gamepad2.right_trigger;
+
+        ducky.armRotator.setPower(armExtenderPower);
+//        if (gamepad2.b) {
+//            ducky.extendArm();
+//        } else if (gamepad2.x) {
+//            ducky.retractArm();
+//        } else if (gamepad2.y) {
+//            ducky.armExtenderOff();
+//        }
 
 
 //        // Carousel Spinner
@@ -163,9 +167,15 @@ public class DuckyTeleOp extends OpMode {
 //            }
 //        }
 
-        if (gamepad2.left_trigger > 0) {
+        if (gamepad2.right_bumper) {
+            armSlowButton = 0.5;
+        } else {
+            armSlowButton = 1.0;
+        }
+
+        if (gamepad2.left_bumper) {
             ducky.carouselSpinnerRed();
-        } else if (gamepad2.left_bumper) {
+        } else if (gamepad2.b) {
             ducky.carouselSpinnerOff();
         }
 

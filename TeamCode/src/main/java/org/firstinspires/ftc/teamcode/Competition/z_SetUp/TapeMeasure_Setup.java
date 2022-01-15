@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Competition.z_SetUp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Season_Setup.Ducky;
 
@@ -23,7 +22,7 @@ public class TapeMeasure_Setup extends OpMode {
         // Initialize all motors/ servos
         ducky.init(hardwareMap, telemetry);
 
-        ducky.retractTapeMeasure();
+        ducky.holdTapeMeasure();
 
         // Indicate that the program is running
         telemetry.addData("Tape Measure", "Retracted");
@@ -37,7 +36,7 @@ public class TapeMeasure_Setup extends OpMode {
      */
     @Override
     public void start() {
-        ducky.retractTapeMeasure();
+        ducky.holdTapeMeasure();
     }
 
     /**
@@ -48,10 +47,10 @@ public class TapeMeasure_Setup extends OpMode {
 
         // Reset Encoder Value for motor
         if (gamepad1.a || gamepad2.a) {
-            ducky.extendTapeMeasure();
+            ducky.holdTapeMeasure();
             // extend (doesnt shoot)
         } else if (gamepad1.y || gamepad2.y) {
-            ducky.retractTapeMeasure();
+            ducky.shootTapeMeasure();
             // shoot
         }
     }
@@ -61,6 +60,6 @@ public class TapeMeasure_Setup extends OpMode {
      */
     @Override
     public void stop() {
-        ducky.retractTapeMeasure();
+        ducky.holdTapeMeasure();
     }
 }

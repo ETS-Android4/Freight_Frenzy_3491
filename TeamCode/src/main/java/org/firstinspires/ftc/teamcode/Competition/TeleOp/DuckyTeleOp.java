@@ -191,7 +191,7 @@ public class DuckyTeleOp extends OpMode {
 
         // Tape Measure
         if (gamepad1.a && gamepad1.dpad_down) {
-            ducky.extendTapeMeasure();
+            ducky.shootTapeMeasure();
         }
 
 

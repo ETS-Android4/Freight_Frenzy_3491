@@ -562,10 +562,10 @@ public class Ducky {
     }
 
     // Tape Measure
-    public void extendTapeMeasure(){
+    public void holdTapeMeasure(){
         tapeMeasure.setPosition(0.8);
     }
-    public void retractTapeMeasure(){
+    public void shootTapeMeasure(){
         tapeMeasure.setPosition(0.2);
     }
 

@@ -38,9 +38,9 @@ public class Ducky {
     // Declaring Mechanisms
     public DcMotorEx armPlatformRotator;
     public DcMotorEx armRotator;
+    public DcMotorEx armExtender;
 
     public CRServo collector;
-    public CRServo armExtender;
 
     public DcMotorEx carouselSpinnerRotator;
     public CRServo carouselSpinner;
@@ -135,6 +135,8 @@ public class Ducky {
         armRotator = hwMap.get(DcMotorEx.class,"armRotator");
         armPlatformRotator = hwMap.get(DcMotorEx.class,"armPlatformRotator");
         carouselSpinnerRotator = hwMap.get(DcMotorEx.class,"carouselSpinnerRotator");
+        armExtender = hwMap.get(DcMotorEx.class,"armExtender");
+
 
 
         // Mechanisms - Setting Motor Direction
@@ -150,7 +152,6 @@ public class Ducky {
         collector = hwMap.crservo.get("collector");
         carouselSpinner = hwMap.crservo.get("carouselSpinner");
         tapeMeasure = hwMap.servo.get("tapeMeasure");
-        armExtender = hwMap.crservo.get("armExtender");
 
 
         // Initialize Servos
@@ -450,6 +451,15 @@ public class Ducky {
             telemetry.update();
         }
     }
+//    void armHoldAtPosition(double pos, boolean inDegrees)
+//    {
+//        double targetDegrees = inDegrees? pos: pos/ARM_ENCODER_TICKS_PER_DEGREE + ARM_MIN_POS_IN_DEGREES;
+//        int targetEncoderTicks = (int)(inDegrees? (pos - ARM_MIN_POS_IN_DEGREES)*ARM_ENCODER_TICKS_PER_DEGREE: pos);
+//        int error = targetEncoderTicks - armRotator.getCurrentPosition();
+//        double gravityCompensation = ARM_GC_POWER*Math.cos(Math.toRadians(targetDegrees - 90));
+//        double armPower = ARM_KP*error + gravityCompensation;
+//        armRotator.setPower(armPower);
+//    }
 
     // Arm Platform Rotator
     public void rotateArmPlatform(double power) {
@@ -487,10 +497,10 @@ public class Ducky {
 
     // Arm Extender
     public void extendArm(){
-        armExtender.setPower(1);
+        armExtender.setPower(0.5);
     }
     public void retractArm(){
-        armExtender.setPower(-1);
+        armExtender.setPower(-0.5);
     }
     public void armExtenderOff(){
         armExtender.setPower(0);

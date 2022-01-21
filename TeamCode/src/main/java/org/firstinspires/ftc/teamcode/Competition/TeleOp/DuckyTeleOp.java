@@ -137,14 +137,6 @@ public class DuckyTeleOp extends OpMode {
         double armExtenderPower = gamepad2.left_trigger - gamepad2.right_trigger;
 
         ducky.armExtender.setPower(armExtenderPower);
-//        if (gamepad2.b) {
-//            ducky.extendArm();
-//        } else if (gamepad2.x) {
-//            ducky.retractArm();
-//        } else if (gamepad2.y) {
-//            ducky.armExtenderOff();
-//        }
-
 
 //        // Carousel Spinner
 //        if (Ducky.alliance.equals("Blue")) {

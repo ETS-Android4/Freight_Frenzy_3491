@@ -43,6 +43,7 @@ public class DriveToWarehouse extends LinearOpMode{
         // Waiting for the program to start
         waitForStart();
         // Autonomous Pathing
+        ducky.armBottomLevel();
         ducky.driveForward_Encoder(30,0.5,5000);
         ducky.stop_Power();
     }

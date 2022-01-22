@@ -331,6 +331,67 @@ public class Ducky {
         telemetry.update();
     }
 
+    // Encoders with Wall Runners
+    public void driveForward_Encoder_WallRunners(int Distance, double speed, double timeout) {
+        runtime.reset();
+
+        encoder_Distance = (int)(Distance*WHEEL_PULSES_PER_INCH);
+
+        backLeft.setTargetPosition(encoder_Distance);
+        backRight.setTargetPosition(encoder_Distance);
+
+        backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        speed = Math.abs(speed);
+        drivePower(speed, 0.5);
+
+        while (backLeft.isBusy() && runtime.milliseconds() < timeout) {
+            telemetry.addData("Driving Forward, Target Position",
+                    encoder_Distance);
+            telemetry.addData("Driving Forward, Encoder Pulses Left",
+                    backLeft.getCurrentPosition());
+            telemetry.update();
+        }
+
+        telemetry.addData("Reached Target Position","Encoder Pulses Left, Right",
+                backLeft.getCurrentPosition(), backRight.getCurrentPosition());
+        telemetry.update();
+
+        stop_Encoder();
+    }
+    public void driveBackward_Encoder_WallRunners(int Distance, double speed, double timeout){
+        runtime.reset();
+
+        encoder_Distance = (int)(-Distance*WHEEL_PULSES_PER_INCH);
+
+        backLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        backLeft.setTargetPosition(encoder_Distance);
+        backRight.setTargetPosition(encoder_Distance);
+
+        backLeft.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        speed = Math.abs(speed);
+        drivePower(speed, -0.5);
+
+        while (backLeft.isBusy() && runtime.milliseconds() < timeout) {
+            telemetry.addData("Driving Backward, Target Position",
+                    encoder_Distance);
+            telemetry.addData("Driving Backward, Encoder Pulses Left",
+                    backLeft.getCurrentPosition());
+            telemetry.update();
+        }
+
+        telemetry.addData("Reached Target Position","Encoder Pulses Left, Right",
+                backLeft.getCurrentPosition(), backRight.getCurrentPosition());
+        telemetry.update();
+
+        stop_Encoder();
+    }
+
 
     // Power only
     public void driveForward_Power(double speed) {
@@ -521,9 +582,11 @@ public class Ducky {
     // Carousel Spinner
     public void carouselSpinnerBlue(){
         carouselSpinner.setPower(1);
+        driveBackward_Power(0.2);
     }
     public void carouselSpinnerRed(){
         carouselSpinner.setPower(-1);
+        driveBackward_Power(0.2);
     }
     public void carouselSpinnerOff(){
         carouselSpinner.setPower(0);

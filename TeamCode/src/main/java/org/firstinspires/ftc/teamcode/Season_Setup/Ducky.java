@@ -62,9 +62,13 @@ public class Ducky {
     public int encoder_Distance; // To be used in functions for setTargetPosition
 
     public static final int ARM_COLLECTING_ENCODER_PULSES = 0;
-    public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = -150; //-94 //-182
-    public static final int ARM_MID_LEVEL_ENCODER_PULSES = -420; //-230 //-351
-    public static final int ARM_TOP_LEVEL_ENCODER_PULSES = -586; //-410 //-560
+    public static final int ARM_BOTTOM_LEVEL_ENCODER_PULSES = -76;
+    public static final int ARM_MID_LEVEL_ENCODER_PULSES = -231;
+    public static final int ARM_TOP_LEVEL_ENCODER_PULSES = -411;
+
+    public static final double ARM_ENCODER_TICKS_PER_DEGREE = 0.0; // Value not yet found
+    public static final double ARM_MIN_POS_IN_DEGREES = 0.0; // Value not yet found
+    public static final double ARM_GC_POWER = 0.0; // Value not yet found
 
     public static final int ARM_PLATFORM_ROTATOR_MIDDLE = -60;
     public static final int ARM_PLATFORM_ROTATOR_HUB_FRONT = -573;
@@ -97,9 +101,13 @@ public class Ducky {
     public static String alliance;
 
 
-    // PID
+    // PID Drivebase
     public double Kp = 0.03;
     public double Kd = 0.00005;
+
+    // PID Arm Rotator
+    public static final double ARM_KP = 0.03; // Value not yet found
+
 
     // Class Constructor
     public Ducky(){
@@ -453,15 +461,17 @@ public class Ducky {
             telemetry.update();
         }
     }
-//    void armHoldAtPosition(double pos, boolean inDegrees)
-//    {
-//        double targetDegrees = inDegrees? pos: pos/ARM_ENCODER_TICKS_PER_DEGREE + ARM_MIN_POS_IN_DEGREES;
-//        int targetEncoderTicks = (int)(inDegrees? (pos - ARM_MIN_POS_IN_DEGREES)*ARM_ENCODER_TICKS_PER_DEGREE: pos);
-//        int error = targetEncoderTicks - armRotator.getCurrentPosition();
-//        double gravityCompensation = ARM_GC_POWER*Math.cos(Math.toRadians(targetDegrees - 90));
-//        double armPower = ARM_KP*error + gravityCompensation;
-//        armRotator.setPower(armPower);
-//    }
+
+    public void armHoldAtPosition(double pos, boolean inDegrees)
+    {
+        double targetDegrees = inDegrees? pos: pos/ARM_ENCODER_TICKS_PER_DEGREE + ARM_MIN_POS_IN_DEGREES;
+        int targetEncoderTicks = (int)(inDegrees? (pos - ARM_MIN_POS_IN_DEGREES)*ARM_ENCODER_TICKS_PER_DEGREE: pos);
+        int error = targetEncoderTicks - armRotator.getCurrentPosition();
+        double gravityCompensation = ARM_GC_POWER*Math.cos(Math.toRadians(targetDegrees - 90));
+        double armPower = ARM_KP*error + gravityCompensation;
+        armRotator.setPower(armPower);
+    }
+
 
     // Arm Platform Rotator
     public void rotateArmPlatform(double power) {

@@ -115,7 +115,7 @@ public class DuckyTeleOp extends OpMode {
         }
 
         // Arm Rotator
-        if (gamepad2.left_stick_y == 0) {
+        if (gamepad2.left_stick_y > 0.1) {
             if (gamepad2.dpad_up) {
                 ducky.armCollecting();
             } else if (gamepad2.dpad_left) {
@@ -128,6 +128,17 @@ public class DuckyTeleOp extends OpMode {
             ducky.armRotator.setPower(0.0);
         } else {
             ducky.rotateArm(gamepad2.left_stick_y*armSlowButton);
+
+//            double armPower = gamepad2.left_stick_x;
+//            if (Math.abs(armPower) > 0.1)
+//            {
+//                ducky.armRotator.setPower(armPower);
+//            }
+//            else
+//            {
+//                int armPosInTicks = ducky.armRotator.getCurrentPosition();
+//                ducky.armHoldAtPosition(armPosInTicks, false);
+//            }
         }
 
         // Arm Platform Rotator
@@ -158,6 +169,8 @@ public class DuckyTeleOp extends OpMode {
 //                ducky.carouselSpinnerOff();
 //            }
 //        }
+
+
 
         if (gamepad2.right_bumper) {
             armSlowButton = 0.5;

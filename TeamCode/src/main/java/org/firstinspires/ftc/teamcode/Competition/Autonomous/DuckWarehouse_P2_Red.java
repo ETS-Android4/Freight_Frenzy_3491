@@ -44,9 +44,11 @@ public class DuckWarehouse_P2_Red extends LinearOpMode{
         ducky.driveBackward_Encoder(10, 0.5, 5000);
         ducky.carouselSpinnerRed();
         Thread.sleep(4000);
+        ducky.carouselSpinnerOff();
 
-        ducky.driveForward_Encoder(10,0.5,5000);
-        ducky.driveForward_Encoder_WallRunners(30,0.5,5000);
+        ducky.driveForward_Encoder(15,0.5,3000);
+        ducky.armMidLevel();
+        ducky.driveForward_Encoder_WallRunners(61,0.5,5000);
 
         ducky.stop_Power();
     }

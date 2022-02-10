@@ -42,7 +42,7 @@ public class Warehouse_P1_Red extends LinearOpMode{
 
         // Autonomous Pathing
         ducky.armMidLevel();
-        ducky.driveForward_Encoder(30,0.5,5000);
+        ducky.driveForward_Encoder(15,0.5,5000);
         ducky.stop_Power();
     }
 }
